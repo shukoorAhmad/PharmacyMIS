@@ -57,7 +57,7 @@
 <div class="col-12 box-margin">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title mb-2">Site List</h4>
+            <h4 class="card-title mb-2">Stock List</h4>
             <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100">
                 <thead>
                     <tr>

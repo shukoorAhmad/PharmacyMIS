@@ -7,7 +7,7 @@
     <div class="col-12 box-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-2">Site List</h4>
+                <h4 class="card-title mb-2">Item List</h4>
                 <table class="table data-table w-100">
                     <thead>
                         <tr>
