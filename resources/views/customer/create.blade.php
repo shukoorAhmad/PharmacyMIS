@@ -22,7 +22,10 @@
 <div class="col-12 box-margin height-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">New Customer</h4>
+            <div class="d-flex justify-content-between">
+                <h4 class="card-title">New Customer</h4>
+                <a href="{{route('customer-list')}}" class="btn btn-success mb-3">Customers List</a>
+            </div>
             <form method="POST" action="{{ route('customer-store') }}">
                 @csrf
                 <div class="row">

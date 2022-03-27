@@ -6,7 +6,11 @@
 <div class="col-12 box-margin height-card">
     <div class="card">
         <div class="card-body">
-            <h6 class="card-title">Customers List</h6>
+            <div class="d-flex justify-content-between">
+                <h6 class="card-title">Customers List</h6>
+                <a href="{{route('customer')}}" class="btn btn-success mb-3">New Customer</a>
+            </div>
+
             <table class="table data-table">
                 <thead>
                     <tr>
