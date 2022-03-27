@@ -31,48 +31,25 @@ class SiteController extends Controller
         return redirect()->back()->with('success_insert', 'Site Successfully Added');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $data['province'] = Province::all();
+        $data['site'] = site::findOrFail($id);
+        return view('site.edit', $data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $request->validate(
+            [
+                'site_name' => 'required',
+                'province' => 'required',
+            ]
+        );
+        $site = Site::findOrFail($request->id);
+        $site->site_name = $request->site_name;
+        $site->province = $request->province;
+        $site->save();
+        return redirect()->back()->with('success_update', 'Site Successfully Updated');
     }
 }

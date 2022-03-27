@@ -78,12 +78,12 @@
                         <th>{{$s->site_id}}</th>
                         <td>{{$s->site_name}}</td>
                         <td>{{$s->prov_id->en_province}}</td>
-                        <th><a href="{{route('editsite', $s->site_id)}}"><i class="zmdi zmdi-edit btn btn-info btn-circle"></i></a></th>
+                        <th><a data-id="{{$s->site_id}}" class="edit"><i class="zmdi zmdi-edit btn btn-info btn-circle"></i></a></th>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-
+            <div id="showEditModal"></div>
         </div> <!-- end card body-->
     </div> <!-- end card -->
 </div><!-- end col-->
@@ -95,10 +95,24 @@
 <script src="{{ asset('public/js/default-assets/datatable-responsive.min.js')}}"></script>
 <script src="{{ asset('public/js/default-assets/responsive.bootstrap4.min.js')}}"></script>
 <script src="{{ asset('public/js/default-assets/demo.datatable-init.js')}}"></script>
+
+<script>
+    $('.edit').click(function() {
+        $.get("{{route('editsite')}}/" + $(this).attr('data-id'), function(data) {
+            $('#showEditModal').html(data);
+            $('#editModal').modal('show');
+        });
+    });
+</script>
 <!-- Inject JS -->
 @if(session()->has('success_insert'))
 <script>
     success("{{session()->get('success_insert')}}")
+</script>
+@endif
+@if(session()->has('success_update'))
+<script>
+    success("{{session()->get('success_update')}}")
 </script>
 @endif
 
