@@ -28,7 +28,6 @@ Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier');
 Route::post('/supplierstore', [SupplierController::class, 'store'])->name('supplierstore');
 Route::get('/supplieredit/{id?}', [SupplierController::class, 'edit'])->name('supplieredit');
 Route::post('/supplierupdate', [SupplierController::class, 'update'])->name('supplierupdate');
-
 // items crud
 Route::get('/items', [ItemController::class, 'create'])->name('items');
 Route::get('/showItemField', [ItemController::class, 'showItemField'])->name('showItemField');
@@ -40,13 +39,13 @@ Route::post('/itemupdate', [ItemController::class, 'update'])->name('itemupdate'
 // Customer Routes
 Route::get('/customer', [CustomerController::class, 'create'])->name('customer');
 Route::post('/customer-store', [CustomerController::class, 'store'])->name('customer-store');
-
 Route::get('/customer-list', [CustomerController::class, 'index'])->name('customer-list');
-Route::get('/show-customers',[CustomerController::class,'showCustomers'])->name('show-customers');
+Route::get('/show-customers', [CustomerController::class, 'showCustomers'])->name('show-customers');
+Route::get('/edit-customer/{id?}', [CustomerController::class, 'edit'])->name('edit-customer');
+Route::post('/update-customer', [CustomerController::class, 'update'])->name('update-customer');
 
 // Stock Routes
 Route::get('/stock', [StockController::class, 'index'])->name('stock');
 Route::post('/stockstore', [StockController::class, 'store'])->name('stockstore');
 Route::get('/editstock/{id?}', [StockController::class, 'edit'])->name('editstock');
 Route::post('/stockupdate', [StockController::class, 'update'])->name('stockupdate');
-

@@ -57,4 +57,12 @@ class CustomerController extends Controller
         }
         return view('customer.index');
     }
+    protected function edit($id)
+    {
+        $data['customer'] = Customer::findOrFail($id);
+        return view('customer.edit', $data);
+    }
+    protected function update(Request $request)
+    {
+    }
 }
