@@ -1,42 +1,53 @@
 @extends('layouts.master')
 
 @section('content')
-
     <link rel="stylesheet" href="{{ asset('public/css/default-assets/datatables.bootstrap4.css') }}">
     <link rel="stylesheet" href="{{ asset('public/css/default-assets/responsive.bootstrap4.css') }}">
 
     <div class="col-12 box-margin height-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">New Supplier</h4>
-                <form method="POST" action="{{ route('supplierstore') }}">
+                <h4 class="card-title">New Stock</h4>
+                <form method="POST" action="{{ route('stockstore') }}">
                     @csrf
                     <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label class="col-form-label">Supplier Name</label>
-                            <input class="form-control  @error('supplier_name') is-invalid @enderror" name="supplier_name"
-                                value="{{ old('supplier_name') }}" placeholder="Write Supplier Name Here..." autofocus
+                        <div class="form-group col-md-6">
+                            <label class="col-form-label">Stock Name</label>
+                            <input class="form-control  @error('stock_name') is-invalid @enderror" name="stock_name"
+                                value="{{ old('stock_name') }}" placeholder="Write Your Stock Here..." autofocus required>
+                            @error('stock_name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong> {{ $message }} </strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="col-form-label">Stock Address</label>
+                            <input class="form-control  @error('stock_address') is-invalid @enderror" name="stock_address"
+                                value="{{ old('stock_address') }}" placeholder="Write Your Stock Address Here..."
+                                autofocus required>
+                            @error('stock_address')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong> {{ $message }} </strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="col-form-label">Incharge Name</label>
+                            <input class="form-control  @error('incharge_name') is-invalid @enderror" name="incharge_name"
+                                value="{{ old('incharge_name') }}" placeholder="Write Your Incharge Here..." autofocus
                                 required>
-                            @error('supplier_name')
+                            @error('incharge_name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong> {{ $message }} </strong>
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-4">
-                            <label class="col-form-label">Supplier Email</label>
-                            <input class="form-control  @error('email') is-invalid @enderror" name="email"
-                                value="{{ old('email') }}" placeholder="Write Supplier Email Here...">
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong> {{ $message }} </strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label class="col-form-label">Supplier Contact No</label>
-                            <input class="form-control  @error('contact_no') is-invalid @enderror" name="contact_no"
-                                value="{{ old('contact_no') }}" placeholder="Write Contact No Here...">
+                        <div class="form-group col-md-6">
+                            <label class="col-form-label">Contact No</label>
+                            <input type="number" class="form-control  @error('contact_no') is-invalid @enderror"
+                                name="contact_no" value="{{ old('contact_no') }}" placeholder="Write Your Stock Here..."
+                                autofocus required>
                             @error('contact_no')
                                 <span class="invalid-feedback" role="alert">
                                     <strong> {{ $message }} </strong>
@@ -48,31 +59,36 @@
                 </form>
             </div>
         </div>
-
     </div>
+
     <div class="col-12 box-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-2">Supplier List</h4>
+                <h4 class="card-title mb-2">Site List</h4>
                 <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Supplier Name</th>
-                            <th>Supplier Email</th>
-                            <th>Supplier Contact No</th>
+                            <th>Stock Name</th>
+                            <th>Stock Address</th>
+                            <th>Incharge Name</th>
+                            <th>Contact No</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($supplier as $key => $s)
+                        @foreach ($stocks as $key => $stock)
                             <tr>
                                 <th>{{ $key + 1 }}</th>
-                                <td>{{ $s->name }}</td>
-                                <td>{{ $s->email }}</td>
-                                <td>{{ $s->contact_no }}</td>
-                                <th><a data-id="{{ $s->supplier_id }}" class="edit"><i
-                                            class="zmdi zmdi-edit btn btn-info btn-circle"></i></a></th>
+                                <td>{{ $stock->stock_name }}</td>
+                                <td>{{ $stock->stock_address }}</td>
+                                <td>{{ $stock->incharge }}</td>
+                                <td>{{ $stock->contact_no }}</td>
+                                <th>
+                                    <a data-id="{{ $stock->stock_id }}" class="edit"><i class="zmdi zmdi-edit btn btn-info btn-circle"></i>
+                                    </a>
+                                </th>
+
                             </tr>
                         @endforeach
                     </tbody>
@@ -91,7 +107,7 @@
 
     <script>
         $('.edit').click(function() {
-            $.get("{{ route('supplieredit') }}/" + $(this).attr('data-id'), function(data) {
+            $.get("{{ route('editstock') }}/" + $(this).attr('data-id'), function(data) {
                 $('#showEditModal').html(data);
                 $('#editModal').modal('show');
             });

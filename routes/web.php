@@ -3,6 +3,7 @@
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,3 +32,9 @@ Route::get('/items', [ItemController::class, 'index'])->name('items');
 
 
 Route::get('/customer', [CustomerController::class, 'showCustomerPage'])->name('customer');
+
+// Stock Routes
+Route::get('/stock', [StockController::class, 'index'])->name('stock');
+Route::post('/stockstore', [StockController::class, 'store'])->name('stockstore');
+Route::get('/editstock/{id?}', [StockController::class, 'edit'])->name('editstock');
+Route::post('/stockupdate', [StockController::class, 'update'])->name('stockupdate');

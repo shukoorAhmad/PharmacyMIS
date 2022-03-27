@@ -17,8 +17,8 @@ class CreateStocksTable extends Migration
             $table->id('stock_id');
             $table->string('stock_name');
             $table->string('stock_address');
-            $table->string('incharge');
-            $table->integer('contact_no');
+            $table->string('incharge')->nullable();
+            $table->integer('contact_no')->nullable();
             $table->timestamps();
         });
     }
