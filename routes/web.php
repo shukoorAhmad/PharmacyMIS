@@ -29,7 +29,8 @@ Route::get('/supplieredit/{id?}', [SupplierController::class, 'edit'])->name('su
 Route::post('/supplierupdate', [SupplierController::class, 'update'])->name('supplierupdate');
 // items crud
 Route::get('/items', [ItemController::class, 'index'])->name('items');
-
+Route::get('/showItemField', [ItemController::class, 'showItemField'])->name('showItemField');
+Route::post('/itemstore', [ItemController::class, 'store'])->name('itemstore');
 
 Route::get('/customer', [CustomerController::class, 'showCustomerPage'])->name('customer');
 

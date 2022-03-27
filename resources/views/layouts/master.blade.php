@@ -265,6 +265,14 @@
                 type: "success",
             })
         }
+
+        function error_function(msg) {
+            Swal.fire({
+                title: msg,
+                text: "",
+                type: "error",
+            })
+        }
     </script>
     <!-- Inject JS -->
     @yield('script')

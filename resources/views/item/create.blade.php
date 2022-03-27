@@ -22,34 +22,57 @@
 <div class="col-12 box-margin height-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">New Supplier</h4>
-            <form method="POST" action="{{route('supplierstore')}}">
+            <form method="POST" action="{{route('itemstore')}}">
                 @csrf
-                <div class="form-row">
-                    <div class="form-group col-md-4">
+                <div class="row">
+                    <div class="form-group col-md-10">
                         <label class="col-form-label">Supplier Name</label>
-                        <select name="" id="" class="form-control select2">
-
+                        <select name="supplier" id="supplier" class="form-control select2">
+                            <option value="" selected disabled>Please Select Company</option>
+                            @foreach($supplier as $sup)
+                            <option value="{{$sup->supplier_id}}">{{$sup->name}}</option>
+                            @endforeach
                         </select>
-                        @error('supplier_name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong> {{$message}} </strong>
-                        </span>
-                        @enderror
                     </div>
+                    <div class="form-group col-md-2" style="margin-top: 34px;">
+                        <a class="btn btn-primary w-100" id="add_items" style="padding: 7px 1.75rem !important;"><i class="zmdi zmdi-plus text-white" style="font-size:18px !important;"></i></a>
+                    </div>
+                    <div class="col-md-12 pr-0" id="showItems">
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2 ml-3 mt-3 d-none" id="submit_btn">Save</button>
 
                 </div>
-                <button type="submit" class="btn btn-primary mb-2 mr-2">Save</button>
             </form>
         </div>
     </div>
-
 </div>
 
 
 @section('script')
 <script src="{{ asset('public/js/default-assets/select2.min.js')}}"></script>
 <script>
+    var counter = 0;
+
+    function hide_btn() {
+        counter > 0 ? $('#submit_btn').removeClass('d-none') : $('#submit_btn').addClass('d-none');
+    }
+    $(document).on('click', '.close_btn', function() {
+        $(this).closest($('.show_items')).remove();
+        counter--;
+        hide_btn();
+    });
+
+    $('#add_items').click(function() {
+        if ($('#supplier').val() == null) {
+            error_function("Please Supplier First");
+        } else {
+            $.get("{{route('showItemField')}}", function(response) {
+                $('#showItems').append(response);
+                counter++;
+                hide_btn();
+            });
+        }
+    });
     $('.select2').select2();
 </script>
 @if(session()->has('success_insert'))
