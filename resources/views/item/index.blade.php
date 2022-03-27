@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title mb-2">Site List</h4>
-                <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100">
+                <table class="table data-table w-100">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -20,21 +20,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($items as $key => $item)
-                            <tr>
-                                <th>{{ $key + 1 }}</th>
-                                <td>{{ $item->item_name }}</td>
-                                <td>{{ $item->measure_details->unit }}</td>
-                                <td>{{ $item->quantity_per_carton }}</td>
-                                <td>{{ $item->supplier_details->name }}</td>
-                                <th>
-                                    <a data-id="{{ $item->item_id }}" class="edit"><i class="zmdi zmdi-edit btn btn-info btn-circle"></i>
-                                    </a>
-                                </th>
-
-                            </tr>
-                        @endforeach
                     </tbody>
+                    <tfoot></tfoot>
                 </table>
                 <div id="showEditModal"></div>
             </div> <!-- end card body-->
@@ -67,5 +54,43 @@
             success("{{ session()->get('success_update') }}")
         </script>
     @endif
+
+    <script type="text/javascript">
+        $(function() {
+            var table = $('.data-table').DataTable({
+                "bInfo": false,
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": false,
+                "aaSorting": [
+                    [0, "desc"]
+                ],
+                "info": true,
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('item-list') }}",
+                columns: [{
+                        "data": 'item_id'
+                    },
+                    {
+                        "data": 'item_name'
+                    },
+                    {
+                        "data": 'measure_name'
+                    },
+                    {
+                        "data": 'quantity_per_carton'
+                    },
+                    {
+                        "data": 'supplier_name'
+                    },
+                    {
+                        "data": 'action'
+                    }
+                ]
+            });
+        });
+    </script>
 @endsection
 @endsection

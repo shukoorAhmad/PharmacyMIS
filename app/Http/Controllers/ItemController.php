@@ -6,14 +6,31 @@ use App\Models\Item;
 use App\Models\Measure_unit;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use DataTables;
 
 class ItemController extends Controller
 {
-    protected function index()
+    protected function index(Request $request)
     {
-        $data['items'] = Item::with('measure_details', 'supplier_details')->get();
-
-        return view('item.index', $data);
+        if ($request->ajax()) {
+            $data = Item::with('measure_details', 'supplier_details')->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('measure_name', function ($data) {
+                    return $data->measure_details->unit;
+                })
+                ->addColumn('supplier_name', function ($data) {
+                    return $data->supplier_details->name;
+                })
+                ->addColumn('action', function ($data) {
+                    return '<a data-id="' . $data->item_id . '" class="edit"><i class="zmdi zmdi-edit btn btn-info btn-circle"></i></a>';
+                })
+                ->rawColumns(['measure_name'])
+                ->rawColumns(['supplier_name'])
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('item.index');
     }
 
     protected function create()
