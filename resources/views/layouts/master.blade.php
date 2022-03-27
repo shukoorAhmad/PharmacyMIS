@@ -14,10 +14,17 @@
     <link rel="icon" href="img/core-img/favicon.png">
     <!-- Master Stylesheet CSS -->
     <link rel="stylesheet" href="{{asset('public/style.css')}}">
-    <link rel="stylesheet" href="{{ asset('public/css/default-assets/new/sweetalert-2.min.css') }}">
+    <link rel="stylesheet" href="{{asset('public/css/default-assets/new/sweetalert-2.min.css') }}">
+    <link rel="stylesheet" href="{{asset('public/css/bootstrap-datepicker.min.css')}}">
+    <link rel="stylesheet" href="{{asset('public/css/default-assets/form-picker.css')}}">
+
     <style>
         th {
             text-align: center !important;
+        }
+
+        .datepicker table tr td.day:hover {
+            background: #5867dd !important;
         }
     </style>
 </head>
@@ -260,7 +267,9 @@
     <script src="{{asset('public/js/settings.js')}}"></script>
     <script src="{{asset('public/js/template.js')}}"></script>
     <script src="{{asset('public/js/default-assets/active.js')}}"></script>
-    <script src="{{ asset('public/js/default-assets/sweetalert2.min.js') }}"></script>
+    <script src="{{asset('public/js/default-assets/sweetalert2.min.js') }}"></script>
+    <script src="{{asset('public/js/bootstrap-datepicker.min.js')}}"></script>
+    <script src="{{asset('public/js/default-assets/form-picker.js')}}"></script>
     <script>
         function success(msg) {
             Swal.fire({
