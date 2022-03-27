@@ -57,4 +57,27 @@ class CustomerController extends Controller
         }
         return view('customer.index');
     }
+    protected function edit($id)
+    {
+        $data['customer'] = Customer::findOrFail($id);
+        $data['site'] = Site::all();
+        return view('customer.edit', $data);
+    }
+    protected function update(Request $request)
+    {
+        $request->validate([
+            'pharmacy_name' => 'required',
+            'contact_no' => 'required',
+            'site_id' => 'required'
+        ]);
+        $customer = Customer::findOrFail($request->id);
+        $customer->pharmacy_name = $request->pharmacy_name;
+        $customer->customer_name = $request->customer_name;
+        $customer->customer_last_name = $request->customer_last_name;
+        $customer->site_id = $request->site_id;
+        $customer->contact_no = $request->contact_no;
+        $customer->contact_no_2 = $request->contact_no_2;
+        $customer->save();
+        return redirect()->back()->with('success_update', 'Customer Successfully Updated');
+    }
 }
