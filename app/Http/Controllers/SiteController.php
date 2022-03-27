@@ -9,14 +9,14 @@ use Illuminate\Http\Request;
 class SiteController extends Controller
 {
 
-    public function index()
+    protected function index()
     {
         $data['province'] = Province::all();
         $data['site'] = site::all();
         return view('Site.create', $data);
     }
 
-    public function store(Request $request)
+    protected function store(Request $request)
     {
         $request->validate(
             [
@@ -31,14 +31,14 @@ class SiteController extends Controller
         return redirect()->back()->with('success_insert', 'Site Successfully Added');
     }
 
-    public function edit($id)
+    protected function edit($id)
     {
         $data['province'] = Province::all();
         $data['site'] = site::findOrFail($id);
         return view('site.edit', $data);
     }
 
-    public function update(Request $request)
+    protected function update(Request $request)
     {
         $request->validate(
             [

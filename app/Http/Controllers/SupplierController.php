@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
-    public function index()
+    protected function index()
     {
         $data['supplier'] = Supplier::all();
         return view('supplier.create', $data);
     }
 
-    public function store(Request $request)
+    protected function store(Request $request)
     {
         $request->validate(
             [
@@ -28,13 +28,13 @@ class SupplierController extends Controller
         return redirect()->back()->with('success_insert', 'Supplier Successfully Added');
     }
 
-    public function edit($id)
+    protected function edit($id)
     {
         $data['supplier'] = Supplier::findOrFail($id);
         return view('supplier.edit', $data);
     }
 
-    public function update(Request $request)
+    protected function update(Request $request)
     {
         $request->validate(
             [

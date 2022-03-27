@@ -10,17 +10,18 @@ use Illuminate\Http\Request;
 class ItemController extends Controller
 {
 
-    public function index()
+    protected function index()
     {
         $data['supplier'] = Supplier::all();
         return view('item.create', $data);
     }
-    public function showItemField()
+
+    protected function showItemField()
     {
         $measure = Measure_unit::all();
         $data = "<div class='col-md-12 show_items' style='padding:0 !important;'><div class='row'>";
         $data .= "<div class='col-md-4'><label>Item Name</label><input name='item_name[]' class='form-control' required></div>";
-        $data .= "<div class='col-md-3'><label>Measure</label><select class='form-control' name='measure_id[]' required><option selected disabled>Select Measure Unit</option>";
+        $data .= "<div class='col-md-3'><label>Measure</label><select class='form-control select2' name='measure_id[]' required><option selected disabled>Select Measure Unit</option>";
         foreach ($measure as $m) {
             $data .= "<option value='" . $m->measure_unit_id . "'>" . $m->unit . "</option>";
         }
@@ -31,14 +32,17 @@ class ItemController extends Controller
         return $data;
     }
 
-
-    public function store(Request $request)
+    protected function store(Request $request)
     {
-        // dd($request->all());
-        $counter = $request->item_name;
-        foreach ($counter as $count) {
-            dd($count);
+        foreach ($request->qty_per_carton as $key => $x) {
+            $store = new Item();
+            $store->item_name =  $request->item_name[$key];
+            $store->measure_unit_id = $request->measure_id[$key];
+            $store->quantity_per_carton = $request->qty_per_carton[$key];
+            $store->supplier_id = $request->supplier;
+            $store->save();
         }
+        return redirect()->back()->with('success_insert', 'Items Successfully Added');
     }
 
     /**
@@ -47,7 +51,7 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    protected function show($id)
     {
         //
     }
@@ -58,7 +62,7 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    protected function edit($id)
     {
         //
     }
@@ -70,7 +74,7 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    protected function update(Request $request, $id)
     {
         //
     }
