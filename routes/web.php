@@ -36,13 +36,12 @@ Route::get('/item-list', [ItemController::class, 'index'])->name('item-list');
 Route::get('/edititem/{id?}', [ItemController::class, 'edit'])->name('edititem');
 Route::post('/itemupdate', [ItemController::class, 'update'])->name('itemupdate');
 
+// Customer Routes
 Route::get('/customer', [CustomerController::class, 'create'])->name('customer');
 Route::post('/customer-store', [CustomerController::class, 'store'])->name('customer-store');
 
 Route::get('/customer-list', [CustomerController::class, 'index'])->name('customer-list');
 Route::get('/show-customers',[CustomerController::class,'showCustomers'])->name('show-customers');
-// Customer Routes
-Route::get('/customer', [CustomerController::class, 'showCustomerPage'])->name('customer');
 
 // Stock Routes
 Route::get('/stock', [StockController::class, 'index'])->name('stock');
