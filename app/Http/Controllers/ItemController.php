@@ -9,8 +9,14 @@ use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
-
     protected function index()
+    {
+        $data['items'] = Item::with('measure_details', 'supplier_details')->get();
+
+        return view('item.index', $data);
+    }
+
+    protected function create()
     {
         $data['supplier'] = Supplier::all();
         return view('item.create', $data);
@@ -64,7 +70,11 @@ class ItemController extends Controller
      */
     protected function edit($id)
     {
-        //
+        $data['measure_units'] = Measure_unit::all();
+        $data['supplier'] = Supplier::all();
+        $data['item'] = Item::findOrfail($id);
+
+        return view('item.edit', $data);
     }
 
     /**
@@ -74,8 +84,14 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    protected function update(Request $request, $id)
+    protected function update(Request $request)
     {
-        //
+        $update = Item::findOrFail($request->id);
+        $update->item_name =  $request->item_name;
+        $update->measure_unit_id = $request->measure_id;
+        $update->quantity_per_carton = $request->qty_per_carton;
+        $update->supplier_id = $request->supplier;
+        $update->save();
+        return redirect()->back()->with('success_update', 'Item Successfully Updated');
     }
 }

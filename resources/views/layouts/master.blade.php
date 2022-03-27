@@ -202,7 +202,7 @@
                         <div class="collapse" id="advanced">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="{{route('items')}}">New Item</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="clint-list.html">Item List</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('item-list')}}">Item List</a></li>
                             </ul>
                         </div>
                     </li>
