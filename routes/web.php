@@ -3,6 +3,7 @@
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\SupplierController;
@@ -49,3 +50,7 @@ Route::get('/stock', [StockController::class, 'index'])->name('stock');
 Route::post('/stockstore', [StockController::class, 'store'])->name('stockstore');
 Route::get('/editstock/{id?}', [StockController::class, 'edit'])->name('editstock');
 Route::post('/stockupdate', [StockController::class, 'update'])->name('stockupdate');
+
+// Order Routes
+Route::get('/order-list', [OrderController::class, 'index'])->name('order-list');
+Route::get('/order', [OrderController::class, 'create'])->name('order');
