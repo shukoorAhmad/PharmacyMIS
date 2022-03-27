@@ -36,7 +36,7 @@
     <script src="{{ asset('public/js/default-assets/demo.datatable-init.js') }}"></script>
 
     <script>
-        $('.edit').click(function() {
+        $(document).on('click', '.edit', function() {
             $.get("{{ route('edititem') }}/" + $(this).attr('data-id'), function(data) {
                 $('#showEditModal').html(data);
                 $('#editModal').modal('show');
