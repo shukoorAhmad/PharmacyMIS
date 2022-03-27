@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StockController;
@@ -16,7 +17,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::get('/dashboard', [CustomerController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 // site crud
 Route::get('/site', [SiteController::class, 'index'])->name('site');
 Route::post('/sitestore', [SiteController::class, 'store'])->name('sitestore');
