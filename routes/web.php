@@ -32,7 +32,11 @@ Route::get('/items', [ItemController::class, 'index'])->name('items');
 Route::get('/showItemField', [ItemController::class, 'showItemField'])->name('showItemField');
 Route::post('/itemstore', [ItemController::class, 'store'])->name('itemstore');
 
-Route::get('/customer', [CustomerController::class, 'showCustomerPage'])->name('customer');
+Route::get('/customer', [CustomerController::class, 'create'])->name('customer');
+Route::post('/customer-store', [CustomerController::class, 'store'])->name('customer-store');
+
+Route::get('/customer-list', [CustomerController::class, 'index'])->name('customer-list');
+Route::get('/show-customers',[CustomerController::class,'showCustomers'])->name('show-customers');
 
 // Stock Routes
 Route::get('/stock', [StockController::class, 'index'])->name('stock');

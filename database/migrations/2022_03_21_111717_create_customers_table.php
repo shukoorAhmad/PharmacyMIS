@@ -19,9 +19,9 @@ class CreateCustomersTable extends Migration
             $table->string('customer_name')->nullable();
             $table->string('customer_last_name')->nullable();
             $table->integer('site_id');
-            $table->integer('contact_no');
-            $table->integer('contact_no_2')->nullable();
-            $table->timestamps();   
+            $table->string('contact_no', 10);
+            $table->string('contact_no_2', 10)->nullable();
+            $table->timestamps();
         });
     }
 
