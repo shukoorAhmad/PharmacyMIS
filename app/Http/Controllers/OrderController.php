@@ -25,8 +25,8 @@ class OrderController extends Controller
                     return  OrderItem::where('order_id', $data->order_id)->sum('quantity');
                 })
                 ->addColumn('action', function ($data) {
-                    $btn = '<a data-id="' . $data->order_id . '" class="view-order-items mr-2"><i class="fa fa-eye btn btn-warning btn-circle"></i></a>';
-                    $btn .= '<a data-id="' . $data->order_id . '" class="edit-order-items"><i class="fa fa-edit btn btn-success btn-circle"></i></a>';
+                    $btn = '<a href="' . route('show-order-details', $data->order_id) . '" class="mr-2"><i class="fa fa-eye btn btn-warning btn-circle"></i></a>';
+                    $btn .= '<a href="' . route('edit-order-details', $data->order_id) . '"><i class="fa fa-edit btn btn-success btn-circle"></i></a>';
                     return $btn;
                 })
                 ->rawColumns(['supplier_name'])
