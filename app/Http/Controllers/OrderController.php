@@ -22,11 +22,12 @@ class OrderController extends Controller
                     return $data->supplier_detials->name;
                 })
                 ->addColumn('status_design', function ($data) {
-                    // return $data->status == 0 ? '<span class="u-label bg-warning text-white">True</span>' : '<span class="u-label bg-warning text-white">False</span>';
-                    return '<span>Ahmad</span>';
+                    return  OrderItem::where('order_id', $data->order_id)->sum('quantity');
                 })
                 ->addColumn('action', function ($data) {
-                    return '<a data-id="" class="edit"><i class="fa fa-eye btn btn-warning btn-circle"></i></a>';
+                    $btn = '<a data-id="' . $data->order_id . '" class="view-order-items mr-2"><i class="fa fa-eye btn btn-warning btn-circle"></i></a>';
+                    $btn .= '<a data-id="' . $data->order_id . '" class="edit-order-items"><i class="fa fa-edit btn btn-success btn-circle"></i></a>';
+                    return $btn;
                 })
                 ->rawColumns(['supplier_name'])
                 ->rawColumns(['status_design'])

@@ -59,6 +59,10 @@
 @section('script')
 <script src="{{ asset('public/js/default-assets/select2.min.js') }}"></script>
 <script>
+    $('#supplier').change(function() {
+        $('#showItems').empty();
+        $('#submit_btn').addClass('d-none');
+    });
     var counter = 0;
 
     function hide_btn() {
