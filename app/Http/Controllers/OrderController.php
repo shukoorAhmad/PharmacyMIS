@@ -72,6 +72,6 @@ class OrderController extends Controller
     protected function view($id)
     {
         $data['order'] = Order::findOrFail($id);
-        return view('order.view', $data);
+        return view('order.view-order-details', $data);
     }
 }
