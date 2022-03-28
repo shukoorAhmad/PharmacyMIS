@@ -69,9 +69,18 @@ class OrderController extends Controller
 
         return redirect()->back()->with('success_insert', 'Order Successfully Added');
     }
+
     protected function view($id)
     {
         $data['order'] = Order::findOrFail($id);
         return view('order.view-order-details', $data);
+    }
+
+    protected function edit($id)
+    {
+        $data['supplier'] = Supplier::all();
+        $data['order'] = Order::with('order_items')->findOrFail($id);
+
+        return view('order.edit', $data);
     }
 }
