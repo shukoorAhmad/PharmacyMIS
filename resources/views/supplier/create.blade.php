@@ -4,7 +4,12 @@
 
     <link rel="stylesheet" href="{{ asset('public/css/default-assets/datatables.bootstrap4.css') }}">
     <link rel="stylesheet" href="{{ asset('public/css/default-assets/responsive.bootstrap4.css') }}">
-
+    <style>
+        .odd>td, .even>td{
+            text-align: center !important;
+        }
+    </style>
+    
     <div class="col-12 box-margin height-card">
         <div class="card">
             <div class="card-body">

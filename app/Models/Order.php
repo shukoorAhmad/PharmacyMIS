@@ -9,4 +9,9 @@ class Order extends Model
 {
     public $primaryKey = "order_id";
     use HasFactory;
+
+    public function supplier_detials()
+    {
+        return $this->hasOne(Supplier::class, 'supplier_id', 'supplier_id');
+    }
 }

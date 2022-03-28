@@ -269,7 +269,6 @@
     <script src="{{asset('public/js/default-assets/active.js')}}"></script>
     <script src="{{asset('public/js/default-assets/sweetalert2.min.js') }}"></script>
     <script src="{{asset('public/js/bootstrap-datepicker.min.js')}}"></script>
-    <script src="{{asset('public/js/default-assets/form-picker.js')}}"></script>
     <script>
         function success(msg) {
             Swal.fire({

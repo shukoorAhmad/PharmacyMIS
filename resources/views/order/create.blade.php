@@ -19,10 +19,15 @@
         outline: none !important;
     }
 </style>
+
 <div class="col-12 box-margin height-card">
     <div class="card">
         <div class="card-body">
-            <form method="POST" action="{{ route('itemstore') }}">
+            <div class="d-flex justify-content-between">
+                <h4 class="card-title mb-2">New Order</h4>
+                <a href="{{route('order-list')}}" class="btn btn-success mb-3">Order List</a>
+            </div>
+            <form method="POST" action="{{ route('orderItemStore') }}">
                 @csrf
                 <div class="row">
                     <div class="form-group col-md-6">
@@ -36,7 +41,7 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label>Order Date</label>
-                        <input type="text" class="form-control" name="order_date" data-provide="datepicker" data-date-autoclose="true">
+                        <input type="text" class="form-control" name="order_date" autocomplete="off" data-provide="datepicker" data-date-autoclose="true">
                     </div>
                     <div class="form-group col-md-2" style="margin-top: 34px;">
                         <a class="btn btn-primary w-100" id="add_items" style="padding: 7px 1.75rem !important;"><i class="zmdi zmdi-plus text-white" style="font-size:18px !important;"></i></a>
@@ -44,7 +49,6 @@
                     <div class="col-md-12 pr-0" id="showItems">
                     </div>
                     <button type="submit" class="btn btn-primary mb-2 ml-3 mt-3 d-none" id="submit_btn">Save</button>
-
                 </div>
             </form>
         </div>
@@ -70,7 +74,7 @@
         if ($('#supplier').val() == null) {
             error_function("Please Supplier First");
         } else {
-            $.get("{{ route('showItemField') }}", function(response) {
+            $.get("{{ route('addNewItem') }}/" + $('#supplier').val(), function(response) {
                 $('#showItems').append(response);
                 counter++;
                 hide_btn();
