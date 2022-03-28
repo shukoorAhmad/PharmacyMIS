@@ -47,7 +47,6 @@ class OrderController extends Controller
     protected function addNewItem($id)
     {
         $data['items'] = Item::where('supplier_id', $id)->get();
-
         return view('order.item_feild', $data);
     }
 
@@ -78,8 +77,9 @@ class OrderController extends Controller
 
     protected function edit($id)
     {
-        $data['supplier'] = Supplier::all();
         $data['order'] = Order::with('order_items')->findOrFail($id);
+        $data['items'] = Item::where('supplier_id', $data['order']->supplier_id)->get();
+        $data['supplier'] = Supplier::findOrFail($data['order']->supplier_id);
 
         return view('order.edit', $data);
     }

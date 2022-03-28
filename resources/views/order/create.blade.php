@@ -41,7 +41,7 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label>Order Date</label>
-                        <input type="text" class="form-control" name="order_date" autocomplete="off" data-provide="datepicker" data-date-autoclose="true">
+                        <input type="text" class="form-control" name="order_date" value="<?php echo date('Y-m-d');?>" data-date-format="yyyy-m-d" autocomplete="off" data-provide="datepicker" data-date-autoclose="true">
                     </div>
                     <div class="form-group col-md-2" style="margin-top: 34px;">
                         <a class="btn btn-primary w-100" id="add_items" style="padding: 7px 1.75rem !important;"><i class="zmdi zmdi-plus text-white" style="font-size:18px !important;"></i></a>
