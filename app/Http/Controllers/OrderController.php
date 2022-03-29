@@ -80,7 +80,40 @@ class OrderController extends Controller
         $data['order'] = Order::with('order_items')->findOrFail($id);
         $data['items'] = Item::where('supplier_id', $data['order']->supplier_id)->get();
         $data['supplier'] = Supplier::findOrFail($data['order']->supplier_id);
-
+       
         return view('order.edit', $data);
+    }
+
+    protected function update(Request $request)
+    {
+        $order_update = Order::findOrFail($request->order_id);
+        $order_update->order_date = Carbon::parse($request->order_date)->format('Y-m-d');
+        $order_update->save();
+
+        foreach ($request->order_item_id as $key => $value) {
+            $order_item_update = OrderItem::findOrFail($value);
+            $order_item_update->item_id = $request->old_item[$key];
+            $order_item_update->quantity = $request->old_quantity[$key];
+            $order_item_update->save();
+        }
+
+        if ($request->quantity != '') {
+            foreach ($request->quantity as $key => $value) {
+                $order_item_store = new OrderItem();
+                $order_item_store->order_id = $request->order_id;
+                $order_item_store->item_id = $request->item[$key];
+                $order_item_store->quantity = $value;
+                $order_item_store->save();
+            }
+        }
+
+        return redirect()->back()->with('success_update', 'Order & Order Item Successfully Updated');
+    }
+
+    protected function deleteOrderItem($id)
+    {
+        $delete = OrderItem::findOrFail($id)->delete();
+
+        return redirect()->back()->with('success_update', 'Order Item Successfully Deleted');
     }
 }
