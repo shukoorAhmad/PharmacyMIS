@@ -22,6 +22,7 @@
                         <th>ID</th>
                         <th>Item Name</th>
                         <th>Measure Unit</th>
+                        <th>Dose</th>
                         <th>Quantity Per Carton</th>
                         <th>Supplier</th>
                         <th>Action</th>
@@ -86,6 +87,9 @@
                 },
                 {
                     "data": 'measure_name'
+                },
+                {
+                    "data": 'dose'
                 },
                 {
                     "data": 'quantity_per_carton'

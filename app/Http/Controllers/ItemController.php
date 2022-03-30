@@ -44,12 +44,13 @@ class ItemController extends Controller
         $measure = Measure_unit::all();
         $data = "<div class='col-md-12 show_items' style='padding:0 !important;'><div class='row'>";
         $data .= "<div class='col-md-4'><label>Item Name</label><input name='item_name[]' class='form-control' required></div>";
-        $data .= "<div class='col-md-3'><label>Measure</label><select class='form-control select2' name='measure_id[]' required><option selected disabled>Select Measure Unit</option>";
+        $data .= "<div class='col-md-2'><label>Measure</label><select class='form-control select2' name='measure_id[]' required><option selected disabled>Select Measure Unit</option>";
         foreach ($measure as $m) {
             $data .= "<option value='" . $m->measure_unit_id . "'>" . $m->unit . "</option>";
         }
         $data .= "</select></div>";
-        $data .= "<div class='col-md-3'><label>Quantity Per Carton</label><input name='qty_per_carton[]' required class='form-control'></div>";
+        $data .= "<div class='col-md-2'><label>Dose</label><input name='dose[]' required class='form-control'></div>";
+        $data .= "<div class='col-md-2'><label>Quantity Per Carton</label><input name='qty_per_carton[]' required class='form-control'></div>";
         $data .= "<div class='col-md-2'><a class='btn btn-danger w-100 close_btn' style='padding: 7px 1.75rem !important;margin-left:-12px !important;margin-top:30px !important;font-size:14px !important;'><i class='zmdi zmdi-close text-white'></i></a></div>";
         $data .= "</div></div>";
         return $data;
@@ -61,6 +62,7 @@ class ItemController extends Controller
             $store = new Item();
             $store->item_name =  $request->item_name[$key];
             $store->measure_unit_id = $request->measure_id[$key];
+            $store->dose = $request->dose[$key];
             $store->quantity_per_carton = $request->qty_per_carton[$key];
             $store->supplier_id = $request->supplier;
             $store->save();
@@ -106,6 +108,7 @@ class ItemController extends Controller
         $update = Item::findOrFail($request->id);
         $update->item_name =  $request->item_name;
         $update->measure_unit_id = $request->measure_id;
+        $update->dose = $request->dose;
         $update->quantity_per_carton = $request->qty_per_carton;
         $update->supplier_id = $request->supplier;
         $update->save();

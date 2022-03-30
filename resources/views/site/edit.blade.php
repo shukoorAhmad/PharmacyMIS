@@ -3,7 +3,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header bg-primary">
-                <h3 class="modal-title text-white">Edit Site {{$site->site_name}}</h3>
+                <h4 class="modal-title text-white">Edit Site {{$site->site_name}}</h4>
             </div>
             <form action="{{route('siteUpdate')}}" method="post">
                 @csrf
