@@ -29,30 +29,26 @@
 <div class="col-12 box-margin">
     <div class="card">
         <div class="card-body">
-            <div class="d-flex justify-content-between hop">
-                <h4 class="card-title mb-2">Order No {{$order->order_id}}</h4>
-                <div>
-                    <a onclick="window.print()" class="btn btn-primary mb-3 text-white">Print</a>
-                    <a href="{{url()->previous()}}" class="btn btn-success mb-3">Back</a>
-                </div>
+            <div class="d-block">
+                <a href="{{url()->previous()}}" class="btn btn-success mb-3 float-right">Back</a>
             </div>
+            <table class="table mr-2">
+                <tr>
+                    <th>To {{$order->supplier_detials->name}}</th>
+                    <th>Invoice No {{$order->order_id}}</th>
+                    <th>Order Date: {{$order->order_date}}</th>
+                </tr>
+            </table>
             <div>
-                <table class="table">
-                    <tr>
-                        <th colspan="3">Company Logo , Address And Contact</th>
-                    </tr>
-                    <tr>
-                        <th>To {{$order->supplier_detials->name}}</th>
-                        <th>Order No {{$order->order_id}}</th>
-                        <th>Order Date: {{$order->order_date}}</th>
-                    </tr>
-                </table>
+
                 <table class="table table-bordered">
                     <tr>
                         <th>No</th>
                         <th>Item</th>
-                        <th>Measure</th>
-                        <th>Qty</th>
+                        <th>Quantity</th>
+                        <th>Purchase Price</th>
+                        <th>Sale Price</th>
+                        <th>Expiry Date</th>
                     </tr>
                     @php
                     $total=0
@@ -60,19 +56,19 @@
                     @foreach($order->order_items as $key=>$ord)
                     <tr>
                         <th>{{++$key}}</th>
-                        <td>{{$ord->items_details->item_name}}</td>
-                        <td>{{$ord->items_details->measure_details->unit}}</td>
-                        <td>{{$ord->quantity}}
-                            @php
-                            $total+=$ord->quantity
-                            @endphp
-                        </td>
+                        <td><b>{{$ord->items_details->item_name}}</b> -- {{$ord->items_details->dose.' -- '.$ord->items_details->measure_details->unit}}</td>
+                        <th>{{$ord->quantity}}</th>
+                        <th>
+                            <input type="text" class="form-control" name="purchase_price[]" required>
+                        </th>
+                        <th>
+                            <input type="text" class="form-control" name="sale_price[]" required>
+                        </th>
+                        <th>
+                            <input class="form-control" name="expiry_date[]" data-date-format="yyyy-m-d" autocomplete="off" data-provide="datepicker" data-date-autoclose="true" required>
+                        </th>
                     </tr>
                     @endforeach
-                    <tr>
-                        <th colspan="2">Total</th>
-                        <th colspan="2">{{$total}}</th>
-                    </tr>
                 </table>
             </div>
         </div> <!-- end card body-->

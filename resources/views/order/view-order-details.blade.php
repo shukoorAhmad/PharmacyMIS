@@ -30,7 +30,7 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between hop">
-                <h4 class="card-title mb-2">Order No {{$order->order_id}}</h4>
+                <h4 class="card-title mb-2">Invoice No {{$order->order_id}}</h4>
                 <div>
                     <a onclick="window.print()" class="btn btn-primary mb-3 text-white">Print</a>
                     <a href="{{url()->previous()}}" class="btn btn-success mb-3">Back</a>
@@ -43,7 +43,7 @@
                     </tr>
                     <tr>
                         <th>To {{$order->supplier_detials->name}}</th>
-                        <th>Order No {{$order->order_id}}</th>
+                        <th>Invoice No {{$order->order_id}}</th>
                         <th>Order Date: {{$order->order_date}}</th>
                     </tr>
                 </table>

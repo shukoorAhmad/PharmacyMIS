@@ -71,7 +71,7 @@
             "paging": true,
             "lengthChange": false,
             "searching": true,
-            "ordering": false,
+            "ordering": true,
             "aaSorting": [
                 [0, "desc"]
             ],
