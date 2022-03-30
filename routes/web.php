@@ -57,6 +57,8 @@ Route::get('/order', [OrderController::class, 'create'])->name('order');
 Route::get('/addNewItem/{id?}', [OrderController::class, 'addNewItem'])->name('addNewItem');
 Route::post('/orderItemStore', [OrderController::class, 'store'])->name('orderItemStore');
 Route::get('view-order-details/{id}', [OrderController::class, 'view'])->name('view-order-details');
-Route::get('edit-order-details/{id}', [OrderController::class, 'edit'])->name('edit-order-details');
-Route::post('update-order-details', [OrderController::class, 'update'])->name('update-order-details');
+Route::get('/edit-order-details/{id}', [OrderController::class, 'edit'])->name('edit-order-details');
+Route::post('/update-order-details', [OrderController::class, 'update'])->name('update-order-details');
 Route::get('/delete-order-item/{id}', [OrderController::class, 'deleteOrderItem'])->name('delete-order-item');
+Route::get('/purchase-order/{id}', [OrderController::class, 'purchase'])->name('purchase-order');
+// 

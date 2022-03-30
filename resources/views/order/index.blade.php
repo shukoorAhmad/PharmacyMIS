@@ -24,6 +24,7 @@
                         <th>Supplier</th>
                         <th>Order Date</th>
                         <th>Total Cartons</th>
+                        <th>Purchase</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -75,6 +76,9 @@
                 },
                 {
                     "data": 'status_design'
+                },
+                {
+                    "data": 'purchase'
                 },
                 {
                     "data": 'action'

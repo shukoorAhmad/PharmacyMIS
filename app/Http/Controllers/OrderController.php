@@ -24,13 +24,20 @@ class OrderController extends Controller
                 ->addColumn('status_design', function ($data) {
                     return  OrderItem::where('order_id', $data->order_id)->sum('quantity');
                 })
+                ->addColumn('purchase', function ($data) {
+                    return  $data->status == 0 ? '<a href="' . route('purchase-order', $data->order_id) . '" class="edit btn btn-outline-info btn-sm"> <i class="zmdi zmdi-shopping-cart"></i> Purchase</a>'
+                        : '<i class="zmdi zmdi-badge-check text-success" style="font-size:1.4rem !important;"></i>';
+                })
                 ->addColumn('action', function ($data) {
                     $btn = '<a href="' . route('view-order-details', $data->order_id) . '" class="mr-2"><i class="fa fa-eye btn btn-warning btn-circle"></i></a>';
-                    $btn .= '<a href="' . route('edit-order-details', $data->order_id) . '"><i class="fa fa-edit btn btn-success btn-circle"></i></a>';
+                    if ($data->status == 0) {
+                        $btn .= '<a href="' . route('edit-order-details', $data->order_id) . '"><i class="fa fa-edit btn btn-success btn-circle"></i></a>';
+                    }
                     return $btn;
                 })
                 ->rawColumns(['supplier_name'])
                 ->rawColumns(['status_design'])
+                ->escapeColumns([])
                 ->rawColumns(['action'])
                 ->make(true);
         }
@@ -80,7 +87,7 @@ class OrderController extends Controller
         $data['order'] = Order::with('order_items')->findOrFail($id);
         $data['items'] = Item::where('supplier_id', $data['order']->supplier_id)->get();
         $data['supplier'] = Supplier::findOrFail($data['order']->supplier_id);
-       
+
         return view('order.edit', $data);
     }
 

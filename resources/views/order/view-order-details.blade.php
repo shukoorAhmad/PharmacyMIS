@@ -9,11 +9,19 @@
         text-align: center !important;
     }
 
+    th {
+        font-weight: bolder !important;
+    }
+
     @media print {
 
         td,
         th {
             font-size: 16px !important;
+        }
+
+        th {
+            font-weight: bolder !important;
         }
     }
 </style>
