@@ -15,7 +15,6 @@
     .select2-container--default .select2-search--dropdown .select2-search__field {
         outline: none !important;
     }
-
 </style>
 <div class="row show_items">
     <div class="form-group col-md-6">
@@ -23,7 +22,7 @@
         <select name="item[]" class="form-control select2">
             <option value="" selected disabled>Please Select Item</option>
             @foreach ($items as $item)
-                <option value="{{ $item->item_id }}">{{ $item->item_name }}</option>
+            <option value="{{ $item->item_id }}">{{ $item->item_name.' -- '.$item->dose.' -- '.$item->measure_details->unit }}</option>
             @endforeach
         </select>
     </div>
@@ -32,8 +31,7 @@
         <input type="number" class="form-control" name="quantity[]">
     </div>
     <div class="col-md-2">
-        <a class="btn btn-danger w-100 close_btn"
-            style="padding: 7px 1.75rem !important;margin-left:-12px !important;margin-top:30px !important;font-size:14px !important;">
+        <a class="btn btn-danger w-100 close_btn" style="padding: 7px 1.75rem !important;margin-left:-12px !important;margin-top:30px !important;font-size:14px !important;">
             <i class="zmdi zmdi-close text-white"></i>
         </a>
     </div>

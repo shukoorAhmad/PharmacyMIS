@@ -4,6 +4,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\SupplierController;
@@ -60,5 +61,5 @@ Route::get('view-order-details/{id}', [OrderController::class, 'view'])->name('v
 Route::get('/edit-order-details/{id}', [OrderController::class, 'edit'])->name('edit-order-details');
 Route::post('/update-order-details', [OrderController::class, 'update'])->name('update-order-details');
 Route::get('/delete-order-item/{id}', [OrderController::class, 'deleteOrderItem'])->name('delete-order-item');
-Route::get('/purchase-order/{id}', [OrderController::class, 'purchase'])->name('purchase-order');
+Route::get('/purchase-order/{id}', [PurchaseController::class, 'purchaseItems'])->name('purchase-order');
 // 

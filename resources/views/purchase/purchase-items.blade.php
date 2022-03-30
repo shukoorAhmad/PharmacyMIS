@@ -51,7 +51,8 @@
                     <tr>
                         <th>No</th>
                         <th>Item</th>
-                        <th>Quantity</th>
+                        <th>Measure</th>
+                        <th>Qty</th>
                     </tr>
                     @php
                     $total=0
@@ -59,12 +60,13 @@
                     @foreach($order->order_items as $key=>$ord)
                     <tr>
                         <th>{{++$key}}</th>
-                        <td><b>{{$ord->items_details->item_name}}</b> -- {{$ord->items_details->dose.' -- '.$ord->items_details->measure_details->unit}}</td>
-                        <th>{{$ord->quantity}}
+                        <td>{{$ord->items_details->item_name}}</td>
+                        <td>{{$ord->items_details->measure_details->unit}}</td>
+                        <td>{{$ord->quantity}}
                             @php
                             $total+=$ord->quantity
                             @endphp
-                        </th>
+                        </td>
                     </tr>
                     @endforeach
                     <tr>
