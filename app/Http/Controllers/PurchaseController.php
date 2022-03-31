@@ -8,6 +8,7 @@ use App\Models\Stock;
 use App\Models\PurchaseItem;
 use App\Models\StockItem;
 use Illuminate\Http\Request;
+use DataTables;
 
 class PurchaseController extends Controller
 {
@@ -18,9 +19,35 @@ class PurchaseController extends Controller
         $data['stock'] = Stock::all();
         return view('purchase.purchase-items', $data);
     }
-    protected function index()
+    protected function index(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $data = Purchase::orderBy('order_id', 'desc')->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('stock_name', function ($data) {
+                    return $data->stock_details->stock_name;
+                })
+                ->addColumn('total_carton', function ($data) {
+                    return PurchaseItem::where('purchase_id', $data->purchase_id)->sum('quantity');
+                })
+                ->addColumn('order_no', function ($data) {
+                    return $data->order_id == 0 ? 'Direct Purchase' : '<a href="' . route('view-order-details', $data->order_id) . '">' . $data->order_id . '</a>';
+                })
+                ->addColumn('action', function ($data) {
+                    $btn = '<a href="' . route('view-order-details', $data->order_id) . '" class="mr-2"><i class="fa fa-eye btn btn-warning btn-circle"></i></a>';
+                    if ($data->status == 0) {
+                        $btn .= '<a href="' . route('edit-order-details', $data->order_id) . '"><i class="fa fa-edit btn btn-success btn-circle"></i></a>';
+                    }
+                    return $btn;
+                })
+                ->rawColumns(['stock_name'])
+                ->rawColumns(['total_carton'])
+                ->escapeColumns([])
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('purchase.index');
     }
 
     protected function create()

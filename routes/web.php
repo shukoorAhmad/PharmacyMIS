@@ -64,3 +64,6 @@ Route::get('/delete-order-item/{id}', [OrderController::class, 'deleteOrderItem'
 Route::get('/purchase-order/{id}', [PurchaseController::class, 'purchaseItems'])->name('purchase-order');
 // purchase routes
 Route::post('/store-purchase', [PurchaseController::class, 'store'])->name('store-purchase');
+Route::get('/purchase-list', [PurchaseController::class, 'index'])->name('purchase-list');
+Route::post('/purchase-sotre', [PurchaseController::class, 'store'])->name('purchase_store');
+// Route::get()->name('show-purchase-items');
