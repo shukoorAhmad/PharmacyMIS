@@ -23,23 +23,11 @@ div
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header bg-primary">
-                <h4 class="modal-title text-white">Edit Item {{ $item->item_name }}</h4>
+                <h5 class="modal-title text-white">Edit Item {{ $item->item_name }}</h5>
             </div>
             <form action="{{ route('itemupdate') }}" method="post">
                 @csrf
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label class="col-form-label">Supplier Name</label>
-                        <select name="supplier" class="form-control select2" style="width: 100% !important;">
-                            <option value="" selected disabled>Please Select Company</option>
-                            @foreach ($supplier as $sup)
-                                <option value="{{ $sup->supplier_id }}"
-                                    {{ $sup->supplier_id == $item->supplier_id ? 'selected' : '' }}>
-                                    {{ $sup->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
                     <div class="form-group">
                         <label class="col-form-label">Item Name</label>
                         <input class="form-control" name="item_name" value="{{ $item->item_name }}" autofocus

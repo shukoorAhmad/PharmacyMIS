@@ -21,7 +21,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header bg-primary">
-                <h4 class="modal-title text-white">Edit Customer {{$customer->pharmacy_name}} </h4>
+                <h5 class="modal-title text-white">Edit Customer {{$customer->pharmacy_name}} </h5>
             </div>
             <form action="{{ route('update-customer') }}" method="post">
                 @csrf

@@ -14,9 +14,4 @@ class Item extends Model
     {
         return $this->hasOne(Measure_unit::class, 'measure_unit_id', 'measure_unit_id');
     }
-
-    public function supplier_details()
-    {
-        return $this->hasOne(Supplier::class, 'supplier_id', 'supplier_id');
-    }
 }

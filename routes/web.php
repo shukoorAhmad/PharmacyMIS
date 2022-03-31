@@ -55,7 +55,7 @@ Route::post('/stockupdate', [StockController::class, 'update'])->name('stockupda
 // Order Routes
 Route::get('/order-list', [OrderController::class, 'index'])->name('order-list');
 Route::get('/order', [OrderController::class, 'create'])->name('order');
-Route::get('/addNewItem/{id?}', [OrderController::class, 'addNewItem'])->name('addNewItem');
+Route::get('/addNewItem', [OrderController::class, 'addNewItem'])->name('addNewItem');
 Route::post('/orderItemStore', [OrderController::class, 'store'])->name('orderItemStore');
 Route::get('view-order-details/{id}', [OrderController::class, 'view'])->name('view-order-details');
 Route::get('/edit-order-details/{id}', [OrderController::class, 'edit'])->name('edit-order-details');

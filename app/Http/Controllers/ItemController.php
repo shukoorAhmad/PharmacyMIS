@@ -13,20 +13,16 @@ class ItemController extends Controller
     protected function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Item::with('measure_details', 'supplier_details')->get();
+            $data = Item::with('measure_details')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('measure_name', function ($data) {
                     return $data->measure_details->unit;
                 })
-                ->addColumn('supplier_name', function ($data) {
-                    return $data->supplier_details->name;
-                })
                 ->addColumn('action', function ($data) {
                     return '<a data-id="' . $data->item_id . '" class="edit"><i class="zmdi zmdi-edit btn btn-info btn-circle"></i></a>';
                 })
                 ->rawColumns(['measure_name'])
-                ->rawColumns(['supplier_name'])
                 ->rawColumns(['action'])
                 ->make(true);
         }
@@ -35,14 +31,14 @@ class ItemController extends Controller
 
     protected function create()
     {
-        $data['supplier'] = Supplier::all();
+        $data['measure'] = Measure_unit::all();
         return view('item.create', $data);
     }
 
     protected function showItemField()
     {
         $measure = Measure_unit::all();
-        $data = "<div class='col-md-12 show_items' style='padding:0 !important;'><div class='row'>";
+        $data = "<div class='show_items'><div class='row'>";
         $data .= "<div class='col-md-4'><label>Item Name</label><input name='item_name[]' class='form-control' required></div>";
         $data .= "<div class='col-md-2'><label>Measure</label><select class='form-control select2' name='measure_id[]' required><option selected disabled>Select Measure Unit</option>";
         foreach ($measure as $m) {
@@ -64,7 +60,6 @@ class ItemController extends Controller
             $store->measure_unit_id = $request->measure_id[$key];
             $store->dose = $request->dose[$key];
             $store->quantity_per_carton = $request->qty_per_carton[$key];
-            $store->supplier_id = $request->supplier;
             $store->save();
         }
         return redirect()->back()->with('success_insert', 'Items Successfully Added');
@@ -90,7 +85,6 @@ class ItemController extends Controller
     protected function edit($id)
     {
         $data['measure_units'] = Measure_unit::all();
-        $data['supplier'] = Supplier::all();
         $data['item'] = Item::findOrfail($id);
 
         return view('item.edit', $data);
@@ -110,7 +104,6 @@ class ItemController extends Controller
         $update->measure_unit_id = $request->measure_id;
         $update->dose = $request->dose;
         $update->quantity_per_carton = $request->qty_per_carton;
-        $update->supplier_id = $request->supplier;
         $update->save();
         return redirect()->back()->with('success_update', 'Item Successfully Updated');
     }

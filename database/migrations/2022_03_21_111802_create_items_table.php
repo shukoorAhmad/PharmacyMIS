@@ -19,7 +19,6 @@ class CreateItemsTable extends Migration
             $table->integer('measure_unit_id');
             $table->float('dose');
             $table->integer('quantity_per_carton');
-            $table->integer('supplier_id');
             $table->timestamps();
         });
     }

@@ -24,7 +24,6 @@
                         <th>Measure Unit</th>
                         <th>Dose</th>
                         <th>Quantity Per Carton</th>
-                        <th>Supplier</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -93,9 +92,6 @@
                 },
                 {
                     "data": 'quantity_per_carton'
-                },
-                {
-                    "data": 'supplier_name'
                 },
                 {
                     "data": 'action'

@@ -51,9 +51,9 @@ class OrderController extends Controller
         return view('order.create', $data);
     }
 
-    protected function addNewItem($id)
+    protected function addNewItem()
     {
-        $data['items'] = Item::where('supplier_id', $id)->get();
+        $data['items'] = Item::all();
         return view('order.item_feild', $data);
     }
 

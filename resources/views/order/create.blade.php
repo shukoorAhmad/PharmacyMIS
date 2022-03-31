@@ -78,7 +78,7 @@
         if ($('#supplier').val() == null) {
             error_function("Please Supplier First");
         } else {
-            $.get("{{ route('addNewItem') }}/" + $('#supplier').val(), function(response) {
+            $.get("{{ route('addNewItem') }}", function(response) {
                 $('#showItems').append(response);
                 counter++;
                 hide_btn();
