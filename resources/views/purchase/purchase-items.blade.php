@@ -1,28 +1,22 @@
 @extends('layouts.master')
 
 @section('content')
-<link rel="stylesheet" href="{{ asset('public/css/default-assets/datatables.bootstrap4.css') }}">
-<link rel="stylesheet" href="{{ asset('public/css/default-assets/responsive.bootstrap4.css') }}">
+<link rel="stylesheet" href="{{ asset('public/css/default-assets/select2.min.css') }}">
 <style>
-    .odd>td,
-    .even>td {
-        text-align: center !important;
+    .select2-container .select2-selection--single {
+        height: 38px !important;
     }
 
-    th {
-        font-weight: bolder !important;
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 34px !important;
     }
 
-    @media print {
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        top: 6px !important;
+    }
 
-        td,
-        th {
-            font-size: 16px !important;
-        }
-
-        th {
-            font-weight: bolder !important;
-        }
+    .select2-container--default .select2-search--dropdown .select2-search__field {
+        outline: none !important;
     }
 </style>
 
@@ -40,41 +34,71 @@
                 </tr>
             </table>
             <div>
-
-                <table class="table table-bordered">
-                    <tr>
-                        <th>No</th>
-                        <th>Item</th>
-                        <th>Quantity</th>
-                        <th>Purchase Price</th>
-                        <th>Sale Price</th>
-                        <th>Expiry Date</th>
-                    </tr>
-                    @php
-                    $total=0
-                    @endphp
-                    @foreach($order->order_items as $key=>$ord)
-                    <tr>
-                        <th>{{++$key}}</th>
-                        <td><b>{{$ord->items_details->item_name}}</b> -- {{$ord->items_details->dose.' -- '.$ord->items_details->measure_details->unit}}</td>
-                        <th>{{$ord->quantity}}</th>
-                        <th>
-                            <input type="text" class="form-control" name="purchase_price[]" required>
-                        </th>
-                        <th>
-                            <input type="text" class="form-control" name="sale_price[]" required>
-                        </th>
-                        <th>
-                            <input class="form-control" name="expiry_date[]" data-date-format="yyyy-m-d" autocomplete="off" data-provide="datepicker" data-date-autoclose="true" required>
-                        </th>
-                    </tr>
-                    @endforeach
-                </table>
+                <form action="{{route('store-purchase')}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="order_id" value="{{$order->order_id}}">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>No</th>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Purchase Price (carton)</th>
+                            <th>Sale Price (carton)</th>
+                            <th>Expiry Date</th>
+                        </tr>
+                        @php
+                        $total=0
+                        @endphp
+                        @foreach($order->order_items as $key=>$ord)
+                        <tr>
+                            <th>{{++$key}}
+                                <input type="hidden" value="{{$ord->items_details->item_id}}" name="item_id[]">
+                            </th>
+                            <td><b>{{$ord->items_details->item_name}}</b> -- {{$ord->items_details->dose.' -- '.$ord->items_details->measure_details->unit}}</td>
+                            <th>{{$ord->quantity}}
+                                <input type="hidden" value="{{$ord->quantity}}" name="quantity[]">
+                            </th>
+                            <th>
+                                <input type="number" class="form-control" name="purchase_price[]" required>
+                            </th>
+                            <th>
+                                <input type="number" class="form-control" name="sale_price[]" required>
+                            </th>
+                            <th>
+                                <input type="date" class="form-control" name="expiry_date[]" required>
+                            </th>
+                        </tr>
+                        @endforeach
+                    </table>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label>To Stock</label>
+                            <select name="stock_id" class="form-control select2" required>
+                                <option value="">Select Stock</option>
+                                @foreach($stock as $stk)
+                                <option value="{{$stk->stock_id}}">{{$stk->stock_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Purchase Invoice #</label>
+                            <input class="form-control" name="purchase_invoice_no" placeholder="Enter Purchase Invoice No" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Purchase Date:</label>
+                            <input class="form-control" name="purchase_date" data-date-format="yyyy-m-d" value="<?php echo date('Y-m-d'); ?>" autocomplete="off" data-provide="datepicker" data-date-autoclose="true" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2 mr-2 float-right">Save</button>
+                </form>
             </div>
         </div> <!-- end card body-->
     </div> <!-- end card -->
 </div><!-- end col-->
 @section('script')
-
+<script src="{{ asset('public/js/default-assets/select2.min.js') }}"></script>
+<script>
+    $('.select2').select2();
+</script>
 @endsection
 @endsection

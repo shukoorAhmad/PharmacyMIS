@@ -9,6 +9,7 @@ class Order extends Model
 {
     public $primaryKey = "order_id";
     use HasFactory;
+    protected $fillable = ['status'];
 
     public function supplier_detials()
     {

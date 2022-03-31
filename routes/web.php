@@ -62,4 +62,5 @@ Route::get('/edit-order-details/{id}', [OrderController::class, 'edit'])->name('
 Route::post('/update-order-details', [OrderController::class, 'update'])->name('update-order-details');
 Route::get('/delete-order-item/{id}', [OrderController::class, 'deleteOrderItem'])->name('delete-order-item');
 Route::get('/purchase-order/{id}', [PurchaseController::class, 'purchaseItems'])->name('purchase-order');
-// 
+// purchase routes
+Route::post('/store-purchase', [PurchaseController::class, 'store'])->name('store-purchase');

@@ -40,7 +40,11 @@
 <script src="{{ asset('public/js/default-assets/datatable-responsive.min.js') }}"></script>
 <script src="{{ asset('public/js/default-assets/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('public/js/default-assets/demo.datatable-init.js') }}"></script>
-
+@if (session()->has('success_insert'))
+<script>
+    success("{{ session()->get('success_insert') }}")
+</script>
+@endif
 <script>
     $(document).on('click', '.edit', function() {
         $.get("{{ route('edititem') }}/" + $(this).attr('data-id'), function(data) {
