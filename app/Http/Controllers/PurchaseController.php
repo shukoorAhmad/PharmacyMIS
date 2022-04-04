@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use App\Models\Order;
 use App\Models\Purchase;
 use App\Models\Stock;
 use App\Models\PurchaseItem;
 use App\Models\StockItem;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use DataTables;
 
@@ -35,9 +37,9 @@ class PurchaseController extends Controller
                     return $data->order_id == 0 ? 'Direct Purchase' : '<a href="' . route('view-order-details', $data->order_id) . '">' . $data->order_id . '</a>';
                 })
                 ->addColumn('action', function ($data) {
-                    $btn = '<a href="' . route('view-order-details', $data->order_id) . '" class="mr-2"><i class="fa fa-eye btn btn-warning btn-circle"></i></a>';
+                    $btn = '<a href="' . route('view-order-details', $data->purchase_id) . '" class="mr-2"><i class="fa fa-eye btn btn-warning btn-circle"></i></a>';
                     if ($data->status == 0) {
-                        $btn .= '<a href="' . route('edit-order-details', $data->order_id) . '"><i class="fa fa-edit btn btn-success btn-circle"></i></a>';
+                        $btn .= '<a href="' . route('edit-order-details', $data->purchase_id) . '"><i class="fa fa-edit btn btn-success btn-circle"></i></a>';
                     }
                     return $btn;
                 })
@@ -52,14 +54,21 @@ class PurchaseController extends Controller
 
     protected function create()
     {
-        //
+        $data['stock'] = Stock::all();
+        $data['supplier'] = Supplier::all();
+        return view('purchase.create', $data);
+    }
+    protected function add_new_item()
+    {
+        $data['items'] = Item::all();
+        return view('purchase.new_item', $data);
     }
 
     protected function store(Request $request)
     {
         $purchase = new Purchase();
         $purchase->purchase_invoice_no = $request->purchase_invoice_no;
-        $purchase->order_id = $request->order_id;
+        $request->order_id != "" ? $purchase->order_id = $request->order_id : '';
         $purchase->stock_id = $request->stock_id;
         $purchase->purchase_date = $request->purchase_date;
         if ($purchase->save()) {
@@ -91,9 +100,12 @@ class PurchaseController extends Controller
                     $stock_items->save();
                 }
             }
-            $order = Order::findOrFail($request->order_id)->update(['status' => 1]);
+            if ($request->order_id != "") {
+                $order = Order::findOrFail($request->order_id)->update(['status' => 1]);
+                return redirect()->route('order-list')->with('success_insert', 'Items Successfully Purchased');
+            }
         }
-        return redirect()->route('order-list')->with('success_insert', 'Items Successfully Purchased');
+        return redirect()->route('purchase-list')->with('success_insert', 'Items Successfully Purchased');
     }
 
     protected function show($id)

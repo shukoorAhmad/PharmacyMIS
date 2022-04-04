@@ -15,7 +15,7 @@
         <div class="card-body">
             <div class="d-flex justify-content-between">
                 <h4 class="card-title mb-2">Purchase List</h4>
-                <a href="{{ route('order') }}" class="btn btn-success mb-3">New Purchase</a>
+                <a href="{{ route('purchase') }}" class="btn btn-success mb-3">New Purchase</a>
             </div>
             <table class="table data-table w-100">
                 <thead>

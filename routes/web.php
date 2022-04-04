@@ -55,7 +55,6 @@ Route::post('/stockupdate', [StockController::class, 'update'])->name('stockupda
 // Order Routes
 Route::get('/order-list', [OrderController::class, 'index'])->name('order-list');
 Route::get('/order', [OrderController::class, 'create'])->name('order');
-Route::get('/addNewItem', [OrderController::class, 'addNewItem'])->name('addNewItem');
 Route::post('/orderItemStore', [OrderController::class, 'store'])->name('orderItemStore');
 Route::get('view-order-details/{id}', [OrderController::class, 'view'])->name('view-order-details');
 Route::get('/edit-order-details/{id}', [OrderController::class, 'edit'])->name('edit-order-details');
@@ -65,5 +64,6 @@ Route::get('/purchase-order/{id}', [PurchaseController::class, 'purchaseItems'])
 // purchase routes
 Route::post('/store-purchase', [PurchaseController::class, 'store'])->name('store-purchase');
 Route::get('/purchase-list', [PurchaseController::class, 'index'])->name('purchase-list');
-Route::post('/purchase-sotre', [PurchaseController::class, 'store'])->name('purchase_store');
+Route::get('/purchase', [PurchaseController::class, 'create'])->name('purchase');
+Route::get('/add_new_item', [PurchaseController::class, 'add_new_item'])->name('add_new_item');
 // Route::get()->name('show-purchase-items');
