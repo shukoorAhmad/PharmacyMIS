@@ -66,4 +66,5 @@ Route::post('/store-purchase', [PurchaseController::class, 'store'])->name('stor
 Route::get('/purchase-list', [PurchaseController::class, 'index'])->name('purchase-list');
 Route::get('/purchase', [PurchaseController::class, 'create'])->name('purchase');
 Route::get('/add_new_item', [PurchaseController::class, 'add_new_item'])->name('add_new_item');
+Route::get('view-purchase-details/{id}', [PurchaseController::class, 'show'])->name('view-purchase-details');
 // Route::get()->name('show-purchase-items');

@@ -34,13 +34,10 @@ class PurchaseController extends Controller
                     return PurchaseItem::where('purchase_id', $data->purchase_id)->sum('quantity');
                 })
                 ->addColumn('order_no', function ($data) {
-                    return $data->order_id == 0 ? 'Direct Purchase' : '<a href="' . route('view-order-details', $data->order_id) . '">' . $data->order_id . '</a>';
+                    return $data->order_id == 0 ? '<span class="badge badge-success">Direct Purchase</span>' : '<a href="' . route('view-order-details', $data->order_id) . '">' . $data->order_id . '</a>';
                 })
                 ->addColumn('action', function ($data) {
-                    $btn = '<a href="' . route('view-order-details', $data->purchase_id) . '" class="mr-2"><i class="fa fa-eye btn btn-warning btn-circle"></i></a>';
-                    if ($data->status == 0) {
-                        $btn .= '<a href="' . route('edit-order-details', $data->purchase_id) . '"><i class="fa fa-edit btn btn-success btn-circle"></i></a>';
-                    }
+                    $btn = '<a href="' . route('view-purchase-details', $data->purchase_id) . '" class="mr-2"><i class="fa fa-eye btn btn-warning btn-circle"></i></a>';
                     return $btn;
                 })
                 ->rawColumns(['stock_name'])
@@ -110,21 +107,7 @@ class PurchaseController extends Controller
 
     protected function show($id)
     {
-        //
-    }
-
-    protected function edit($id)
-    {
-        //
-    }
-
-    protected function update(Request $request, $id)
-    {
-        //
-    }
-
-    protected function destroy($id)
-    {
-        //
+        $data['purchase'] = Purchase::findOrFail($id);
+        return view('purchase.view-purchase-items', $data);
     }
 }
