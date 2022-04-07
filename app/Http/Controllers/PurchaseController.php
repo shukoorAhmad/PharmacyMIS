@@ -37,7 +37,7 @@ class PurchaseController extends Controller
                     return PurchaseItem::where('purchase_id', $data->purchase_id)->sum('quantity');
                 })
                 ->addColumn('order_no', function ($data) {
-                    return $data->order_id == 0 ? '<span class="badge badge-success">Direct Purchase</span>' : '<a href="' . route('view-order-details', $data->order_id) . '">' . $data->order_id . '</a>';
+                    return $data->order_id == 0 ? '<span class="badge badge-success pr-4 pl-4">Direct Purchase</span>' : '<span class="badge bg-teal"><a class="text-white" href="' . route('view-order-details', $data->order_id) . '">View Order Bill No - ' . $data->order_id . '</span></a>';
                 })
                 ->addColumn('action', function ($data) {
                     $btn = '<a href="' . route('view-purchase-details', $data->purchase_id) . '" class="mr-2"><i class="fa fa-eye btn btn-warning btn-circle"></i></a>';
@@ -113,7 +113,6 @@ class PurchaseController extends Controller
     protected function show($id)
     {
         $data['purchase'] = Purchase::findOrFail($id);
-        
         return view('purchase.view-purchase-items', $data);
     }
 }

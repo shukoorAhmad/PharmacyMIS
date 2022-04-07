@@ -8,6 +8,10 @@
     .even>td {
         text-align: center !important;
     }
+
+    .badge {
+        font-size: 12px !important;
+    }
 </style>
 
 <div class="col-12 box-margin">
@@ -23,7 +27,7 @@
                         <th>ID</th>
                         <th>Supplier Name</th>
                         <th>Purchase Invoice #</th>
-                        <th>Order No</th>
+                        <th>Order Details</th>
                         <th>Total Cartons</th>
                         <th>Stock</th>
                         <th>Purchase Date</th>
