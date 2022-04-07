@@ -30,6 +30,9 @@ class PurchaseController extends Controller
                 ->addColumn('stock_name', function ($data) {
                     return $data->stock_details->stock_name;
                 })
+                ->addColumn('supplier_name', function ($data) {
+                    return $data->supplier_details->name;
+                })
                 ->addColumn('total_carton', function ($data) {
                     return PurchaseItem::where('purchase_id', $data->purchase_id)->sum('quantity');
                 })
@@ -40,6 +43,7 @@ class PurchaseController extends Controller
                     $btn = '<a href="' . route('view-purchase-details', $data->purchase_id) . '" class="mr-2"><i class="fa fa-eye btn btn-warning btn-circle"></i></a>';
                     return $btn;
                 })
+                ->rawColumns(['supplier_name'])
                 ->rawColumns(['stock_name'])
                 ->rawColumns(['total_carton'])
                 ->escapeColumns([])
@@ -67,6 +71,7 @@ class PurchaseController extends Controller
         $purchase->purchase_invoice_no = $request->purchase_invoice_no;
         $request->order_id != "" ? $purchase->order_id = $request->order_id : '';
         $purchase->stock_id = $request->stock_id;
+        $purchase->supplier_id = $request->supplier_id;
         $purchase->purchase_date = $request->purchase_date;
         if ($purchase->save()) {
             foreach ($request->item_id as $key => $value) {
@@ -108,6 +113,7 @@ class PurchaseController extends Controller
     protected function show($id)
     {
         $data['purchase'] = Purchase::findOrFail($id);
+        
         return view('purchase.view-purchase-items', $data);
     }
 }

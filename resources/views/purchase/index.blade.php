@@ -21,6 +21,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Supplier Name</th>
                         <th>Purchase Invoice #</th>
                         <th>Order No</th>
                         <th>Total Cartons</th>
@@ -72,6 +73,9 @@
             ajax: "{{ route('purchase-list') }}",
             columns: [{
                     "data": 'purchase_id'
+                },
+                {
+                    "data": 'supplier_name'
                 },
                 {
                     "data": 'purchase_invoice_no'

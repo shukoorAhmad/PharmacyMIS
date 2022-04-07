@@ -28,7 +28,8 @@
             </div>
             <table class="table mr-2">
                 <tr>
-                    <th>To {{$order->supplier_detials->name}}</th>
+                    <th>To {{$order->supplier_detials->name}}
+                    </th>
                     <th>Invoice No {{$order->order_id}}</th>
                     <th>Order Date: {{$order->order_date}}</th>
                 </tr>
@@ -37,6 +38,7 @@
                 <form action="{{route('store-purchase')}}" method="POST">
                     @csrf
                     <input type="hidden" name="order_id" value="{{$order->order_id}}">
+                    <input type="hidden" value="{{$order->supplier_detials->supplier_id}}" name="supplier_id">
                     <table class="table table-bordered">
                         <tr>
                             <th>No</th>

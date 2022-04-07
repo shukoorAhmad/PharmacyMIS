@@ -32,7 +32,7 @@
                 <div class="row">
                     <div class="form-group col-md-10">
                         <label class="col-form-label">Supplier Name</label>
-                        <select name="supplier" id="supplier" class="form-control select2">
+                        <select name="supplier_id" id="supplier" class="form-control select2">
                             <option value="" selected disabled>Please Select Company</option>
                             @foreach ($supplier as $sup)
                             <option value="{{ $sup->supplier_id }}">{{ $sup->name }}</option>

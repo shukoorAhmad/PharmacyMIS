@@ -15,6 +15,7 @@ class CreatePurchasesTable extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id('purchase_id');
+            $table->integer('supplier_id');
             $table->string('purchase_invoice_no');
             $table->integer('order_id');
             $table->integer('stock_id');

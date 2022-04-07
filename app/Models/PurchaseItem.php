@@ -9,8 +9,8 @@ class PurchaseItem extends Model
 {
     public $primaryKey = "purchase_item_id";
     use HasFactory;
-    public function purchase_items()
+    public function items_details()
     {
-        return $this->hasOne(Purchase::class, 'purchase_id', 'purchase_id');
+        return $this->hasOne(Item::class, 'item_id', 'item_id');
     }
 }
