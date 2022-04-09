@@ -83,8 +83,29 @@ class TransferController extends Controller
                     $trans_itms->quantity = $request->transfer_qty[$key];
                     $trans_itms->transfer_id = $transfer->transfer_id;
                     $trans_itms->save();
+                    $src_stock = StockItem::findOrFail($request->stock_item_id[$key]);
+                    $src_stock->quantity = $src_stock->quantity - $request->transfer_qty[$key];
+                    $src_stock->save();
+                    $old = StockItem::where(['item_id' => $request->item_id[$key], 'stock_id' => $request->destination_stock_id])->first();
+                    if ($old != "") {
+                        $update_items = StockItem::findOrFail($old->stock_item_id);
+                        $update_items->quantity = $old->quantity + $request->transfer_qty[$key];
+                        $update_items->purchase_price = $request->purchase_price[$key];
+                        $update_items->sale_price = $request->sale_price[$key];
+                        $update_items->save();
+                    } else {
+                        $stock_items = new StockItem();
+                        $stock_items->item_id = $request->item_id[$key];
+                        $stock_items->quantity = $request->transfer_qty[$key];
+                        $stock_items->purchase_price = $request->purchase_price[$key];
+                        $stock_items->sale_price = $request->sale_price[$key];
+                        $stock_items->expiry_date = $request->expiry_date[$key];
+                        $stock_items->stock_id = $request->destination_stock_id;
+                        $stock_items->save();
+                    }
                 }
             }
+            return redirect()->route('show-transfer-bill', $transfer->transfer_id)->with('success_transfer', 'Items Successfully Transfered');
         }
     }
 
@@ -92,6 +113,11 @@ class TransferController extends Controller
     {
         $data['transfer'] = transfer::findOrFail($id);
         return view('transfer.show-transfer-details', $data);
+    }
+    protected function showBill($id)
+    {
+        $data['transfer'] = transfer::findOrFail($id);
+        return view('transfer.show-transfer-bill', $data);
     }
 
     protected function update(Request $request, $id)

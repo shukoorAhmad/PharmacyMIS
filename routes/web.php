@@ -81,8 +81,9 @@ Route::post('/update-seller', [SellerController::class, 'update'])->name('update
 // transfer routes
 Route::get('/transfer-list', [TransferController::class, 'index'])->name('transfer-list');
 Route::get('/transfer', [TransferController::class, 'create'])->name('transfer');
-Route::get('/show-transfer-bill', [TransferController::class, 'showTransferBill'])->name('show-transfer-bill');
+Route::get('/show-transfer-bills', [TransferController::class, 'showTransferBill'])->name('show-transfer-bills');
 Route::get('/show-dest-stock/{id?}', [TransferController::class, 'showDestStock'])->name('show-dest-stock');
 Route::get('/show-stock-items/{id?}', [TransferController::class, 'showStockItems'])->name('show-stock-items');
 Route::post('/transfer-store', [TransferController::class, 'store'])->name('transfer-store');
 Route::get('/show-transfer-details/{id}', [TransferController::class, 'show'])->name('show-transfer-details');
+Route::get('/show-transfer-bill/{id}', [TransferController::class, 'showBill'])->name('show-transfer-bill');

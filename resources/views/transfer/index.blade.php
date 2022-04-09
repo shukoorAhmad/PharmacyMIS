@@ -67,7 +67,7 @@
             "info": true,
             processing: true,
             serverSide: true,
-            ajax: "{{ route('show-transfer-bill') }}",
+            ajax: "{{ route('show-transfer-bills') }}",
             columns: [{
                     "data": 'transfer_id'
                 },

@@ -19,9 +19,13 @@
         <tr>
             <th><b>{{$item->item_details->item_name}}</b> -- {{$item->item_details->dose.' -- '.$item->item_details->measure_details->unit}}
                 <input type="hidden" value="{{$item->item_details->item_id}}" name="item_id[]">
+                <input type="hidden" value="{{$item->stock_item_id}}" name="stock_item_id[]">
             </th>
             <th>{{$item->quantity}}
                 <input type="hidden" value="{{$item->quantity}}" name="item_qty[]">
+                <input type="hidden" value="{{$item->purchase_price}}" name="purchase_price[]">
+                <input type="hidden" value="{{$item->sale_price}}" name="sale_price[]">
+                <input type="hidden" value="{{$item->expiry_date}}" name="expiry_date[]">
             </th>
             <th><input type="number" class="form-control" max="{{$item->quantity}}" name="transfer_qty[]" value="0"></th>
         </tr>
