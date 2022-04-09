@@ -12,11 +12,11 @@ use DataTables;
 class TransferController extends Controller
 {
 
-    public function index()
+    protected function index()
     {
         return view('transfer.index');
     }
-    public function showTransferBill(Request $request)
+    protected function showTransferBill(Request $request)
     {
         if ($request->ajax()) {
             $data = Transfer::all();
@@ -29,11 +29,11 @@ class TransferController extends Controller
                     return $data->dest_stock_details->stock_name;
                 })
                 ->addColumn('total_carton', function ($data) {
-                    $dat = StockItem::where('transfer_id', $data->transfer_id)->sum('quantity');
+                    $dat = TransferItem::where('transfer_id', $data->transfer_id)->sum('quantity');
                     return $dat;
                 })
                 ->addColumn('action', function ($data) {
-                    return '<a data-id="' . $data->customer_id . '" class="edit"><i class="zmdi zmdi-edit btn btn-info btn-circle"></i></a>';
+                    return '<a href="' . route('show-transfer-details', $data->transfer_id)  . '" ><i class="zmdi zmdi-eye btn btn-info btn-circle"></i></a>';
                 })
                 ->rawColumns(['source_stock'])
                 ->rawColumns(['destination_stock'])
@@ -43,12 +43,12 @@ class TransferController extends Controller
         }
         return view('customer.index');
     }
-    public function create()
+    protected function create()
     {
         $data['src_stock'] = Stock::all();
         return view('transfer.create', $data);
     }
-    public function showDestStock($id)
+    protected function showDestStock($id)
     {
         $dest_stock = Stock::where('stock_id', '!=', $id)->get();
         $data = '<option value="" selected disabled>Select Destination stock</option>';
@@ -57,12 +57,12 @@ class TransferController extends Controller
         }
         return $data;
     }
-    public function showStockItems($id)
+    protected function showStockItems($id)
     {
         $data['items'] = StockItem::where('stock_id', $id)->where('quantity', '!=', 0)->get();
         return view('transfer.show-stock-items', $data);
     }
-    public function store(Request $request)
+    protected function store(Request $request)
     {
         $request->validate([
             'source_stock_id' => 'required',
@@ -74,7 +74,7 @@ class TransferController extends Controller
         $transfer->destination_stock_id = $request->destination_stock_id;
         $transfer->transfer_date = $request->transfer_date;
         $transfer->comment = $request->comment;
-        
+
         if ($transfer->save()) {
             foreach ($request->item_id as $key => $value) {
                 if ($request->transfer_qty[$key] != 0) {
@@ -85,23 +85,16 @@ class TransferController extends Controller
                     $trans_itms->save();
                 }
             }
-        } else {
-            echo "not saved";
         }
     }
 
-
-    public function show($id)
+    protected function show($id)
     {
-        //
+        $data['transfer'] = transfer::findOrFail($id);
+        return view('transfer.show-transfer-details', $data);
     }
 
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
+    protected function update(Request $request, $id)
     {
         //
     }

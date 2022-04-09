@@ -9,4 +9,8 @@ class TransferItem extends Model
 {
     public $primaryKey = "transfer_item_id";
     use HasFactory;
+    public function items_details()
+    {
+        return $this->hasOne(Item::class, 'item_id', 'item_id');
+    }
 }

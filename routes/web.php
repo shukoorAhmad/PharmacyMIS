@@ -85,3 +85,4 @@ Route::get('/show-transfer-bill', [TransferController::class, 'showTransferBill'
 Route::get('/show-dest-stock/{id?}', [TransferController::class, 'showDestStock'])->name('show-dest-stock');
 Route::get('/show-stock-items/{id?}', [TransferController::class, 'showStockItems'])->name('show-stock-items');
 Route::post('/transfer-store', [TransferController::class, 'store'])->name('transfer-store');
+Route::get('/show-transfer-details/{id}', [TransferController::class, 'show'])->name('show-transfer-details');
