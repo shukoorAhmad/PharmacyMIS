@@ -17,7 +17,7 @@ class CreatePurchasesTable extends Migration
             $table->id('purchase_id');
             $table->integer('supplier_id');
             $table->string('purchase_invoice_no');
-            $table->integer('order_id');
+            $table->integer('order_id')->default(0);
             $table->integer('stock_id');
             $table->date('purchase_date');
             $table->timestamps();

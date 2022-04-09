@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transfer extends Model
 {
-    public $primaryKey = "tansfer_id";
+    public $primaryKey = "transfer_id";
     use HasFactory;
     public function transfer_items()
     {

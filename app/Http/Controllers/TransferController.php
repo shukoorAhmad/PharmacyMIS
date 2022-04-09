@@ -69,27 +69,23 @@ class TransferController extends Controller
             'destination_stock_id' => 'required',
             'transfer_date' => 'required'
         ]);
-        $transfer = new Transfer();
+        $transfer = new Transfer;
         $transfer->source_stock_id = $request->source_stock_id;
         $transfer->destination_stock_id = $request->destination_stock_id;
         $transfer->transfer_date = $request->transfer_date;
         $transfer->comment = $request->comment;
-        $transfer->save();
-        echo $transfer->transfer_id;
-
+        
         if ($transfer->save()) {
-            echo "success";
-            // foreach ($request->item_id as $key => $value) {
-            //     if ($request->transfer_qty[$key] != 0) {
-            //         $trans_itms = new TransferItem();
-            //         $trans_itms->item_id = $request->item_id[$key];
-            //         $trans_itms->quantity = $request->transfer_qty[$key];
-            //         $trans_itms->transfer_id = $transfer->transfer_id;
-            //         $trans_itms->save();
-            //     }
-            // }
-        }
-        else{
+            foreach ($request->item_id as $key => $value) {
+                if ($request->transfer_qty[$key] != 0) {
+                    $trans_itms = new TransferItem();
+                    $trans_itms->item_id = $request->item_id[$key];
+                    $trans_itms->quantity = $request->transfer_qty[$key];
+                    $trans_itms->transfer_id = $transfer->transfer_id;
+                    $trans_itms->save();
+                }
+            }
+        } else {
             echo "not saved";
         }
     }
