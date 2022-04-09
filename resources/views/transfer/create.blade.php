@@ -104,5 +104,10 @@
     success("{{ session()->get('success_insert') }}")
 </script>
 @endif
+@if (session()->has('error_message'))
+<script>
+    error_function("{{ session()->get('error_message') }}")
+</script>
+@endif
 @endsection
 @endsection
