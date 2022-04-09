@@ -5,9 +5,11 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SellerController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\TransferController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -68,4 +70,18 @@ Route::get('/purchase-list', [PurchaseController::class, 'index'])->name('purcha
 Route::get('/purchase', [PurchaseController::class, 'create'])->name('purchase');
 Route::get('/add_new_item', [PurchaseController::class, 'add_new_item'])->name('add_new_item');
 Route::get('view-purchase-details/{id}', [PurchaseController::class, 'show'])->name('view-purchase-details');
-// Route::get()->name('show-purchase-items');
+
+// Seller Routes
+Route::get('/seller', [SellerController::class, 'create'])->name('seller');
+Route::post('/seller-store', [SellerController::class, 'store'])->name('seller-store');
+Route::get('/seller-list', [SellerController::class, 'index'])->name('seller-list');
+Route::get('/show-seller', [SellerController::class, 'showSellers'])->name('show-seller');
+Route::get('/edit-seller/{id?}', [SellerController::class, 'edit'])->name('edit-seller');
+Route::post('/update-seller', [SellerController::class, 'update'])->name('update-seller');
+// transfer routes
+Route::get('/transfer-list', [TransferController::class, 'index'])->name('transfer-list');
+Route::get('/transfer', [TransferController::class, 'create'])->name('transfer');
+Route::get('/show-transfer-bill', [TransferController::class, 'showTransferBill'])->name('show-transfer-bill');
+Route::get('/show-dest-stock/{id?}', [TransferController::class, 'showDestStock'])->name('show-dest-stock');
+Route::get('/show-stock-items/{id?}', [TransferController::class, 'showStockItems'])->name('show-stock-items');
+Route::post('/transfer-store', [TransferController::class, 'store'])->name('transfer-store');

@@ -118,7 +118,6 @@ Last Updated: Nov 25, 2019
 
 /* Import Fonts & CSS Files */
 
-@import url("https://fonts.googleapis.com/css2?family=Overpass:wght@400;600&amp;family=Roboto:wght@400;500&amp;display=swap");
 @import url(css/bootstrap.min.css);
 @import url(css/owl.carousel.min.css);
 @import url(css/animate.css);

@@ -9,4 +9,8 @@ class StockItem extends Model
 {
     public $primaryKey = "stock_item_id";
     use HasFactory;
+    public function item_details()
+    {
+        return $this->hasOne(Item::class, 'item_id', 'item_id');
+    }
 }

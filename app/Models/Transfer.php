@@ -9,4 +9,16 @@ class Transfer extends Model
 {
     public $primaryKey = "tansfer_id";
     use HasFactory;
+    public function transfer_items()
+    {
+        return $this->hasMany(TransferItem::class, 'transfer_id', 'transfer_id');
+    }
+    public function src_stock_details()
+    {
+        return $this->hasOne(Stock::class, 'stock_id', 'source_stock_id');
+    }
+    public function dest_stock_details()
+    {
+        return $this->hasOne(Stock::class, 'stock_id', 'destination_stock_id');
+    }
 }
