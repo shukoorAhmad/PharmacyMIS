@@ -73,6 +73,19 @@
                     </tr>
                 </table>
             </div>
+            <div class="col-md-8 offset-md-2 d-flex justify-content-between text-center">
+                <div>
+                    {{$transfer->src_stock_details->stock_name}}
+                    <br>
+                    {{$transfer->src_stock_details->incharge}}
+                </div>
+                <div>
+                    {{$transfer->dest_stock_details->stock_name}}
+                    <br>
+                    {{$transfer->dest_stock_details->incharge}}
+                </div>
+
+            </div>
         </div> <!-- end card body-->
     </div> <!-- end card -->
 </div><!-- end col-->
