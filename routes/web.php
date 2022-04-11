@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\StockController;
@@ -87,3 +88,7 @@ Route::get('/show-stock-items/{id?}', [TransferController::class, 'showStockItem
 Route::post('/transfer-store', [TransferController::class, 'store'])->name('transfer-store');
 Route::get('/show-transfer-details/{id}', [TransferController::class, 'show'])->name('show-transfer-details');
 Route::get('/show-transfer-bill/{id}', [TransferController::class, 'showBill'])->name('show-transfer-bill');
+// sales routes
+Route::get('/sale', [SaleController::class, 'create'])->name('sale');
+Route::get('/sale-list', [SaleController::class, 'index'])->name('sale-list');
+Route::get('/show-customer/{id?}', [SaleController::class, 'showCustomer'])->name('show-customer');
