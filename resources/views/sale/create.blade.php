@@ -18,7 +18,6 @@
         .select2-container--default .select2-search--dropdown .select2-search__field {
             outline: none !important;
         }
-
     </style>
     <div class="col-12 box-margin height-card">
         <div class="card">
