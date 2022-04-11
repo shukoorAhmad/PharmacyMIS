@@ -15,6 +15,7 @@
     .select2-container--default .select2-search--dropdown .select2-search__field {
         outline: none !important;
     }
+
 </style>
 <div class="row show_items">
     <div class="form-group col-md-3">
@@ -22,7 +23,7 @@
         <select name="item_id[]" class="form-control select2" required>
             <option value="" selected disabled>Please Select Item</option>
             @foreach ($items as $item)
-            <option value="{{ $item->item_id }}">{{ $item->item_name.' -- '.$item->dose.' -- '.$item->measure_details->unit }}</option>
+                <option value="{{ $item->item_id }}">{{ $item->item_name . ' -- ' . $item->dose . ' -- ' . $item->measure_details->unit }}</option>
             @endforeach
         </select>
     </div>
