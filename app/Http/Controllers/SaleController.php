@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Seller;
+use App\Models\StockItem;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -15,7 +16,9 @@ class SaleController extends Controller
 
     protected function create()
     {
-        return view('sale.create');
+        $data['items'] = StockItem::with('item_details')->where('quantity', '!=', 0)->get();
+        
+        return view('sale.create', $data);
     }
     protected function showCustomer($id)
     {

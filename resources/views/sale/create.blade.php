@@ -3,6 +3,9 @@
 @section('content')
     <link rel="stylesheet" href="{{ asset('public/css/default-assets/select2.min.css') }}">
     <style>
+        .select2-container{
+            width: 100% !important;
+        }
         .select2-container .select2-selection--single {
             height: 38px !important;
         }
@@ -38,7 +41,7 @@
                             </select>
                         </div>
                         <div class="col-md-4">
-                            <label id="show-label-name" class="w-100">Select</label>
+                            <label id="show-label-name">Select</label>
                             <select name="customer_id" id="customer_id" class="form-control select2" required>
                                 <option value="" selected disabled>Select Sale Type</option>
                             </select>
@@ -51,6 +54,32 @@
                                     <option value="{{ $i }}">{{ str_pad($i, 2, 0, STR_PAD_LEFT) }}%</option>
                                 @endfor
                             </select>
+                        </div>
+                        <hr style="height: 1px !important;width:100% !important;border-top: 1px solid rgba(0,0,0,.1);">
+                        <div class="col-md-4">
+                            <label>Select Item</label>
+                            <select name="item[]" class="form-control select2" required>
+                                <option value="" selected disabled>Select Item</option>
+                                @foreach ($items as $item)
+                                    <option value="{{$item->item_details->item_id}}">{{$item->item_details->item_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>Available To Stock</label>
+                            <input class="form-control" value="" placeholder="Available To Stock">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>Quantity</label>
+                            <input class="form-control" placeholder="Quantity" required>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>Sale Price</label>
+                            <input class="form-control" placeholder="Sale Price" required>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>Stock</label>
+                            <input class="form-control" placeholder="Stock" required>
                         </div>
                     </div>
                 </form>
