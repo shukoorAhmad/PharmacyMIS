@@ -14,4 +14,9 @@ class Item extends Model
     {
         return $this->hasOne(Measure_unit::class, 'measure_unit_id', 'measure_unit_id');
     }
+
+    public function stock_details()
+    {
+        return $this->hasOne(StockItem::class, 'item_id', 'item_id')->where('quantity', '!=', 0);
+    }
 }
