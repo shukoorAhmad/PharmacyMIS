@@ -21,12 +21,7 @@ class SaleController extends Controller
 
     protected function create()
     {
-<<<<<<< HEAD
         $data['items'] = StockItem::where('quantity', '!=', 0)->orderBy('stock_item_id', 'DESC')->limit(10)->get();
-=======
-        $data['items'] = StockItem::with('item_details')->where('quantity', '!=', 0)->get();
-        
->>>>>>> bd4ccdfcebef50383511ba2f49450df58f4becb9
         return view('sale.create', $data);
     }
     protected function showCustomer($id)
