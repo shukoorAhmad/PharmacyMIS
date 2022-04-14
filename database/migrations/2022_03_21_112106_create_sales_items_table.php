@@ -17,7 +17,7 @@ class CreateSalesItemsTable extends Migration
             $table->id('sale_item_id');
             $table->integer('item_id');
             $table->integer('quantity');
-            $table->float('purchase_price');
+            $table->float('sale_price');
             $table->integer('discount')->default(0);
             $table->integer('sale_id');
             $table->timestamps();

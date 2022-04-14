@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
-use App\Models\Item;
+use App\Models\Sales;
+use App\Models\SalesItem;
 use App\Models\Seller;
 use App\Models\StockItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use PHPUnit\Framework\Constraint\IsEmpty;
-
-use function PHPUnit\Framework\isEmpty;
 
 class SaleController extends Controller
 {
@@ -86,22 +84,26 @@ class SaleController extends Controller
         $data .= "<div class='col-md-3 form-group'>";
         $data .= "<label>Item Name:</label>";
         $data .= "<input class='form-control' readonly value='" . $query->item_details->item_name . ' ' . $query->item_details->dose . ' ' . $query->item_details->measure_details->unit . "'>";
+        $data .= "<input type='hidden' value='" . $query->item_id . "' name='item_id[]'>";
+        $data .= "<input type='hidden' value='" . $query->stock_item_id . "' name='stock_item_id[]'>";
         $data .= "</div>";
         $data .= "<div class='col-md-2 form-group'>";
         $data .= "<label>Available (Carton):</label>";
         $data .= "<input class='form-control' readonly value='" . $query->quantity . "'>";
-        $data .= "</div>";
-        $data .= "<div class='col-md-2 form-group'>";
-        $data .= "<label>Sale Price:</label>";
-        $data .= "<input class='form-control' value='" . $query->sale_price . "'>";
+        $data .= "<input type='hidden' value='" . $query->item_details->item_name . "' name='quantity[]'>";
+        $data .= "<input type='hidden' value='" . $query->item_details->quantity_per_carton . "' name='qty_per_carton[]'>";
         $data .= "</div>";
         $data .= "<div class='col-md-2 form-group'>";
         $data .= "<label>Sale Amount (Per):</label>";
-        $data .= "<input class='form-control' value='1'>";
+        $data .= "<input class='form-control' value='1' name='sale_amount[]'>";
+        $data .= "</div>";
+        $data .= "<div class='col-md-2 form-group'>";
+        $data .= "<label>Sale Price:</label>";
+        $data .= "<input class='form-control' value='" .  number_format($query->sale_price / $query->item_details->quantity_per_carton, 2) . "' name='sale_price[]'>";
         $data .= "</div>";
         $data .= "<div class='col-md-2 form-group'>";
         $data .= "<label>Discount:</label>";
-        $data .= "<input type='number' class='form-control' value='0'>";
+        $data .= "<input type='number' class='form-control' value='0' name='discount[]'>";
         $data .= "</div>";
         $data .= "<div class='col-md-1'>";
         $data .= "<a class='btn btn-danger mt-4 remove' style='padding: 7px 1.75rem !important;margin-left:-12px !important;margin-top:30px !important;font-size:14px !important;'><span class='fa fa-trash-o text-white'></span></a>";
@@ -112,7 +114,27 @@ class SaleController extends Controller
 
     protected function store(Request $request)
     {
-        //
+        $request->validate([
+            'sale_type' => 'required',
+            'customer_id' => 'required',
+        ]);
+        $sale = new Sales();
+        $sale->sale_type = $request->sale_type;
+        $sale->customer_id = $request->customer_id;
+        if ($sale->save()) {
+            foreach ($request->quantity as $key => $value) {
+                $sale_item = new SalesItem();
+                $sale_item->item_id = $request->item_id[$key];
+                $sale_item->quantity = $request->sale_amount[$key];
+                $sale_item->sale_price = $request->sale_price[$key];
+                $sale_item->discount = $request->discount[$key];
+                $sale_item->sale_id = $sale->sale_id;
+                $sale_item->save();
+                $update_items = StockItem::findOrFail($request->stock_item_id[$key]);
+                $update_items->quantity = $update_items->quantity - $request->sale_amount[$key];
+                $update_items->save();
+            }
+        }
     }
 
     protected function show($id)

@@ -16,7 +16,7 @@ class CreateStockItemsTable extends Migration
         Schema::create('stock_items', function (Blueprint $table) {
             $table->id('stock_item_id');
             $table->integer('item_id');
-            $table->integer('quantity');
+            $table->float('quantity');
             $table->float('purchase_price');
             $table->float('sale_price');
             $table->date('expiry_date');

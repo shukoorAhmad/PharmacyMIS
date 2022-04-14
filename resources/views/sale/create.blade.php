@@ -26,7 +26,7 @@
                 <h4 class="card-title">New Sale</h4>
                 <a href="{{ route('seller-list') }}" class="btn btn-success mb-3">Sales List</a>
             </div>
-            <form method="POST" action="{{ route('seller-store') }}">
+            <form method="POST" action="{{ route('sale-store') }}">
                 @csrf
                 <div class="row">
                     <div class="col-md-4">
@@ -45,7 +45,7 @@
                     </div>
                     <div class="col-md-4 visibility-hidden" id="percentage">
                         <label>Seller Percentage</label>
-                        <select name="percentage" class="form-control select2" style="width: 100% !important;" required>
+                        <select name="percentage" class="form-control select2" style="width: 100% !important;">
                             <option value="" selected disabled>Select Percentage</option>
                             @for ($i = 1; $i <= 10; $i++) <option value="{{ $i }}">{{ str_pad($i, 2, 0, STR_PAD_LEFT) }}%</option>
                                 @endfor
