@@ -84,7 +84,7 @@ class SaleController extends Controller
         $i = 1 + $seesion;
         Session::put('i', $i);
         $query = StockItem::findOrFail($stock_item_id);
-        $data = "<div class='row field'>";
+        $data = "<div class='row field p-0 m-0'>";
         $data .= "<div class='col-md-3 form-group'>";
         $data .= "<label>Item Name:</label>";
         $data .= "<input class='form-control' readonly value='" . $query->item_details->item_name . ' ' . $query->item_details->dose . ' ' . $query->item_details->measure_details->unit . "'>";
