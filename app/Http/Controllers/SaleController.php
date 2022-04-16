@@ -9,6 +9,7 @@ use App\Models\Seller;
 use App\Models\StockItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Session;
 
 class SaleController extends Controller
 {
@@ -79,7 +80,9 @@ class SaleController extends Controller
     }
     protected function showSelectedItem($stock_item_id, $i)
     {
-        $i = 1 + $i;
+        $seesion = Session::get('i');
+        $i = 1 + $seesion;
+        Session::put('i', $i);
         $query = StockItem::findOrFail($stock_item_id);
         $data = "<div class='row field'>";
         $data .= "<div class='col-md-3 form-group'>";
