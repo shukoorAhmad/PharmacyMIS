@@ -17,7 +17,7 @@
                         <label class="col-form-label">Province</label>
                         <select name="province" class="form-control select2 @error('province') is-invalid @enderror" required>
                             @foreach($province as $pro)
-                            <option value="{{$pro->province_id}}" {{$site->province==$pro->province_id?'selected':''}}>{{$pro->en_province}}</option>
+                            <option value="{{$pro->province_id}}" {{$site->province==$pro->province_id?'selected':''}}>{{$pro->name_en}}</option>
                             @endforeach
                         </select>
                     </div>

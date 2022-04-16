@@ -28,7 +28,7 @@
             </div>
             <table class="table mr-2">
                 <tr>
-                    <th>To {{$order->supplier_detials->name}}
+                    <th>From {{$order->supplier_detials->name}}
                     </th>
                     <th>Invoice No {{$order->order_id}}</th>
                     <th>Order Date: {{$order->order_date}}</th>
@@ -44,8 +44,8 @@
                             <th>No</th>
                             <th>Item</th>
                             <th>Quantity</th>
-                            <th>Purchase Price (carton)</th>
-                            <th>Sale Price (carton)</th>
+                            <th>Purchase Price</th>
+                            <th>Sale Price</th>
                             <th>Expiry Date</th>
                         </tr>
                         @php
@@ -60,11 +60,12 @@
                             <th>{{$ord->quantity}}
                                 <input type="hidden" value="{{$ord->quantity}}" name="quantity[]">
                             </th>
+                            <?php $pur = App\Models\StockItem::where('item_id', $ord->items_details->item_id)->orderBy('stock_item_id', 'DESC')->first(); ?>
                             <th>
-                                <input type="number" class="form-control" name="purchase_price[]" required>
+                                <input class="form-control" value="@isset($pur->purchase_price){{$pur->purchase_price}}@endisset" name="purchase_price[]" required>
                             </th>
                             <th>
-                                <input type="number" class="form-control" name="sale_price[]" required>
+                                <input type="number" class="form-control" value="@isset($pur->sale_price){{$pur->sale_price}}@endisset" name="sale_price[]" required>
                             </th>
                             <th>
                                 <input type="date" class="form-control" name="expiry_date[]" required>

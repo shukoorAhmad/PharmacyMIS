@@ -88,7 +88,7 @@
     <script src="{{ asset('public/js/default-assets/select2.min.js') }}"></script>
     <script>
         $('#add_items').click(function() {
-            $.get("{{ route('addNewItem') }}/" + "{{ $order->supplier_id }}", function(response) {
+            $.get("{{ route('addNewItem') }}", function(response) {
                 $('#showItems').append(response);
             });
         });

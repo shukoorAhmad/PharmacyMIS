@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PurchaseController;
@@ -95,3 +96,10 @@ Route::get('/show-customer/{id?}', [SaleController::class, 'showCustomer'])->nam
 Route::get('/filter-items', [SaleController::class, 'filterItems'])->name('filter-items');
 Route::get('/show-selected-item/{stock_item_id?}', [SaleController::class, 'showSelectedItem'])->name('show-selected-item');
 Route::post('/sale-store', [SaleController::class, 'store'])->name('sale-store');
+
+// expense routes
+Route::get('/expense', [ExpenseController::class, 'create'])->name('expense');
+Route::get('/expense-list', [ExpenseController::class, 'index'])->name('expense-list');
+Route::post('/expense-store', [ExpenseController::class, 'store'])->name('expense-store');
+Route::get('/expense-edit', [ExpenseController::class, 'edit'])->name('expense-edit');
+Route::post('/expense-update', [ExpenseController::class, 'update'])->name('expense-update');

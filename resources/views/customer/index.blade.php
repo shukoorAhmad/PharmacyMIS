@@ -4,7 +4,8 @@
 <link rel="stylesheet" href="{{ asset('public/css/default-assets/datatables.bootstrap4.css') }}">
 <link rel="stylesheet" href="{{ asset('public/css/default-assets/responsive.bootstrap4.css') }}">
 <style>
-    .odd>td, .even>td{
+    .odd>td,
+    .even>td {
         text-align: center !important;
     }
 </style>
@@ -22,9 +23,9 @@
                         <th>ID</th>
                         <th>Pharmacy Name</th>
                         <th>Customer Full Name</th>
-                        <th>Contact No 1</th>
-                        <th>Contact No 2</th>
+                        <th>Contact No</th>
                         <th>Site</th>
+                        <th>Loan</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -80,10 +81,10 @@
                     "data": 'contact_no'
                 },
                 {
-                    "data": 'contact_no_2'
+                    "data": 'site'
                 },
                 {
-                    "data": 'site'
+                    "data": 'loan'
                 },
                 {
                     "data": 'action'

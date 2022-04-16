@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMeasureUnitsTable extends Migration
+class CreateExchangeRatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateMeasureUnitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('measure_units', function (Blueprint $table) {
-            $table->id('measure_unit_id');
-            $table->string('unit',10);
+        Schema::create('exchange_rates', function (Blueprint $table) {
+            $table->id('exchange_rate_id');
+            $table->float('usd_afg');
+            $table->float('usd_kal');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateMeasureUnitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('measure_unites');
+        Schema::dropIfExists('exchange_rates');
     }
 }

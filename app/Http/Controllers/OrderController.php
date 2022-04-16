@@ -22,7 +22,13 @@ class OrderController extends Controller
                     return $data->supplier_detials->name;
                 })
                 ->addColumn('status_design', function ($data) {
-                    return  OrderItem::where('order_id', $data->order_id)->sum('quantity');
+                    $qty = OrderItem::where('order_id', $data->order_id)->get();
+                    $sum = null;
+                    foreach ($qty as $quantity) {
+                        $sum += $quantity->quantity / $quantity->items_details->quantity_per_carton;
+                    }
+                    $qty = OrderItem::where('order_id', $data->order_id)->sum('quantity');
+                    return number_format($sum,2) . ' Carton(s) | ' . $qty . ' pcs';
                 })
                 ->addColumn('purchase', function ($data) {
                     return  $data->status == 0 ? '<a href="' . route('purchase-order', $data->order_id) . '" class="edit btn btn-outline-info btn-sm"> <i class="zmdi zmdi-shopping-cart"></i> Purchase</a>'
@@ -85,7 +91,7 @@ class OrderController extends Controller
     protected function edit($id)
     {
         $data['order'] = Order::with('order_items')->findOrFail($id);
-        $data['items'] = Item::where('supplier_id', $data['order']->supplier_id)->get();
+        $data['items'] = Item::all();
         $data['supplier'] = Supplier::findOrFail($data['order']->supplier_id);
 
         return view('order.edit', $data);

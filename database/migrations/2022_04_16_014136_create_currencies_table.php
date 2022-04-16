@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMeasureUnitsTable extends Migration
+class CreateCurrenciesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateMeasureUnitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('measure_units', function (Blueprint $table) {
-            $table->id('measure_unit_id');
-            $table->string('unit',10);
+        Schema::create('currencies', function (Blueprint $table) {
+            $table->id('currency_id');
+            $table->string('currency', 3);
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateMeasureUnitsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('measure_unites');
+        Schema::dropIfExists('currencies');
     }
 }

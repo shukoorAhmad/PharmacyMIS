@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ExchangeRate;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +14,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // User::factory(10)->create();
+        $this->call([
+            ProvinceSeeder::class,
+            SiteSeeder::class,
+            SupplierSeeder::class,
+            CustomerSeeder::class,
+            StockSeeder::class,
+            ItemSeeder::class,
+            SellerSeeder::class,
+            MeasureUnitSeeder::class,
+            CurrencySeeder::class,
+            ExchangeRateSeeder::class
+
+        ]);
     }
 }

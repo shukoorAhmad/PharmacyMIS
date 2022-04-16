@@ -34,7 +34,13 @@ class PurchaseController extends Controller
                     return $data->supplier_details->name;
                 })
                 ->addColumn('total_carton', function ($data) {
-                    return PurchaseItem::where('purchase_id', $data->purchase_id)->sum('quantity');
+                    $qty = PurchaseItem::where('purchase_id', $data->order_id)->get();
+                    $sum = null;
+                    foreach ($qty as $quantity) {
+                        $sum += $quantity->quantity / $quantity->items_details->quantity_per_carton;
+                    }
+                    $qty = PurchaseItem::where('purchase_id', $data->purchase_id)->sum('quantity');
+                    return number_format($sum, 2) . ' Carton(s) | ' . $qty . ' pcs';
                 })
                 ->addColumn('order_no', function ($data) {
                     return $data->order_id == 0 ? '<span class="badge badge-success pr-4 pl-4">Direct Purchase</span>' : '<span class="badge bg-teal"><a class="text-white" href="' . route('view-order-details', $data->order_id) . '">View Order Bill No - ' . $data->order_id . '</span></a>';

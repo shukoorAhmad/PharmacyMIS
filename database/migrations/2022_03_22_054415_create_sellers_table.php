@@ -15,11 +15,11 @@ class CreateSellersTable extends Migration
     {
         Schema::create('sellers', function (Blueprint $table) {
             $table->id('seller_id');
-            $table->string('seller_name');
-            $table->string('seller_last_name')->nullable();
-            $table->string('address')->nullable();
-            $table->integer('contact_no');
-            $table->integer('contact_no_2')->nullable();
+            $table->string('seller_name',50);
+            $table->string('seller_last_name',50)->nullable();
+            $table->string('address',50)->nullable();
+            $table->string('contact_no',10);
+            $table->string('contact_no_2',10)->nullable();
             $table->timestamps();
         });
     }

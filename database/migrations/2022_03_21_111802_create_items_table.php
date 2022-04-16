@@ -15,9 +15,9 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id('item_id');
-            $table->string('item_name');
+            $table->string('item_name',100);
             $table->integer('measure_unit_id');
-            $table->float('dose');
+            $table->float('dose')->nullable();
             $table->integer('quantity_per_carton');
             $table->timestamps();
         });

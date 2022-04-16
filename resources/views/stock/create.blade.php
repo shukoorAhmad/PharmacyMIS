@@ -11,7 +11,7 @@
             <form method="POST" action="{{ route('stockstore') }}">
                 @csrf
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-3">
                         <label class="col-form-label">Stock Name</label>
                         <input class="form-control  @error('stock_name') is-invalid @enderror" name="stock_name" value="{{ old('stock_name') }}" placeholder="Write Your Stock Here..." autofocus required>
                         @error('stock_name')
@@ -20,7 +20,7 @@
                         </span>
                         @enderror
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-3">
                         <label class="col-form-label">Stock Address</label>
                         <input class="form-control  @error('stock_address') is-invalid @enderror" name="stock_address" value="{{ old('stock_address') }}" placeholder="Write Your Stock Address Here..." autofocus required>
                         @error('stock_address')
@@ -29,7 +29,7 @@
                         </span>
                         @enderror
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-3">
                         <label class="col-form-label">Incharge Name</label>
                         <input class="form-control  @error('incharge_name') is-invalid @enderror" name="incharge_name" value="{{ old('incharge_name') }}" placeholder="Write Your Incharge Here..." required>
                         @error('incharge_name')
@@ -38,7 +38,7 @@
                         </span>
                         @enderror
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-3">
                         <label class="col-form-label">Contact No</label>
                         <input type="number" class="form-control  @error('contact_no') is-invalid @enderror" name="contact_no" value="{{ old('contact_no') }}" placeholder="Write Your Stock Here..." required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxLength="10">
                         @error('contact_no')

@@ -45,13 +45,21 @@ class CustomerController extends Controller
                     return $data->customer_name . " " . $data->customer_last_name;
                 })
                 ->addColumn('site', function ($data) {
-                    return $data->site->site_name . ' ' . $data->site->prov_id->en_province;
+                    return $data->site->site_name . ' | ' . $data->site->prov_id->name_en;
+                })
+                ->addColumn('contact_no', function ($data) {
+                    return $data->contact_no . ' | ' . $data->contact_no . ' | ' . $data->contact_no_2;
+                })
+                ->addColumn('loan', function ($data) {
+                    return 1000;
                 })
                 ->addColumn('action', function ($data) {
                     return '<a data-id="' . $data->customer_id . '" class="edit"><i class="zmdi zmdi-edit btn btn-info btn-circle"></i></a>';
                 })
                 ->rawColumns(['full_name'])
                 ->rawColumns(['site'])
+                ->rawColumns(['contact_no'])
+                ->rawColumns(['loan'])
                 ->rawColumns(['action'])
                 ->make(true);
         }

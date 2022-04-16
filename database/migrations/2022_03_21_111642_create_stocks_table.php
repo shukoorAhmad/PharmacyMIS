@@ -15,10 +15,10 @@ class CreateStocksTable extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id('stock_id');
-            $table->string('stock_name');
+            $table->string('stock_name',100);
             $table->string('stock_address');
-            $table->string('incharge')->nullable();
-            $table->integer('contact_no')->nullable();
+            $table->string('incharge',50)->nullable();
+            $table->string('contact_no',10)->nullable();
             $table->timestamps();
         });
     }
