@@ -94,7 +94,7 @@ Route::get('/sale', [SaleController::class, 'create'])->name('sale');
 Route::get('/sale-list', [SaleController::class, 'index'])->name('sale-list');
 Route::get('/show-customer/{id?}', [SaleController::class, 'showCustomer'])->name('show-customer');
 Route::get('/filter-items', [SaleController::class, 'filterItems'])->name('filter-items');
-Route::get('/show-selected-item/{stock_item_id?}', [SaleController::class, 'showSelectedItem'])->name('show-selected-item');
+Route::get('/show-selected-item/{stock_item_id?}/{i?}', [SaleController::class, 'showSelectedItem'])->name('show-selected-item');
 Route::post('/sale-store', [SaleController::class, 'store'])->name('sale-store');
 
 // expense routes
