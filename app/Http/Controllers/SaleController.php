@@ -77,8 +77,9 @@ class SaleController extends Controller
 
         return response()->json($response);
     }
-    protected function showSelectedItem($stock_item_id)
+    protected function showSelectedItem($stock_item_id, $i)
     {
+        $i = 1 + $i;
         $query = StockItem::findOrFail($stock_item_id);
         $data = "<div class='row field p-0 m-0'>";
         $data .= "<div class='col-md-3 form-group'>";
@@ -91,16 +92,16 @@ class SaleController extends Controller
         $data .= "<div class='row'>";
         $data .= "<div class='col-md-3 form-group'>";
         $data .= "<label>Available pcs:</label>";
-        $data .= "<input class='form-control' readonly value='" . $query->quantity . "'>";
+        $data .= "<input class='form-control' readonly  id='qty_" . $i . "' value='" . $query->quantity . "'>";
         $data .= "<input type='hidden' value='" . $query->item_details->item_name . "' name='quantity[]'>";
         $data .= "</div>";
         $data .= "<div class='col-md-3 form-group'>";
         $data .= "<label>Sale Amount (Per):</label>";
-        $data .= "<input type='number' max='".$query->quantity."' class='form-control' value='1' name='sale_amount[]'>";
+        $data .= "<input type='number' max='" . $query->quantity . "' id='sale-amount" . $i . "' sp-id='" . $i . "' class='form-control sale-amount' value='1' name='sale_amount[]'>";
         $data .= "</div>";
         $data .= "<div class='col-md-3 form-group'>";
         $data .= "<label>Sale Price:</label>";
-        $data .= "<input class='form-control' value='" .  number_format($query->sale_price, 2) . "' name='sale_price[]'>";
+        $data .= "<input type='number' step='any' class='form-control sale-price' id='sale-price" . $i . "'  value='" .  $query->sale_price . "' name='sale_price[]'>";
         $data .= "</div>";
         $data .= "<div class='col-md-3 form-group'>";
         $data .= "<label>Discount:</label>";
@@ -110,10 +111,10 @@ class SaleController extends Controller
         $data .= "</div>";
         $data .= "<div classs='col-md-2'>";
         $data .= "<label>Total:</label>";
-        $data .= "<input class='form-control' value='" . number_format($query->sale_price, 1) . "' readonly id='total'>";
+        $data .= "<input class='form-control' id='total-value" . $i . "' sp-id='" . $i . "' value='" . number_format($query->sale_price, 1) . "' readonly id='total'>";
         $data .= "</div>";
         $data .= "<div class='col-md-1'>";
-        $data .= "<a class='btn btn-danger mt-4 remove' style='padding: 7px 1.75rem !important;margin-left:-12px !important;margin-top:30px !important;font-size:14px !important;'><span class='fa fa-trash-o text-white'></span></a>";
+        $data .= "<a class='btn btn-danger mt-4 remove' style='padding: 7px 1.75rem !important;margin-top:30px !important;font-size:14px !important;'><span class='fa fa-trash-o text-white'></span></a>";
         $data .= "</div>";
         $data .= "</div>";
         return $data;
