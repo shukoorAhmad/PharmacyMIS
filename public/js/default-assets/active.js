@@ -1,4 +1,4 @@
-(function ($) {
+(function($) {
     "use strict";
 
     // :: Variables
@@ -9,9 +9,9 @@
     var fullScreen = $("body")[0];
 
     // :: Preloader Active Code
-    ecaps_window.on('load', function () {
-        $('#preloader-area').fadeOut('slow', function () {
-            $(this).remove();
+    ecaps_window.on('load', function() {
+        $('#preloader-area').fadeOut('slow', function() {
+            $(this).hide();
         });
     });
 
@@ -197,42 +197,42 @@
     }
 
     // :: Menu Active Code
-    $("#menuCollasped").on("click", function () {
+    $("#menuCollasped").on("click", function() {
         pageWrapper.toggleClass("menu-collasped-active");
     });
 
-    $("#mobileMenuOpen").on("click", function () {
+    $("#mobileMenuOpen").on("click", function() {
         pageWrapper.toggleClass("mobile-menu-active");
     });
 
-    $("#rightSideTrigger").on("click", function () {
+    $("#rightSideTrigger").on("click", function() {
         $(".right-side-content").toggleClass("active");
     });
 
-    sideMenuArea.on("mouseenter", function () {
+    sideMenuArea.on("mouseenter", function() {
         pageWrapper.addClass("sidemenu-hover-active");
         pageWrapper.removeClass("sidemenu-hover-deactive");
     });
 
-    sideMenuArea.on("mouseleave", function () {
+    sideMenuArea.on("mouseleave", function() {
         pageWrapper.removeClass("sidemenu-hover-active");
         pageWrapper.addClass("sidemenu-hover-deactive");
     });
 
     // :: Setting Panel Active Code
-    $("#settingTrigger").on("click", function () {
+    $("#settingTrigger").on("click", function() {
         $(".choose-layout-area").toggleClass("active");
     });
 
-    $("#settingCloseIcon").on("click", function () {
+    $("#settingCloseIcon").on("click", function() {
         $(".choose-layout-area").removeClass("active");
     })
 
-    $("#quicksettingTrigger").on("click", function () {
+    $("#quicksettingTrigger").on("click", function() {
         $(".quick-settings-panel").toggleClass("active");
     });
 
-    $("#quicksettingCloseIcon").on("click", function () {
+    $("#quicksettingCloseIcon").on("click", function() {
         $(".quick-settings-panel").removeClass("active");
     })
 
@@ -302,9 +302,9 @@
 
     // :: Gallery Active Code
     if ($.fn.imagesLoaded) {
-        $('.reen-portfolio').imagesLoaded(function () {
+        $('.reen-portfolio').imagesLoaded(function() {
             // filter items on button click
-            $('.portfolio-menu').on('click', 'button', function () {
+            $('.portfolio-menu').on('click', 'button', function() {
                 var filterValue = $(this).attr('data-filter');
                 $grid.isotope({
                     filter: filterValue
@@ -321,7 +321,7 @@
         });
     }
 
-    $('.portfolio-menu button.btn').on('click', function () {
+    $('.portfolio-menu button.btn').on('click', function() {
         $('.portfolio-menu button.btn').removeClass('active');
         $(this).addClass('active');
     })
@@ -363,17 +363,17 @@
 
     // :: Accordian Active Code
     dd.filter(":nth-child(n+3)").hide();
-    $("dl").on("click", "dt", function () {
+    $("dl").on("click", "dt", function() {
         $(this).next().slideDown(500).siblings("dd").slideUp(500);
     });
 
     // :: PreventDefault a Click
-    $('a[href="#"]').on("click", function ($) {
+    $('a[href="#"]').on("click", function($) {
         $.preventDefault();
     });
 
     // :: Tooltip Active Code
-    $(function () {
+    $(function() {
         $('[data-toggle="tooltip"]').tooltip()
     })
 

@@ -7,9 +7,9 @@ use App\Models\Sales;
 use App\Models\SalesItem;
 use App\Models\Seller;
 use App\Models\StockItem;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Session;
 
 class SaleController extends Controller
 {
