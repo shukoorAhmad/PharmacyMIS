@@ -4,48 +4,47 @@ namespace App\Http\Controllers;
 
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use DataTables;
 
 class SupplierController extends Controller
 {
-    protected function index()
+    protected function index(Request $request)
     {
-        $data['supplier'] = Supplier::all();
-        return view('supplier.create', $data);
+        if ($request->ajax()) {
+            $data = Supplier::all();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($data) {
+                    return  "<a class='edit_btn ml-1' style='cursor: pointer;' data-id='" . $data->supplier_id . "' data-name='" . $data->name . "' data-email='" . $data->email . "' data-cno='" . $data->contact_no . "' ><i class='btn btn-outline-primary btn-circle fa fa-edit'></i></a>";
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('supplier.index');
     }
 
     protected function store(Request $request)
     {
-        $request->validate(
-            [
-                'supplier_name' => 'required',
-            ]
-        );
-        $site = new Supplier();
-        $site->name = $request->supplier_name;
-        $site->email = $request->email;
-        $site->contact_no = $request->contact_no;
-        $site->save();
-        return redirect()->back()->with('success_insert', 'Supplier Successfully Added');
-    }
-
-    protected function edit($id)
-    {
-        $data['supplier'] = Supplier::findOrFail($id);
-        return view('supplier.edit', $data);
-    }
-
-    protected function update(Request $request)
-    {
-        $request->validate(
-            [
-                'supplier_name' => 'required',
-            ]
-        );
-        $supplier = Supplier::findOrFail($request->id);
-        $supplier->name = $request->supplier_name;
-        $supplier->email = $request->email;
-        $supplier->contact_no = $request->contact_no;
-        $supplier->save();
-        return redirect()->back()->with('success_update', 'Supplier Successfully Updated');
+        $validator = Validator::make($request->all(), [
+            'supplier_name' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return json_encode($validator->errors()->toArray());
+        }
+        if ($request->id == '0') {
+            $site = new Supplier();
+            $site->name = $request->supplier_name;
+            $site->email = $request->email;
+            $site->contact_no = $request->contact_no;
+            $site->save();
+        } else {
+            $site = Supplier::findOrFail($request->id);
+            $site->name = $request->supplier_name;
+            $site->email = $request->email;
+            $site->contact_no = $request->contact_no;
+            $site->save();
+        }
+        return true;
     }
 }

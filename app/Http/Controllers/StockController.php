@@ -4,52 +4,50 @@ namespace App\Http\Controllers;
 
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use DataTables;
 
 class StockController extends Controller
 {
-    protected function index()
+    protected function index(Request $request)
     {
-        $data['stocks'] = Stock::all();
-
-        return view('stock/create', $data);
+        if ($request->ajax()) {
+            $data = Stock::all();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($data) {
+                    return  "<a class='edit_btn ml-1' style='cursor: pointer;' data-id='" . $data->stock_id . "' data-name='" . $data->stock_name . "' data-address='" . $data->stock_address . "' data-incharge='" . $data->incharge . "' data-cno='" . $data->contact_no . "' ><i class='btn btn-outline-primary btn-circle fa fa-edit'></i></a>";
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('stock.index');
     }
 
     protected function store(Request $request)
     {
-        $validate = $request->validate([
-            'stock_name' => ['required', 'string'],
-            'stock_address' => ['required', 'string']
+        $validator = Validator::make($request->all(), [
+            'stock_name' => 'required',
+            'stock_address' => 'required'
         ]);
-
-        $store = new Stock();
-        $store->stock_name = $request->stock_name;
-        $store->stock_address = $request->stock_address;
-        $store->incharge = $request->incharge_name;
-        $store->contact_no = $request->contact_no;
-        $store->save();
-        return redirect()->back()->with('success_insert', 'Stock Successfully Added');
-    }
-
-    protected function edit($id)
-    {
-        $data['stock'] = Stock::findOrFail($id);
-
-        return view('stock/edit', $data);
-    }
-
-    protected function update(Request $request)
-    {
-        $validate = $request->validate([
-            'stock_name' => ['required', 'string'],
-            'stock_address' => ['required', 'string']
-        ]);
-
-        $update = Stock::findOrFail($request->id);
-        $update->stock_name = $request->stock_name;
-        $update->stock_address = $request->stock_address;
-        $update->incharge = $request->incharge_name;
-        $update->contact_no = $request->contact_no;
-        $update->save();
-        return redirect()->back()->with('success_update', 'Stock Successfully Updated');
+        if ($validator->fails()) {
+            return json_encode($validator->errors()->toArray());
+        }
+        if ($request->id == '0') {
+            $store = new Stock();
+            $store->stock_name = $request->stock_name;
+            $store->stock_address = $request->stock_address;
+            $store->incharge = $request->incharge;
+            $store->contact_no = $request->contact_no;
+            $store->save();
+        } else {
+            $store = Stock::findOrFail($request->id);
+            $store->stock_name = $request->stock_name;
+            $store->stock_address = $request->stock_address;
+            $store->incharge = $request->incharge;
+            $store->contact_no = $request->contact_no;
+            $store->save();
+        }
+        return true;
     }
 }

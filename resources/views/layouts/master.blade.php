@@ -33,6 +33,26 @@
             background: #5867dd !important;
         }
 
+        .select2-container .select2-selection--single {
+            height: 38px !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 34px !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            top: 6px !important;
+        }
+
+        .select2-container--default .select2-search--dropdown .select2-search__field {
+            outline: none !important;
+        }
+
+        .odd>td,
+        .even>td {
+            text-align: center !important;
+        }
     </style>
 </head>
 
@@ -78,12 +98,8 @@
                             <img class="flex-30-img mr-2" src="{{ asset('public/img/shop-img/l5.png') }}" alt="">English<i class="arrow_carrot-down"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                            <p class="font-weight-normal dropdown-header float-left mb-0">Language</p>
-
-                            <a href="#" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/shop-img/l2.jpg') }}" alt=""> LOP</a>
-                            <a href="#" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/shop-img/l3.jpg') }}" alt=""> KYI</a>
-                            <a href="#" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/shop-img/l4.jpg') }}" alt=""> RTY</a>
-                            <a href="#" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/shop-img/l1.jpg') }}" alt=""> IND</a>
+                            <a href="#" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/shop-img/l2.jpg') }}" alt=""> Dari</a>
+                            <a href="#" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/shop-img/l1.jpg') }}" alt=""> Pashto</a>
                         </div>
                     </li>
 
@@ -205,7 +221,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('customer-list') }}">
+                        <a class="nav-link" href="{{ route('customer') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box link-icon">
                                 <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
@@ -258,7 +274,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('seller-list') }}">
+                        <a class="nav-link" href="{{ route('seller') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box link-icon">
                                 <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>

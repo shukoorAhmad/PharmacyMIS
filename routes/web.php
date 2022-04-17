@@ -26,13 +26,11 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 // site crud
 Route::get('/site', [SiteController::class, 'index'])->name('site');
 Route::post('/sitestore', [SiteController::class, 'store'])->name('sitestore');
-Route::get('/editsite/{id?}', [SiteController::class, 'edit'])->name('editsite');
-Route::post('/siteUpdate', [SiteController::class, 'update'])->name('siteUpdate');
+
 // supplier crud
 Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier');
 Route::post('/supplierstore', [SupplierController::class, 'store'])->name('supplierstore');
-Route::get('/supplieredit/{id?}', [SupplierController::class, 'edit'])->name('supplieredit');
-Route::post('/supplierupdate', [SupplierController::class, 'update'])->name('supplierupdate');
+
 // items crud
 Route::get('/items', [ItemController::class, 'create'])->name('items');
 Route::get('/showItemField', [ItemController::class, 'showItemField'])->name('showItemField');
@@ -42,18 +40,12 @@ Route::get('/edititem/{id?}', [ItemController::class, 'edit'])->name('edititem')
 Route::post('/itemupdate', [ItemController::class, 'update'])->name('itemupdate');
 
 // Customer Routes
-Route::get('/customer', [CustomerController::class, 'create'])->name('customer');
-Route::post('/customer-store', [CustomerController::class, 'store'])->name('customer-store');
-Route::get('/customer-list', [CustomerController::class, 'index'])->name('customer-list');
-Route::get('/show-customers', [CustomerController::class, 'showCustomers'])->name('show-customers');
-Route::get('/edit-customer/{id?}', [CustomerController::class, 'edit'])->name('edit-customer');
-Route::post('/update-customer', [CustomerController::class, 'update'])->name('update-customer');
+Route::get('/customer', [CustomerController::class, 'index'])->name('customer');
+Route::post('/customerstore', [CustomerController::class, 'store'])->name('customerstore');
 
 // Stock Routes
 Route::get('/stock', [StockController::class, 'index'])->name('stock');
 Route::post('/stockstore', [StockController::class, 'store'])->name('stockstore');
-Route::get('/editstock/{id?}', [StockController::class, 'edit'])->name('editstock');
-Route::post('/stockupdate', [StockController::class, 'update'])->name('stockupdate');
 
 // Order Routes
 Route::get('/order-list', [OrderController::class, 'index'])->name('order-list');
@@ -73,12 +65,9 @@ Route::get('/add_new_item', [PurchaseController::class, 'add_new_item'])->name('
 Route::get('view-purchase-details/{id}', [PurchaseController::class, 'show'])->name('view-purchase-details');
 
 // Seller Routes
-Route::get('/seller', [SellerController::class, 'create'])->name('seller');
-Route::post('/seller-store', [SellerController::class, 'store'])->name('seller-store');
-Route::get('/seller-list', [SellerController::class, 'index'])->name('seller-list');
-Route::get('/show-seller', [SellerController::class, 'showSellers'])->name('show-seller');
-Route::get('/edit-seller/{id?}', [SellerController::class, 'edit'])->name('edit-seller');
-Route::post('/update-seller', [SellerController::class, 'update'])->name('update-seller');
+Route::get('/seller', [SellerController::class, 'index'])->name('seller');
+Route::post('/sellerstore', [SellerController::class, 'store'])->name('sellerstore');
+
 // transfer routes
 Route::get('/transfer-list', [TransferController::class, 'index'])->name('transfer-list');
 Route::get('/transfer', [TransferController::class, 'create'])->name('transfer');

@@ -22,7 +22,7 @@ class SiteController extends Controller
                     return $data->province_details->name_en;
                 })
                 ->addColumn('action', function ($data) {
-                    return  "<a class='edit_btn ml-1' style='cursor: pointer;' data-id=" . $data->site_id . " data-site=" . $data->site_name . " data-province=" . $data->province . " ><i class='btn btn-outline-primary btn-circle fa fa-edit'></i></a>";
+                    return  "<a class='edit_btn ml-1' style='cursor: pointer;' data-id='" . $data->site_id . "' data-site='" . $data->site_name . "' data-province='" . $data->province . "' ><i class='btn btn-outline-primary btn-circle fa fa-edit'></i></a>";
                 })
                 ->rawColumns(['province_name'])
                 ->rawColumns(['action'])
@@ -40,32 +40,17 @@ class SiteController extends Controller
         if ($validator->fails()) {
             return json_encode($validator->errors()->toArray());
         }
-        $site = new Site();
-        $site->site_name = $request->site_name;
-        $site->province = $request->province;
-        $site->save();
+        if ($request->id == '0') {
+            $site = new Site();
+            $site->site_name = $request->site_name;
+            $site->province = $request->province;
+            $site->save();
+        } else {
+            $site = Site::findOrFail($request->id);
+            $site->site_name = $request->site_name;
+            $site->province = $request->province;
+            $site->save();
+        }
         return true;
-    }
-
-    protected function edit($id)
-    {
-        $data['province'] = Province::all();
-        $data['site'] = site::findOrFail($id);
-        return view('site.edit', $data);
-    }
-
-    protected function update(Request $request)
-    {
-        $request->validate(
-            [
-                'site_name' => 'required',
-                'province' => 'required',
-            ]
-        );
-        $site = Site::findOrFail($request->id);
-        $site->site_name = $request->site_name;
-        $site->province = $request->province;
-        $site->save();
-        return redirect()->back()->with('success_update', 'Site Successfully Updated');
     }
 }
