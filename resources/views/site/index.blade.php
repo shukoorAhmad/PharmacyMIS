@@ -86,7 +86,7 @@
 </div><!-- end col-->
 <!-- edit modal -->
 <div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5>Edit Site </h5>
@@ -200,48 +200,9 @@
         }
     });
     $(document).on('click', '.edit_btn', function(event) {
-        
-        var url = $(this).attr('action');
-        $.ajax({
-            url: url,
-            type: 'get',
-            data: {
-                'id': province_id
-            },
-            dataType: 'html',
-            beforeSend: function() {
-                $('.someBlock').preloader({
-                    zIndex: '6666666666'
-                });
-            },
-            success: function(data) {
-                var districts = JSON.parse(data);
-                var value = `<option value="">--انتخاب ولسوالی--</option>`;
-                districts.forEach(item => {
-                    value += `<option value="` + item.id + `">` + item.name_dr +
-                        `</option>`;
-                });
-
-                $("#edit_record_id").val($(this).attr('data-id'));
-                $("#edit_name_ps").val(name_ps);
-                $("#edit_name_dr").val(name_dr);
-                $("#edit_name_en").val(name_en);
-                $("#edit_tashkil_template_id").val(tashkil_template_id);
-                $("#edit_UIC").val(UIC);
-                $("#edit_province_id").removeClass('province_id');
-                $("#edit_province_id").val(province_id).trigger('change');
-                $("#edit_province_id").addClass('province_id');
-                $("#edit_district_id").html(value);
-                $("#edit_district_id").val(district_id).trigger('change');
-                $('.select2').select2();
-                $('#edit_modal').modal('show');
-                $('.someBlock').preloader('remove');
-            },
-            error: function() {
-                error_function("There Is Problem on Processing Your Request Please Contact Database Administrator!");
-                $('.someBlock').preloader('remove');
-            }
-        });
+        $("#edit_province").select2("val", $(this).attr('data-id'));
+        $('#edit_site_name').val($(this).attr('data-site'));
+        $('#edit_modal').modal('show');
     });
 </script>
 <!-- Inject JS -->
