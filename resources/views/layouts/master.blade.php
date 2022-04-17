@@ -13,10 +13,10 @@
     <!-- Favicon -->
     <link rel="icon" href="img/core-img/favicon.png">
     <!-- Master Stylesheet CSS -->
-    <link rel="stylesheet" href="{{asset('public/style.css')}}">
-    <link rel="stylesheet" href="{{asset('public/css/default-assets/new/sweetalert-2.min.css') }}">
-    <link rel="stylesheet" href="{{asset('public/css/bootstrap-datepicker.min.css')}}">
-    <link rel="stylesheet" href="{{asset('public/css/default-assets/form-picker.css')}}">
+    <link rel="stylesheet" href="{{ asset('public/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/default-assets/new/sweetalert-2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/bootstrap-datepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/default-assets/form-picker.css') }}">
 
     <style>
         @media print {
@@ -32,6 +32,7 @@
         .datepicker table tr td.day:hover {
             background: #5867dd !important;
         }
+
     </style>
 </head>
 
@@ -51,10 +52,10 @@
 
     <div class="main-container-wrapper">
         <!-- Top bar area -->
-        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row hop">
-            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="{{asset('public/img/core-img/logo.png')}}" class="mr-2" alt="logo" /></a>
-                <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{{asset('public/img/core-img/small-logo.png')}}" alt="logo" /></a>
+        <nav class="navbar col-lg-12 col-12 fixed-top d-flex hop flex-row p-0">
+            <div class="navbar-brand-wrapper d-flex align-items-center justify-content-center text-center">
+                <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="{{ asset('public/img/core-img/logo.png') }}" class="mr-2" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{{ asset('public/img/core-img/small-logo.png') }}" alt="logo" /></a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-between">
                 <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -74,15 +75,15 @@
                 <ul class="top-navbar-area navbar-nav navbar-nav-right">
                     <li class="nav-item dropdown dropdown-animate">
                         <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-                            <img class="mr-2 flex-30-img" src="{{asset('public/img/shop-img/l5.png')}}" alt="">English<i class="arrow_carrot-down"></i>
+                            <img class="flex-30-img mr-2" src="{{ asset('public/img/shop-img/l5.png') }}" alt="">English<i class="arrow_carrot-down"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                            <p class="mb-0 font-weight-normal float-left dropdown-header">Language</p>
+                            <p class="font-weight-normal dropdown-header float-left mb-0">Language</p>
 
-                            <a href="#" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{asset('public/img/shop-img/l2.jpg')}}" alt=""> LOP</a>
-                            <a href="#" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{asset('public/img/shop-img/l3.jpg')}}" alt=""> KYI</a>
-                            <a href="#" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{asset('public/img/shop-img/l4.jpg')}}" alt=""> RTY</a>
-                            <a href="#" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{asset('public/img/shop-img/l1.jpg')}}" alt=""> IND</a>
+                            <a href="#" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/shop-img/l2.jpg') }}" alt=""> LOP</a>
+                            <a href="#" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/shop-img/l3.jpg') }}" alt=""> KYI</a>
+                            <a href="#" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/shop-img/l4.jpg') }}" alt=""> RTY</a>
+                            <a href="#" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/shop-img/l1.jpg') }}" alt=""> IND</a>
                         </div>
                     </li>
 
@@ -92,7 +93,7 @@
                             <span class="count"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                            <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+                            <p class="font-weight-normal dropdown-header float-left mb-0">Notifications</p>
                             <a class="dropdown-item preview-item d-flex align-items-center">
                                 <div class="notification-thumbnail">
                                     <div class="preview-icon bg-primary">
@@ -153,7 +154,7 @@
 
                     <li class="nav-item nav-profile dropdown dropdown-animate">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                            <img src="{{asset('public/img/member-img/contact-2.jpg')}}" alt="profile" />
+                            <img src="{{ asset('public/img/member-img/contact-2.jpg') }}" alt="profile" />
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown profile-top" aria-labelledby="profileDropdown">
                             <a href="#" class="dropdown-item"><i class="zmdi zmdi-account profile-icon" aria-hidden="true"></i> My profile</a>
@@ -174,7 +175,7 @@
             <nav class="sidebar sidebar-offcanvas hop" id="sidebar">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('dashboard')}}">
+                        <a class="nav-link" href="{{ route('dashboard') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box link-icon">
                                 <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
@@ -184,7 +185,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('site')}}">
+                        <a class="nav-link" href="{{ route('site') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box link-icon">
                                 <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
@@ -194,7 +195,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('supplier')}}">
+                        <a class="nav-link" href="{{ route('supplier') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box link-icon">
                                 <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
@@ -204,7 +205,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('customer-list')}}">
+                        <a class="nav-link" href="{{ route('customer-list') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box link-icon">
                                 <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
@@ -214,7 +215,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('item-list')}}">
+                        <a class="nav-link" href="{{ route('item-list') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box link-icon">
                                 <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
@@ -224,7 +225,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('stock')}}">
+                        <a class="nav-link" href="{{ route('stock') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar link-icon">
                                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                                 <line x1="16" y1="2" x2="16" y2="6"></line>
@@ -235,7 +236,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('order-list')}}">
+                        <a class="nav-link" href="{{ route('order-list') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar link-icon">
                                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                                 <line x1="16" y1="2" x2="16" y2="6"></line>
@@ -246,7 +247,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('purchase-list')}}">
+                        <a class="nav-link" href="{{ route('purchase-list') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar link-icon">
                                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                                 <line x1="16" y1="2" x2="16" y2="6"></line>
@@ -257,7 +258,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('seller-list')}}">
+                        <a class="nav-link" href="{{ route('seller-list') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box link-icon">
                                 <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
@@ -267,7 +268,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('transfer-list')}}">
+                        <a class="nav-link" href="{{ route('transfer-list') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box link-icon">
                                 <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
@@ -277,7 +278,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('sale')}}">
+                        <a class="nav-link" href="{{ route('sale') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box link-icon">
                                 <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
@@ -302,20 +303,20 @@
 
 
     <!-- Plugins Js -->
-    <script src="{{asset('public/js/jquery.min.js')}}"></script>
-    <script src="{{asset('public/js/popper.min.js')}}"></script>
-    <script src="{{asset('public/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('public/js/bundle.js')}}"></script>
-    <script src="{{asset('public/js/default-assets/fullscreen.js')}}"></script>
+    <script src="{{ asset('public/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('public/js/popper.min.js') }}"></script>
+    <script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('public/js/bundle.js') }}"></script>
+    <script src="{{ asset('public/js/default-assets/fullscreen.js') }}"></script>
 
     <!-- Active JS -->
-    <script src="{{asset('public/js/canvas.js')}}"></script>
-    <script src="{{asset('public/js/collapse.js')}}"></script>
-    <script src="{{asset('public/js/settings.js')}}"></script>
-    <script src="{{asset('public/js/template.js')}}"></script>
+    <script src="{{ asset('public/js/canvas.js') }}"></script>
+    <script src="{{ asset('public/js/collapse.js') }}"></script>
+    <script src="{{ asset('public/js/settings.js') }}"></script>
+    <script src="{{ asset('public/js/template.js') }}"></script>
     <script src="{{asset('public/js/default-assets/active.js')}}"></script>
-    <script src="{{asset('public/js/default-assets/sweetalert2.min.js') }}"></script>
-    <script src="{{asset('public/js/bootstrap-datepicker.min.js')}}"></script>
+    <script src="{{ asset('public/js/default-assets/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('public/js/bootstrap-datepicker.min.js') }}"></script>
     <script>
         function success(msg) {
             Swal.fire({

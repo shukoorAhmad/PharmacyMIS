@@ -100,22 +100,22 @@
         $('#item_id').change(function() {
             $.get("{{ route('show-selected-item') }}/" + $('#item_id').val() + "/" + $('#i-value').val(), function(response) {
                 $("#show-selected-items").append(response);
-                
+
                 count++;
                 buttonFunction(count);
             });
         });
 
-        $(document).on('change', '.sale-amount', function(){
+        $(document).on('change', '.sale-amount', function() {
             var x = $(this).attr('sp-id');
             var value = parseFloat($(this).val());
 
-            var qty =$('#qty_'+x).val();
-            $('#qty_'+x).val(qty-value);
+            var qty = $('#qty_' + x).val();
+            $('#qty_' + x).val(qty - value);
 
-            var y = parseFloat($('#sale-price'+x).val());
+            var y = parseFloat($('#sale-price' + x).val());
             // alert(y);
-            $('#total-value'+x).val(value*y);
+            $('#total-value' + x).val(value * y);
         });
 
         $('.select2').select2();
