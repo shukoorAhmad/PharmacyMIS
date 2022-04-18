@@ -32,12 +32,8 @@ Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier');
 Route::post('/supplierstore', [SupplierController::class, 'store'])->name('supplierstore');
 
 // items crud
-Route::get('/items', [ItemController::class, 'create'])->name('items');
-Route::get('/showItemField', [ItemController::class, 'showItemField'])->name('showItemField');
+Route::get('/item', [ItemController::class, 'index'])->name('item');
 Route::post('/itemstore', [ItemController::class, 'store'])->name('itemstore');
-Route::get('/item-list', [ItemController::class, 'index'])->name('item-list');
-Route::get('/edititem/{id?}', [ItemController::class, 'edit'])->name('edititem');
-Route::post('/itemupdate', [ItemController::class, 'update'])->name('itemupdate');
 
 // Customer Routes
 Route::get('/customer', [CustomerController::class, 'index'])->name('customer');

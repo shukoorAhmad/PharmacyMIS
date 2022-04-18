@@ -3,108 +3,75 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\ItemType;
 use App\Models\Measure_unit;
-use App\Models\Supplier;
+use App\Models\MeasureUnit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use DataTables;
 
 class ItemController extends Controller
 {
     protected function index(Request $request)
     {
+        $value['type'] = ItemType::all();
+        $value['measure'] = Measure_unit::all();
         if ($request->ajax()) {
-            $data = Item::with('measure_details')->get();
+            $data = Item::all();
             return Datatables::of($data)
                 ->addIndexColumn()
+                ->addColumn('it_name', function ($data) {
+                    return $data->item_name . ' ' . $data->item_unit . ' ' . $data->item_type_details->type;
+                })
                 ->addColumn('measure_name', function ($data) {
                     return $data->measure_details->unit;
                 })
                 ->addColumn('action', function ($data) {
-                    return '<a data-id="' . $data->item_id . '" class="edit"><i class="zmdi zmdi-edit btn btn-info btn-circle"></i></a>';
+                    return  "<a class='edit_btn ml-1' style='cursor: pointer;' data-id='" . $data->item_id . "' data-name='" . $data->item_name . "' data-type='" . $data->item_type . "' data-unit='" . $data->item_unit . "' data-measure='" . $data->measure_unit_id . "' data-qty='" . $data->quantity_per_carton . "' data-purchase='" . $data->purchase_price . "' data-sale='" . $data->sale_price . "' ><i class='btn btn-outline-primary btn-circle fa fa-edit'></i></a>";
                 })
+                ->rawColumns(['it_name'])
                 ->rawColumns(['measure_name'])
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('item.index');
-    }
-
-    protected function create()
-    {
-        $data['measure'] = Measure_unit::all();
-        return view('item.create', $data);
-    }
-
-    protected function showItemField()
-    {
-        $measure = Measure_unit::all();
-        $data = "<div class='show_items'><div class='row'>";
-        $data .= "<div class='col-md-4'><label>Item Name</label><input name='item_name[]' class='form-control' required></div>";
-        $data .= "<div class='col-md-2'><label>Measure</label><select class='form-control select2' name='measure_id[]' required><option selected disabled>Select Measure Unit</option>";
-        foreach ($measure as $m) {
-            $data .= "<option value='" . $m->measure_unit_id . "'>" . $m->unit . "</option>";
-        }
-        $data .= "</select></div>";
-        $data .= "<div class='col-md-2'><label>Dose</label><input name='dose[]' required class='form-control'></div>";
-        $data .= "<div class='col-md-2'><label>Quantity Per Carton</label><input name='qty_per_carton[]' required class='form-control'></div>";
-        $data .= "<div class='col-md-2'><a class='btn btn-danger w-100 close_btn' style='padding: 7px 1.75rem !important;margin-left:-12px !important;margin-top:30px !important;font-size:14px !important;'><i class='zmdi zmdi-close text-white'></i></a></div>";
-        $data .= "</div></div>";
-        return $data;
+        return view('item.index', $value);
     }
 
     protected function store(Request $request)
     {
-        foreach ($request->qty_per_carton as $key => $x) {
+        $validator = Validator::make($request->all(), [
+            'item_name' => 'required',
+            'item_unit' => 'required',
+            'item_type' => 'required',
+            'measure_unit_id' => 'required',
+            'quantity_per_carton' => 'required',
+            'purchase_price' => 'required',
+            'sale_price' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return json_encode($validator->errors()->toArray());
+        }
+        if ($request->id == '0') {
             $store = new Item();
-            $store->item_name =  $request->item_name[$key];
-            $store->measure_unit_id = $request->measure_id[$key];
-            $store->dose = $request->dose[$key];
-            $store->quantity_per_carton = $request->qty_per_carton[$key];
+            $store->item_name =  $request->item_name;
+            $store->item_unit =  $request->item_unit;
+            $store->item_type =  $request->item_type;
+            $store->measure_unit_id = $request->measure_unit_id;
+            $store->quantity_per_carton = $request->quantity_per_carton;
+            $store->purchase_price = $request->purchase_price;
+            $store->sale_price = $request->sale_price;
+            $store->save();
+        } else {
+            $store = Item::findOrFail($request->id);
+            $store->item_name =  $request->item_name;
+            $store->item_unit =  $request->item_unit;
+            $store->item_type =  $request->item_type;
+            $store->measure_unit_id = $request->measure_unit_id;
+            $store->quantity_per_carton = $request->quantity_per_carton;
+            $store->purchase_price = $request->purchase_price;
+            $store->sale_price = $request->sale_price;
             $store->save();
         }
-        return redirect()->back()->with('success_insert', 'Items Successfully Added');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    protected function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    protected function edit($id)
-    {
-        $data['measure_units'] = Measure_unit::all();
-        $data['item'] = Item::findOrfail($id);
-
-        return view('item.edit', $data);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    protected function update(Request $request)
-    {
-        $update = Item::findOrFail($request->id);
-        $update->item_name =  $request->item_name;
-        $update->measure_unit_id = $request->measure_id;
-        $update->dose = $request->dose;
-        $update->quantity_per_carton = $request->qty_per_carton;
-        $update->save();
-        return redirect()->back()->with('success_update', 'Item Successfully Updated');
+        return true;
     }
 }

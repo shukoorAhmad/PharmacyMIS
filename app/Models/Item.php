@@ -19,4 +19,8 @@ class Item extends Model
     {
         return $this->hasOne(StockItem::class, 'item_id', 'item_id')->where('quantity', '!=', 0);
     }
+    public function item_type_details()
+    {
+        return $this->hasOne(ItemType::class, 'id', 'item_type');
+    }
 }

@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
             SellerSeeder::class,
             MeasureUnitSeeder::class,
             CurrencySeeder::class,
-            ExchangeRateSeeder::class
+            ExchangeRateSeeder::class,
+            ItemTypeSeeder::class
 
         ]);
     }

@@ -15,11 +15,9 @@ class MeasureUnitSeeder extends Seeder
     public function run()
     {
         $measures = [
-            ['unit' => 'ml'],
-            ['unit' => 'mg'],
-            ['unit' => 'lit'],
-            ['unit' => 'gr'],
-            ['unit' => 'cc'],
+            ['unit' => 'Box'],
+            ['unit' => 'Pcs'],
+            ['unit' => 'Bottle'],
         ];
         foreach ($measures as $measure) {
             Measure_unit::create($measure);

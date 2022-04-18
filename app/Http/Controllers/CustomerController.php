@@ -73,5 +73,4 @@ class CustomerController extends Controller
         }
         return true;
     }
-
 }
