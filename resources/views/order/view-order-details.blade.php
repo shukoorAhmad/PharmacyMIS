@@ -59,7 +59,7 @@
                     @foreach($order->order_items as $key=>$ord)
                     <tr>
                         <th>{{++$key}}</th>
-                        <td><b>{{$ord->items_details->item_name}}</b> -- {{$ord->items_details->dose.' -- '.$ord->items_details->measure_details->unit}}</td>
+                        <td>{{$ord->items_details->item_name . ' ' . $ord->items_details->item_unit . ' ' . $ord->items_details->item_type_details->type}}</td>
                         <th>{{$ord->quantity}}
                             @php
                             $total+=$ord->quantity

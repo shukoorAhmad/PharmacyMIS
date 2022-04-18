@@ -51,14 +51,6 @@
     success("{{ session()->get('success_insert') }}")
 </script>
 @endif
-<script>
-    $(document).on('click', '.edit', function() {
-        $.get("{{ route('edititem') }}/" + $(this).attr('data-id'), function(data) {
-            $('#showEditModal').html(data);
-            $('#editModal').modal('show');
-        });
-    });
-</script>
 
 <script type="text/javascript">
     $(function() {

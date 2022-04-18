@@ -2,23 +2,6 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('public/css/default-assets/select2.min.css') }}">
-<style>
-    .select2-container .select2-selection--single {
-        height: 38px !important;
-    }
-
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        line-height: 34px !important;
-    }
-
-    .select2-container--default .select2-selection--single .select2-selection__arrow {
-        top: 6px !important;
-    }
-
-    .select2-container--default .select2-search--dropdown .select2-search__field {
-        outline: none !important;
-    }
-</style>
 
 <div class="col-12 box-margin height-card">
     <div class="card">
@@ -41,7 +24,7 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label>Order Date</label>
-                        <input type="text" class="form-control" name="order_date" value="<?php echo date('Y-m-d');?>" data-date-format="yyyy-m-d" autocomplete="off" data-provide="datepicker" data-date-autoclose="true">
+                        <input type="text" class="form-control" name="order_date" value="<?php echo date('Y-m-d'); ?>" data-date-format="yyyy-m-d" autocomplete="off" data-provide="datepicker" data-date-autoclose="true">
                     </div>
                     <div class="form-group col-md-2" style="margin-top: 34px;">
                         <a class="btn btn-primary w-100" id="add_items" style="padding: 7px 1.75rem !important;"><i class="zmdi zmdi-plus text-white" style="font-size:18px !important;"></i></a>
