@@ -32,7 +32,7 @@
                         <div class="invalid-feedback contact_no_error"></div>
                     </div>
                     <button type="submit" id="submit_btn" class="btn btn-primary mb-2 mr-2">Save</button>
-                    <button class="btn btn-danger  mb-2 mr-2" id="close_btn">Close</button>
+                    <button type="button" class="btn btn-danger  mb-2 mr-2" id="close_btn">Close</button>
                 </form>
             </div>
         </div>

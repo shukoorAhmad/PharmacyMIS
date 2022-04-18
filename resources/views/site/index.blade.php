@@ -32,7 +32,7 @@
                         <div class="invalid-feedback province_error"></div>
                     </div>
                     <button type="submit" id="submit_btn" class="btn btn-primary">Save</button>
-                    <button class="btn btn-danger" id="close_btn">Close</button>
+                    <button type="button" class="btn btn-danger" id="close_btn">Close</button>
                 </form>
             </div>
         </div>
