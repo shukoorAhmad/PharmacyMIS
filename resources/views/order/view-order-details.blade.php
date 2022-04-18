@@ -4,15 +4,6 @@
 <link rel="stylesheet" href="{{ asset('public/css/default-assets/datatables.bootstrap4.css') }}">
 <link rel="stylesheet" href="{{ asset('public/css/default-assets/responsive.bootstrap4.css') }}">
 <style>
-    .odd>td,
-    .even>td {
-        text-align: center !important;
-    }
-
-    th {
-        font-weight: bolder !important;
-    }
-
     @media print {
 
         td,
@@ -60,7 +51,7 @@
                     <tr>
                         <th>{{++$key}}</th>
                         <td>{{$ord->items_details->item_name . ' ' . $ord->items_details->item_unit . ' ' . $ord->items_details->item_type_details->type}}</td>
-                        <th>{{$ord->quantity}}
+                        <th>{{$ord->quantity.' '. $ord->items_details->measure_details->unit}}
                             @php
                             $total+=$ord->quantity
                             @endphp

@@ -2,23 +2,6 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('public/css/default-assets/select2.min.css') }}">
-<style>
-    .select2-container .select2-selection--single {
-        height: 38px !important;
-    }
-
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        line-height: 34px !important;
-    }
-
-    .select2-container--default .select2-selection--single .select2-selection__arrow {
-        top: 6px !important;
-    }
-
-    .select2-container--default .select2-search--dropdown .select2-search__field {
-        outline: none !important;
-    }
-</style>
 
 <div class="col-12 box-margin height-card">
     <div class="card">
@@ -30,19 +13,25 @@
             <form method="POST" action="{{ route('store-purchase') }}">
                 @csrf
                 <div class="row">
-                    <div class="form-group col-md-10">
+                    <div class="form-group col-md-4">
                         <label class="col-form-label">Supplier Name</label>
-                        <select name="supplier_id" id="supplier" class="form-control select2">
-                            <option value="" selected disabled>Please Select Company</option>
+                        <select name="supplier_id" id="supplier" class="form-control select2" style="width: 100%;">
+                            <option value="" selected disabled>Please Select Supplier</option>
                             @foreach ($supplier as $sup)
                             <option value="{{ $sup->supplier_id }}">{{ $sup->name }}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group col-md-2" style="margin-top: 34px;">
-                        <a class="btn btn-primary w-100" id="add_items" style="padding: 7px 1.75rem !important;"><i class="zmdi zmdi-plus text-white" style="font-size:18px !important;"></i></a>
+                    <div class="form-group col-md-8">
+                        <label class="col-form-label">Items</label>
+                        <select name="item_id" id="item_id" class="form-control" style="width: 100%;">
+                            <option value="" selected disabled>Please Select Item</option>
+                            @foreach ($items as $item)
+                            <option value="{{ $item->item_id }}">{{ $item->item_name . ' ' . $item->item_unit . ' ' . $item->item_type_details->type }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    <div class="col-md-12 pr-0" id="showItems">
+                    <div class="col-md-12" id="showItems">
                     </div>
                     <hr style="height: 1px !important;width:100% !important;border-top: 1px solid rgba(0,0,0,.1);">
                     <div class="form-group col-md-4">
@@ -73,10 +62,28 @@
 @section('script')
 <script src="{{ asset('public/js/default-assets/select2.min.js') }}"></script>
 <script>
-    $('#supplier').change(function() {
-        $('#showItems').empty();
-        $('#submit_btn').addClass('d-none');
+    $('.select2').select2();
+
+    $('#item_id').select2({
+        ajax: {
+            url: "{{ route('filter-item') }}",
+            type: "get",
+            dataType: 'json',
+            delay: 200,
+            data: function(params) {
+                return {
+                    search: params.term // search term
+                };
+            },
+            processResults: function(response) {
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        }
     });
+
     var counter = 0;
 
     function hide_btn() {
@@ -88,24 +95,15 @@
         hide_btn();
     });
 
-    $('#add_items').click(function() {
-        if ($('#supplier').val() == null) {
-            error_function("Please Select Supplier First");
-        } else {
-            $.get("{{ route('add_new_item') }}", function(response) {
-                $('#showItems').append(response);
-                counter++;
-                hide_btn();
-            });
-        }
+    $('#item_id').change(function() {
+        $.get("{{ route('add_new_item') }}/" + $('#item_id').val(), function(response) {
+            $('#showItems').append(response);
+            console.log(response);
+            counter++;
+            hide_btn();
+        });
     });
+</script>
 
-    $('.select2').select2();
-</script>
-@if (session()->has('success_insert'))
-<script>
-    success("{{ session()->get('success_insert') }}")
-</script>
-@endif
 @endsection
 @endsection

@@ -2,23 +2,6 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('public/css/default-assets/select2.min.css') }}">
-<style>
-    .select2-container .select2-selection--single {
-        height: 38px !important;
-    }
-
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        line-height: 34px !important;
-    }
-
-    .select2-container--default .select2-selection--single .select2-selection__arrow {
-        top: 6px !important;
-    }
-
-    .select2-container--default .select2-search--dropdown .select2-search__field {
-        outline: none !important;
-    }
-</style>
 
 <div class="col-12 box-margin height-card">
     <div class="card">
@@ -92,10 +75,6 @@
 
     $('.select2').select2();
 </script>
-@if (session()->has('success_update'))
-<script>
-    success("{{ session()->get('success_update') }}")
-</script>
-@endif
+
 @endsection
 @endsection

@@ -18,7 +18,13 @@ class CreateSupplierAccountsTable extends Migration
             $table->integer('supplier_id');
             $table->integer('bill_id')->default(0);
             $table->float('money')->default(0);
-            $table->float('paid')->default(0);
+            $table->tinyInteger('purchase_currency_id')->default(0);
+            $table->float('usd')->default(0);
+            $table->float('afg')->default(0);
+            $table->float('kal')->default(0);
+            $table->float('usd_afg');
+            $table->float('usd_kal');
+            $table->boolean('in_out');
             $table->string('comment')->nullable();
             $table->date('date');
             $table->timestamps();

@@ -25,7 +25,7 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <h4 class="card-title">New Sale</h4>
-                    <a href="{{ route('seller-list') }}" class="btn btn-success mb-3">Sales List</a>
+                    <a href="" class="btn btn-success mb-3">Sales List</a>
                 </div>
                 <form method="POST" action="{{ route('sale-store') }}">
                     @csrf

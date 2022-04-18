@@ -2,23 +2,6 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('public/css/default-assets/select2.min.css') }}">
-<style>
-    .select2-container .select2-selection--single {
-        height: 38px !important;
-    }
-
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        line-height: 34px !important;
-    }
-
-    .select2-container--default .select2-selection--single .select2-selection__arrow {
-        top: 6px !important;
-    }
-
-    .select2-container--default .select2-search--dropdown .select2-search__field {
-        outline: none !important;
-    }
-</style>
 
 <div class="col-12 box-margin">
     <div class="card">
@@ -46,33 +29,84 @@
                             <th>Quantity</th>
                             <th>Purchase Price</th>
                             <th>Sale Price</th>
+                            <th>Sale Price (Total)</th>
                             <th>Expiry Date</th>
                         </tr>
                         @php
-                        $total=0
+                        $total_qty=0;
+                        $total_purchase=0;
+                        $total_sale=0;
                         @endphp
                         @foreach($order->order_items as $key=>$ord)
                         <tr>
                             <th>{{++$key}}
                                 <input type="hidden" value="{{$ord->items_details->item_id}}" name="item_id[]">
                             </th>
-                            <td><b>{{$ord->items_details->item_name}}</b> -- {{$ord->items_details->dose.' -- '.$ord->items_details->measure_details->unit}}</td>
-                            <th>{{$ord->quantity}}
+                            <td>{{$ord->items_details->item_name . ' ' . $ord->items_details->item_unit . ' ' . $ord->items_details->item_type_details->type}}</td>
+                            <th>{{$ord->quantity.' '.$ord->items_details->measure_details->unit}}
                                 <input type="hidden" value="{{$ord->quantity}}" name="quantity[]">
+                                @php
+                                $total_qty+=$ord->quantity;
+                                $total_purchase+=$ord->items_details->purchase_price*$ord->quantity;
+                                $total_sale+=$ord->items_details->sale_price*$ord->quantity;
+                                @endphp
                             </th>
-                            <?php $pur = App\Models\StockItem::where('item_id', $ord->items_details->item_id)->orderBy('stock_item_id', 'DESC')->first(); ?>
                             <th>
-                                <input class="form-control" value="@isset($pur->purchase_price){{$pur->purchase_price}}@endisset" name="purchase_price[]" required>
+                                <input class="form-control" value="{{$ord->items_details->purchase_price}}" name="purchase_price[]" required>
                             </th>
                             <th>
-                                <input type="number" class="form-control" value="@isset($pur->sale_price){{$pur->sale_price}}@endisset" name="sale_price[]" required>
+                                <input class="form-control" value="{{$ord->items_details->sale_price}}" name="sale_price[]" required>
+                            </th>
+                            <th>
+                                <input class="form-control" value="{{$ord->items_details->sale_price*$ord->quantity}}" name="sale_price[]" required>
                             </th>
                             <th>
                                 <input type="date" class="form-control" name="expiry_date[]" required>
                             </th>
                         </tr>
                         @endforeach
+                        <tr>
+                            <th colspan="2">Total</th>
+                            <th>{{$total_qty}}</th>
+                            <th>{{$total_purchase}}</th>
+                            <th></th>
+                            <th>{{$total_sale}}</th>
+                            <th></th>
+                        </tr>
                     </table>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label for="">USD TO AFG</label>
+                                    <input type="text" class="form-control" value="{{$ex_rate->usd_afg}}" name="usd_afg" id="usd_afg" required>
+                                    <input type="hidden" value="{{$ex_rate->exchange_rate_id}}" name="exchange_rate_id">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="">USD TO KAL</label>
+                                    <input type="text" class="form-control" value="{{$ex_rate->usd_kal}}" name="usd_kal" id="usd_kal" required>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="">Purchase In</label>
+                                    <select name="purchase_currency" id="purchase_currency" class="form-control select2" required>
+                                        @foreach($currencies as $currency)
+                                        <option value="{{$currency->currency_id}}" {{$currency->currency_id==1?'selected':''}}>{{$currency->currency}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Bill Total</label>
+                                    <input type="text" class="form-control" id="total_bill" name="total" value="{{$total_purchase}}">
+                                    <input type="hidden" id="total_bill_usd" value="{{$total_purchase}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="">Pay Amount</label>
+                            <input type="text" name="paid_amount" value="0" class="form-control">
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="form-group col-md-4">
                             <label>To Stock</label>
@@ -101,6 +135,16 @@
 @section('script')
 <script src="{{ asset('public/js/default-assets/select2.min.js') }}"></script>
 <script>
+    $('#purchase_currency').change(function() {
+        var purchase = $('#purchase_currency').val();
+        if (purchase == 1) {
+            $('#total_bill').val($('#total_bill_usd').val());
+        } else if (purchase == 2) {
+            $('#total_bill').val($('#total_bill_usd').val() * $('#usd_afg').val());
+        } else if (purchase == 3) {
+            $('#total_bill').val($('#total_bill_usd').val() * $('#usd_kal').val());
+        }
+    });
     $('.select2').select2();
 </script>
 @endsection

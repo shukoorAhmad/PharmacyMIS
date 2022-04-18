@@ -52,12 +52,13 @@ Route::get('view-order-details/{id}', [OrderController::class, 'view'])->name('v
 Route::get('/edit-order-details/{id}', [OrderController::class, 'edit'])->name('edit-order-details');
 Route::post('/update-order-details', [OrderController::class, 'update'])->name('update-order-details');
 Route::get('/delete-order-item/{id}', [OrderController::class, 'deleteOrderItem'])->name('delete-order-item');
-Route::get('/purchase-order/{id}', [PurchaseController::class, 'purchaseItems'])->name('purchase-order');
 // purchase routes
+Route::get('/purchase-order/{id}', [PurchaseController::class, 'purchaseItems'])->name('purchase-order');
 Route::post('/store-purchase', [PurchaseController::class, 'store'])->name('store-purchase');
 Route::get('/purchase-list', [PurchaseController::class, 'index'])->name('purchase-list');
 Route::get('/purchase', [PurchaseController::class, 'create'])->name('purchase');
-Route::get('/add_new_item', [PurchaseController::class, 'add_new_item'])->name('add_new_item');
+Route::get('/filter-item', [PurchaseController::class, 'filter_items'])->name('filter-item');
+Route::get('/add_new_item/{item_id?}', [PurchaseController::class, 'add_new_item'])->name('add_new_item');
 Route::get('view-purchase-details/{id}', [PurchaseController::class, 'show'])->name('view-purchase-details');
 
 // Seller Routes

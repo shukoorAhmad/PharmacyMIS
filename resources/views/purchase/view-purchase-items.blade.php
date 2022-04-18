@@ -2,20 +2,11 @@
 
 @section('content')
 <style>
-    .odd>td,
-    .even>td {
-        text-align: center !important;
-    }
-
-    th {
-        font-weight: bolder !important;
-    }
-
     @media print {
 
         td,
         th {
-            font-size: 16px !important;
+            font-size: 14px !important;
         }
 
         th {
@@ -46,9 +37,9 @@
                     <tr>
                         <th>No</th>
                         <th>Item</th>
-                        <th>Quantity(Carton)</th>
-                        <th>Price (Carton)</th>
-                        <th>Price (Total)</th>
+                        <th>Quantity</th>
+                        <th>Purchase Price </th>
+                        <th>Purchase Price (Total)</th>
                         <th>Expiry Date</th>
                     </tr>
                     @php
@@ -58,8 +49,8 @@
                     @foreach($purchase->purchase_items as $key=>$ord)
                     <tr>
                         <th>{{++$key}}</th>
-                        <td><b>{{$ord->items_details->item_name}}</b> -- {{$ord->items_details->dose.' -- '.$ord->items_details->measure_details->unit}}</td>
-                        <th>{{$ord->quantity}}
+                        <td>{{$ord->items_details->item_name . ' ' . $ord->items_details->item_unit . ' ' . $ord->items_details->item_type_details->type}}</td>
+                        <th>{{$ord->quantity.' '. $ord->items_details->measure_details->unit}}
                             @php
                             $total+=$ord->quantity;
                             $total_price+=$ord->purchase_price*$ord->quantity;
@@ -81,7 +72,4 @@
         </div> <!-- end card body-->
     </div> <!-- end card -->
 </div><!-- end col-->
-@section('script')
-
-@endsection
 @endsection

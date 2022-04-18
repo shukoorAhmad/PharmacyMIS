@@ -7,7 +7,6 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use DataTables;
 
 class OrderController extends Controller
@@ -28,7 +27,7 @@ class OrderController extends Controller
                         $sum += $quantity->quantity / $quantity->items_details->quantity_per_carton;
                     }
                     $qty = OrderItem::where('order_id', $data->order_id)->sum('quantity');
-                    return number_format($sum,2) . ' Carton(s) | ' . $qty . ' pcs';
+                    return number_format($sum, 2) . ' Carton(s) | ' . $qty . ' pcs';
                 })
                 ->addColumn('purchase', function ($data) {
                     return  $data->status == 0 ? '<a href="' . route('purchase-order', $data->order_id) . '" class="edit btn btn-outline-info btn-sm"> <i class="zmdi zmdi-shopping-cart"></i> Purchase</a>'
@@ -67,7 +66,7 @@ class OrderController extends Controller
     {
         $order_store = new Order();
         $order_store->supplier_id = $request->supplier;
-        $order_store->order_date = Carbon::parse($request->order_date)->format('Y-m-d');
+        $order_store->order_date = $request->order_date;
 
         if ($order_store->save()) {
             foreach ($request->quantity as $key => $value) {
@@ -79,7 +78,7 @@ class OrderController extends Controller
             }
         }
 
-        return redirect()->back()->with('success_insert', 'Order Successfully Added');
+        return redirect()->route('order-list')->with('success_insert', 'Order Successfully Added');
     }
 
     protected function view($id)
@@ -99,10 +98,6 @@ class OrderController extends Controller
 
     protected function update(Request $request)
     {
-        $order_update = Order::findOrFail($request->order_id);
-        $order_update->order_date = Carbon::parse($request->order_date)->format('Y-m-d');
-        $order_update->save();
-
         foreach ($request->order_item_id as $key => $value) {
             $order_item_update = OrderItem::findOrFail($value);
             $order_item_update->item_id = $request->old_item[$key];
@@ -120,7 +115,7 @@ class OrderController extends Controller
             }
         }
 
-        return redirect()->back()->with('success_update', 'Order & Order Item Successfully Updated');
+        return redirect()->route('order-list')->with('success_update', 'Order Successfully Updated');
     }
 
     protected function deleteOrderItem($id)

@@ -71,10 +71,5 @@
 
     $('.select2').select2();
 </script>
-@if (session()->has('success_insert'))
-<script>
-    success("{{ session()->get('success_insert') }}")
-</script>
-@endif
 @endsection
 @endsection

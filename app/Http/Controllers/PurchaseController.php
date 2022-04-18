@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Currency;
+use App\Models\ExchangeRate;
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\Purchase;
@@ -9,6 +11,7 @@ use App\Models\Stock;
 use App\Models\PurchaseItem;
 use App\Models\StockItem;
 use App\Models\Supplier;
+use App\Models\SupplierAccount;
 use Illuminate\Http\Request;
 use DataTables;
 
@@ -19,6 +22,8 @@ class PurchaseController extends Controller
     {
         $data['order'] = Order::findOrFail($id);
         $data['stock'] = Stock::all();
+        $data['currencies'] = Currency::all();
+        $data['ex_rate'] = ExchangeRate::first();
         return view('purchase.purchase-items', $data);
     }
     protected function index(Request $request)
@@ -63,22 +68,72 @@ class PurchaseController extends Controller
     {
         $data['stock'] = Stock::all();
         $data['supplier'] = Supplier::all();
+        $data['items'] = Item::orderBy('item_id', 'DESC')->limit(10)->get();
         return view('purchase.create', $data);
     }
-    protected function add_new_item()
+    protected function filter_items(Request $request)
     {
-        $data['items'] = Item::all();
-        return view('purchase.new_item', $data);
+        $search = $request->search;
+        if ($search == '') {
+            $data = Item::orderBy('item_id', 'DESC')->limit(10)->get();
+        } else {
+            $data = Item::where('item_name', 'LIKE', '%' . $search . '%')->get();
+        }
+        $response = array();
+        foreach ($data as $item) {
+            $response[] = array(
+                'id' => $item->item_id,
+                'text' => $item->item_name . ' ' . $item->item_unit . ' ' . $item->item_type_details->type
+            );
+        }
+        return response()->json($response);
+        // $data['items'] = Item::all();
+        // return view('purchase.new_item', $data);
+    }
+
+    protected function add_new_item($item_id)
+    {
+        $item = Item::findOrFail($item_id);
+        $data = "<div class='row'>";
+        $data .= "<div class='form-group col-md-3'>";
+        $data .= "<label>Item Name:</label>";
+        $data .= "<input class='form-control' value='" . $item->item_name . ' ' . $item->item_unit . ' ' . $item->item_type_details->type . "' readonly>";
+        $data .= "</div>";
+        $data .= "<div class='form-group col-md-2'>";
+        $data .= "<label>Purchase Price:</label>";
+        $data .= "<input class='form-control' value='" . $item->purchase_price . "'>";
+        $data .= "</div>";
+        $data .= "<div class='form-group col-md-2'>";
+        $data .= "<label>Sale Price:</label>";
+        $data .= "<input class='form-control' value='" . $item->sale_price . "'>";
+        $data .= "</div>";
+        $data .= "<div class='form-group col-md-2'>";
+        $data .= "<label>Quantity:</label>";
+        $data .= "<input class='form-control' value='1'>";
+        $data .= "</div>";
+        $data .= "<div class='form-group col-md-3'>";
+        $data .= "<label>Expiry Date:</label>";
+        $data .= "<input type='date' class='form-control'>";
+        $data .= "</div>";
+        $data .= "</div>";
+        return $data;
     }
 
     protected function store(Request $request)
     {
+        // to update exchange rate
+        $ex_rate = ExchangeRate::findOrFail($request->exchange_rate_id);
+        $ex_rate->usd_afg = $request->usd_afg;
+        $ex_rate->usd_kal = $request->usd_kal;
+        $ex_rate->save();
+        // to store purchase
         $purchase = new Purchase();
         $purchase->purchase_invoice_no = $request->purchase_invoice_no;
         $request->order_id != "" ? $purchase->order_id = $request->order_id : '';
         $purchase->stock_id = $request->stock_id;
         $purchase->supplier_id = $request->supplier_id;
         $purchase->purchase_date = $request->purchase_date;
+        // to store purchase item in purchase_item and stock_item table
         if ($purchase->save()) {
             foreach ($request->item_id as $key => $value) {
                 $purchase_item = new PurchaseItem();
@@ -108,9 +163,33 @@ class PurchaseController extends Controller
                     $stock_items->save();
                 }
             }
+            // to add purchase bill price in supplier account
+            $supplier_account = new SupplierAccount();
+            $supplier_account->supplier_id = $request->supplier_id;
+            $supplier_account->bill_id = $purchase->purchase_id;
+            $supplier_account->purchase_currency_id = $request->purchase_currency;
+            $supplier_account->money = $request->total;
+            // to set paid amount according to currency
+            switch ($request->purchase_currency) {
+                case 1:
+                    $supplier_account->usd = $request->paid_amount;
+                    break;
+                case 2:
+                    $supplier_account->afg = $request->paid_amount;
+                    break;
+                case 3:
+                    $supplier_account->kal = $request->paid_amount;
+                    break;
+            }
+            $supplier_account->usd_afg = $request->usd_afg;
+            $supplier_account->usd_kal = $request->usd_kal;
+            $supplier_account->in_out = 2;
+            $supplier_account->date = $request->purchase_date;
+            $supplier_account->save();
+
             if ($request->order_id != "") {
                 $order = Order::findOrFail($request->order_id)->update(['status' => 1]);
-                return redirect()->route('order-list')->with('success_insert', 'Items Successfully Purchased');
+                return redirect()->route('purchase-list')->with('success_insert', 'Items Successfully Purchased');
             }
         }
         return redirect()->route('purchase-list')->with('success_insert', 'Items Successfully Purchased');
