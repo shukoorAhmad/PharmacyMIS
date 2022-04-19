@@ -33,10 +33,42 @@
                     </div>
                     <div class="col-md-12" id="showItems">
                     </div>
-                    <hr style="height: 1px !important;width:100% !important;border-top: 1px solid rgba(0,0,0,.1);">
+                </div>
+                <hr style="height: 1px !important;width:100% !important;border-top: 1px solid rgba(0,0,0,.1);">
+                <div id="fields" class="row d-none">
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label for="">USD TO AFG</label>
+                                <input type="text" class="form-control" value="{{$ex_rate->usd_afg}}" name="usd_afg" id="usd_afg" required>
+                                <input type="hidden" value="{{$ex_rate->exchange_rate_id}}" name="exchange_rate_id">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="">USD TO KAL</label>
+                                <input type="text" class="form-control" value="{{$ex_rate->usd_kal}}" name="usd_kal" id="usd_kal" required>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="">Purchase In</label>
+                                <select name="purchase_currency" id="purchase_currency" class="form-control select2" style="width: 100%;"  required>
+                                    @foreach($currencies as $currency)
+                                    <option value="{{$currency->currency_id}}" {{$currency->currency_id==1?'selected':''}}>{{$currency->currency}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Bill Total</label>
+                                <input type="text" class="form-control" id="total_bill" name="total" value="">
+                                <input type="hidden" id="total_bill_usd" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="">Pay Amount</label>
+                        <input type="text" name="paid_amount" value="0" class="form-control">
+                    </div>
                     <div class="form-group col-md-4">
                         <label>To Stock</label>
-                        <select name="stock_id" class="form-control select2" required>
+                        <select name="stock_id" class="form-control select2" style="width: 100%;" required>
                             <option value="">Select Stock</option>
                             @foreach($stock as $stk)
                             <option value="{{$stk->stock_id}}">{{$stk->stock_name}}</option>
@@ -51,8 +83,8 @@
                         <label>Purchase Date:</label>
                         <input class="form-control" name="purchase_date" data-date-format="yyyy-m-d" value="<?php echo date('Y-m-d'); ?>" autocomplete="off" data-provide="datepicker" data-date-autoclose="true" required>
                     </div>
+                    <button type="submit" class="btn btn-primary mb-2 mt-3 ml-3" id="submit_btn">Save</button>
                 </div>
-                <button type="submit" class="btn btn-primary mb-2 mt-3 d-none" id="submit_btn">Save</button>
             </form>
         </div>
     </div>
@@ -87,7 +119,7 @@
     var counter = 0;
 
     function hide_btn() {
-        counter > 0 ? $('#submit_btn').removeClass('d-none') : $('#submit_btn').addClass('d-none');
+        counter > 0 ? $('#fields').removeClass('d-none') : $('#fields').addClass('d-none');
     }
     $(document).on('click', '.close_btn', function() {
         $(this).closest($('.show_items')).remove();

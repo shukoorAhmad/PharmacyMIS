@@ -68,6 +68,8 @@ class PurchaseController extends Controller
     {
         $data['stock'] = Stock::all();
         $data['supplier'] = Supplier::all();
+        $data['currencies'] = Currency::all();
+        $data['ex_rate'] = ExchangeRate::first();
         $data['items'] = Item::orderBy('item_id', 'DESC')->limit(10)->get();
         return view('purchase.create', $data);
     }
@@ -87,17 +89,15 @@ class PurchaseController extends Controller
             );
         }
         return response()->json($response);
-        // $data['items'] = Item::all();
-        // return view('purchase.new_item', $data);
     }
 
     protected function add_new_item($item_id)
     {
         $item = Item::findOrFail($item_id);
-        $data = "<div class='row'>";
+        $data = "<div class='row show_items'>";
         $data .= "<div class='form-group col-md-3'>";
         $data .= "<label>Item Name:</label>";
-        $data .= "<input class='form-control' value='" . $item->item_name . ' ' . $item->item_unit . ' ' . $item->item_type_details->type . "' readonly>";
+        $data .= "<input class='form-control' value='" . $item->item_name . " " . $item->item_unit . " " . $item->item_type_details->type . "' readonly>";
         $data .= "</div>";
         $data .= "<div class='form-group col-md-2'>";
         $data .= "<label>Purchase Price:</label>";
@@ -111,9 +111,12 @@ class PurchaseController extends Controller
         $data .= "<label>Quantity:</label>";
         $data .= "<input class='form-control' value='1'>";
         $data .= "</div>";
-        $data .= "<div class='form-group col-md-3'>";
+        $data .= "<div class='form-group col-md-2'>";
         $data .= "<label>Expiry Date:</label>";
         $data .= "<input type='date' class='form-control'>";
+        $data .= "</div>";
+        $data .= "<div class='form-group col-md-1'>";
+        $data .= '<a class="btn btn-danger w-100 close_btn" style="padding: 7px 1.75rem !important;margin-left:-12px !important;margin-top:30px !important;font-size:14px !important;"><i class="zmdi zmdi-close text-white"></i></a>';
         $data .= "</div>";
         $data .= "</div>";
         return $data;
