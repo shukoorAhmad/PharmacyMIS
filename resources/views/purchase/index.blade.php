@@ -28,7 +28,7 @@
                         <th>Supplier Name</th>
                         <th>Purchase Invoice #</th>
                         <th>Order Details</th>
-                        <th>Total Cartons</th>
+                        <th>Total Items</th>
                         <th>Stock</th>
                         <th>Purchase Date</th>
                         <th>Action</th>
