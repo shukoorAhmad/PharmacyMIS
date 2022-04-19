@@ -17,11 +17,14 @@ class ItemTypeSeeder extends Seeder
         $items = [
             ['type' => 'SYP'],
             ['type' => 'TAB'],
-            ['type' => 'INJ'],
+            ['type' => 'AMP'],
             ['type' => 'CAP'],
-            ['type' => 'POW'],
+            ['type' => 'PWD'],
             ['type' => 'LOTION'],
             ['type' => 'DRP'],
+            ['type' => 'PMD'],
+            ['type' => 'SERM'],
+            ['type' => 'OIL'],
         ];
         foreach ($items as $item) {
             ItemType::create($item);
