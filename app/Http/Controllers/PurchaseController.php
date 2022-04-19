@@ -14,6 +14,7 @@ use App\Models\Supplier;
 use App\Models\SupplierAccount;
 use Illuminate\Http\Request;
 use DataTables;
+use Session;
 
 class PurchaseController extends Controller
 {
@@ -91,8 +92,11 @@ class PurchaseController extends Controller
         return response()->json($response);
     }
 
-    protected function add_new_item($item_id)
+    protected function add_new_item($item_id, $i)
     {
+        $seesion = Session::get('i');
+        $i = 1 + $seesion;
+        Session::put('i', $i);
         $item = Item::findOrFail($item_id);
         $data = "<div class='row show_items'>";
         $data .= "<div class='form-group col-md-3'>";
@@ -101,22 +105,23 @@ class PurchaseController extends Controller
         $data .= "</div>";
         $data .= "<div class='form-group col-md-2'>";
         $data .= "<label>Purchase Price:</label>";
-        $data .= "<input class='form-control' value='" . $item->purchase_price . "'>";
+        $data .= "<input class='form-control' id='pur-price-" . $i . "' price='" . $item->purchase_price . "' value='" . $item->purchase_price . "'>";
         $data .= "</div>";
         $data .= "<div class='form-group col-md-2'>";
         $data .= "<label>Sale Price:</label>";
         $data .= "<input class='form-control' value='" . $item->sale_price . "'>";
+        $data .= "<input type='hidden' class='form-control total-every-row' id='total-row-" . $i . "'>";
         $data .= "</div>";
         $data .= "<div class='form-group col-md-2'>";
         $data .= "<label>Quantity:</label>";
-        $data .= "<input class='form-control' value='1'>";
+        $data .= "<input class='form-control quantity' id='quantity-" . $i . "' value='0' i-value='" . $i . "'>";
         $data .= "</div>";
         $data .= "<div class='form-group col-md-2'>";
         $data .= "<label>Expiry Date:</label>";
         $data .= "<input type='date' class='form-control'>";
         $data .= "</div>";
         $data .= "<div class='form-group col-md-1'>";
-        $data .= '<a class="btn btn-danger w-100 close_btn" style="padding: 7px 1.75rem !important;margin-left:-12px !important;margin-top:30px !important;font-size:14px !important;"><i class="zmdi zmdi-close text-white"></i></a>';
+        $data .= '<a class="btn btn-danger w-100 close_btn" id="' . $i . '" style="padding: 7px 1.75rem !important;margin-left:-12px !important;margin-top:30px !important;font-size:14px !important;"><i class="zmdi zmdi-close text-white"></i></a>';
         $data .= "</div>";
         $data .= "</div>";
         return $data;
