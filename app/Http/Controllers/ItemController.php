@@ -41,7 +41,6 @@ class ItemController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'item_name' => 'required',
-            'item_unit' => 'required',
             'item_type' => 'required',
             'measure_unit_id' => 'required',
             'quantity_per_carton' => 'required',

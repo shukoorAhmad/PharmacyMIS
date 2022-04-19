@@ -24,7 +24,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="item_unit" class="col-form-label">Item Unit</label>
-                            <input class="form-control" name="item_unit" required id="item_unit" placeholder="Write Item Name Here...">
+                            <input class="form-control" name="item_unit" id="item_unit" placeholder="Write Item Name Here...">
                             <div class="invalid-feedback item_unit_error"></div>
                         </div>
                         <div class="form-group col-md-4">
