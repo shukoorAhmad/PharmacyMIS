@@ -39,14 +39,6 @@
 </div>
 
 @section('script')
-<script>
-    $(document).on('click', '.edit', function() {
-        $.get("{{ route('edit-seller') }}/" + $(this).attr('data-id'), function(data) {
-            $('#showEditModal').html(data);
-            $('#editModal').modal('show');
-        });
-    });
-</script>
 <!-- Inject JS -->
 <script src="{{ asset('public/js/default-assets/jquery.datatables.min.js') }}"></script>
 <script src="{{ asset('public/js/default-assets/datatables.bootstrap4.js') }}"></script>
