@@ -46,7 +46,7 @@ class PurchaseController extends Controller
                         $sum += $quantity->quantity / $quantity->items_details->quantity_per_carton;
                     }
                     $qty = PurchaseItem::where('purchase_id', $data->purchase_id)->sum('quantity');
-                    return number_format($sum, 2) . ' Carton(s) | ' . $qty . ' pcs';
+                    return $sum > 0 ? number_format($sum, 2) . ' Carton(s) | ' . $qty . ' pcs' : $qty . ' pcs';
                 })
                 ->addColumn('order_no', function ($data) {
                     return $data->order_id == 0 ? '<span class="badge badge-success pr-4 pl-4">Direct Purchase</span>' : '<span class="badge bg-teal"><a class="text-white" href="' . route('view-order-details', $data->order_id) . '">View Order Bill No - ' . $data->order_id . '</span></a>';
@@ -102,6 +102,7 @@ class PurchaseController extends Controller
         $data .= "<div class='form-group col-md-3'>";
         $data .= "<label>Item Name:</label>";
         $data .= "<input class='form-control' value='" . $item->item_name . " " . $item->item_unit . " " . $item->item_type_details->type . "' readonly>";
+        $data .= "<input type='hidden' name='item_id[]' class='form-control' value='" . $item->item_id . "'>";
         $data .= "</div>";
         $data .= "<div class='form-group col-md-2'>";
         $data .= "<label>Purchase Price:</label>";
