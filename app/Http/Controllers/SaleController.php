@@ -7,7 +7,7 @@ use App\Models\Sales;
 use App\Models\SalesItem;
 use App\Models\Seller;
 use App\Models\StockItem;
-use Illuminate\Contracts\Session\Session;
+use Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
