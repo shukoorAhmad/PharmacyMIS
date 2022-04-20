@@ -97,7 +97,8 @@ class SaleController extends Controller
         $data .= "<div class='row p-0'>";
         $data .= "<div class='col-md-3 form-group'>";
         $data .= "<label>Available pcs:</label>";
-        $data .= "<input class='form-control' readonly  id='qty_" . $i . "' value='" . $query->quantity . "'>";
+        $data .= "<input class='form-control' readonly  id='qty_" . $i . "' value='" . number_format($query->quantity - 1) . "'>";
+        $data .= "<input type='hidden' id='qty_const" . $i . "' value='" . $query->quantity . "'>";
         $data .= "<input type='hidden' value='" . $query->item_details->item_name . "' name='quantity[]'>";
         $data .= "</div>";
         $data .= "<div class='col-md-3 form-group'>";
@@ -116,10 +117,10 @@ class SaleController extends Controller
         $data .= "</div>";
         $data .= "<div classs='col-md-2 form-group'>";
         $data .= "<label>Total:</label>";
-        $data .= "<input class='form-control' id='total-value" . $i . "' sp-id='" . $i . "' value='" . number_format($query->sale_price * $ex_rate->usd_afg, 1) . "' readonly id='total'>";
+        $data .= "<input class='form-control total-every-row' id='total-value" . $i . "' sp-id='" . $i . "' value='" . $query->sale_price * $ex_rate->usd_afg . "' readonly id='total'>";
         $data .= "</div>";
         $data .= "<div class='col-md-1'>";
-        $data .= "<a class='btn btn-danger mt-4 remove' style='padding: 7px 1.75rem !important;margin-top:30px !important;font-size:14px !important;'><span class='fa fa-trash-o text-white'></span></a>";
+        $data .= "<a class='btn btn-danger mt-4 remove' id='" . $i . "' style='padding: 7px 1.75rem !important;margin-top:30px !important;font-size:14px !important;'><span class='fa fa-trash-o text-white'></span></a>";
         $data .= "</div>";
         $data .= "</div>";
         return $data;
