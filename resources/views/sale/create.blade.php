@@ -78,7 +78,6 @@
 @section('script')
 <script src="{{ asset('public/js/default-assets/select2.min.js') }}"></script>
 <script>
-    $('body').addClass('sidebar-icon-only');
     $('#sale_type').change(function() {
         $('#sale_type').val() == 1 ? $('#show-label-name').html('Select Customer') : $('#show-label-name').html(
             'Select Seller');
