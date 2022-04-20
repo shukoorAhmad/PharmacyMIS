@@ -85,7 +85,7 @@
                         <label>Purchase Date:</label>
                         <input class="form-control" name="purchase_date" data-date-format="yyyy-m-d" value="<?php echo date('Y-m-d'); ?>" autocomplete="off" data-provide="datepicker" data-date-autoclose="true" required>
                     </div>
-                    <button type="submit" class="btn btn-primary mb-2 mt-3 ml-3" id="submit_btn">Save</button>
+                    <button type="submit" class="btn btn-primary mb-2 mt-3 ml-3" id="submit_btn">Purchase</button>
                 </div>
             </form>
         </div>
