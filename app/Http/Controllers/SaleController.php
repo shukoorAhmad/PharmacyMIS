@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\ExchangeRate;
 use App\Models\Sales;
 use App\Models\SalesItem;
 use App\Models\Seller;
@@ -80,31 +81,32 @@ class SaleController extends Controller
     }
     protected function showSelectedItem($stock_item_id, $i)
     {
+        $ex_rate = ExchangeRate::first();
         $seesion = Session::get('i');
         $i = 1 + $seesion;
         Session::put('i', $i);
         $query = StockItem::findOrFail($stock_item_id);
-        $data = "<div class='row field p-0 m-0'>";
+        $data = "<div class='row field p-0'>";
         $data .= "<div class='col-md-3 form-group'>";
         $data .= "<label>Item Name:</label>";
-        $data .= "<input class='form-control' readonly value='" . $query->item_details->item_name . ' ' . $query->item_details->dose . ' ' . $query->item_details->measure_details->unit . "'>";
+        $data .= "<input class='form-control' readonly value='" . $query->item_details->item_name . ' ' . $query->item_details->item_unit . ' ' . $query->item_details->item_type_details->type . "'>";
         $data .= "<input type='hidden' value='" . $query->item_id . "' name='item_id[]'>";
         $data .= "<input type='hidden' value='" . $query->stock_item_id . "' name='stock_item_id[]'>";
         $data .= "</div>";
-        $data .= "<div class='col-md-6'>";
-        $data .= "<div class='row'>";
+        $data .= "<div class='col-md-6 form-group'>";
+        $data .= "<div class='row p-0'>";
         $data .= "<div class='col-md-3 form-group'>";
         $data .= "<label>Available pcs:</label>";
         $data .= "<input class='form-control' readonly  id='qty_" . $i . "' value='" . $query->quantity . "'>";
         $data .= "<input type='hidden' value='" . $query->item_details->item_name . "' name='quantity[]'>";
         $data .= "</div>";
         $data .= "<div class='col-md-3 form-group'>";
-        $data .= "<label>Sale Amount (Per):</label>";
-        $data .= "<input type='number' max='" . $query->quantity . "' id='sale-amount" . $i . "' sp-id='" . $i . "' class='form-control sale-amount' value='1' name='sale_amount[]'>";
+        $data .= "<label>Sale Amount:</label>";
+        $data .= "<input type='number' max='" . $query->quantity . "' id='sale-amount" . $i . "' sp-id='" . $i . "' class='form-control sale-amount' value='1' min='1' name='sale_amount[]'>";
         $data .= "</div>";
         $data .= "<div class='col-md-3 form-group'>";
         $data .= "<label>Sale Price:</label>";
-        $data .= "<input type='number' step='any' class='form-control sale-price' id='sale-price" . $i . "'  value='" .  $query->sale_price . "' name='sale_price[]'>";
+        $data .= "<input type='number' step='any' class='form-control sale-price' id='sale-price" . $i . "'  value='" .  $query->sale_price * $ex_rate->usd_afg . "' name='sale_price[]'>";
         $data .= "</div>";
         $data .= "<div class='col-md-3 form-group'>";
         $data .= "<label>Discount:</label>";
@@ -112,9 +114,9 @@ class SaleController extends Controller
         $data .= "</div>";
         $data .= "</div>";
         $data .= "</div>";
-        $data .= "<div classs='col-md-2'>";
+        $data .= "<div classs='col-md-2 form-group'>";
         $data .= "<label>Total:</label>";
-        $data .= "<input class='form-control' id='total-value" . $i . "' sp-id='" . $i . "' value='" . number_format($query->sale_price, 1) . "' readonly id='total'>";
+        $data .= "<input class='form-control' id='total-value" . $i . "' sp-id='" . $i . "' value='" . number_format($query->sale_price * $ex_rate->usd_afg, 1) . "' readonly id='total'>";
         $data .= "</div>";
         $data .= "<div class='col-md-1'>";
         $data .= "<a class='btn btn-danger mt-4 remove' style='padding: 7px 1.75rem !important;margin-top:30px !important;font-size:14px !important;'><span class='fa fa-trash-o text-white'></span></a>";
@@ -132,19 +134,46 @@ class SaleController extends Controller
         $sale = new Sales();
         $sale->sale_type = $request->sale_type;
         $sale->customer_id = $request->customer_id;
-        if ($sale->save()) {
-            foreach ($request->quantity as $key => $value) {
-                $sale_item = new SalesItem();
-                $sale_item->item_id = $request->item_id[$key];
-                $sale_item->quantity = $request->sale_amount[$key];
-                $sale_item->sale_price = $request->sale_price[$key];
-                $sale_item->discount = $request->discount[$key];
-                $sale_item->sale_id = $sale->sale_id;
-                $sale_item->save();
-                $update_items = StockItem::findOrFail($request->stock_item_id[$key]);
-                $update_items->quantity = $update_items->quantity - $request->sale_amount[$key];
-                $update_items->save();
-            }
+        $sale->save();
+        $ex_rate = ExchangeRate::first();
+        if ($request->sale_type == 1) {
+            $customer = new Customer();
+            $customer->customer_id = $request->customer_id;
+            $customer->bill_id = $sale->sale_id;
+            $customer->money = $request->total;
+            $customer->afg = $request->paid_amount;
+            $customer->usd_afg = $ex_rate->usd_afg;
+            $customer->usd_kal = $ex_rate->usd_kal;
+            $customer->in_out = 2;
+            $customer->comment = $request->comment;
+            $customer->date = $request->sale_date;
+            $customer->save();
+        } elseif ($request->sale_type == 2) {
+            $customer = new Customer();
+            $customer->seller_id = $request->customer_id;
+            $customer->bill_id = $sale->sale_id;
+            $customer->money = $request->total;
+            $customer->afg = $request->paid_amount;
+            $customer->usd_afg = $ex_rate->usd_afg;
+            $customer->usd_kal = $ex_rate->usd_kal;
+            $customer->percentage = $request->percentage;
+            $customer->in_out = 2;
+            $customer->comment = $request->comment;
+            $customer->date = $request->sale_date;
+            $customer->save();
+        }
+
+        foreach ($request->quantity as $key => $value) {
+            $sale_item = new SalesItem();
+            $sale_item->item_id = $request->item_id[$key];
+            $sale_item->quantity = $request->sale_amount[$key];
+            $sale_item->sale_price = $request->sale_price[$key];
+            $sale_item->discount = $request->discount[$key];
+            $sale_item->sale_id = $sale->sale_id;
+            $sale_item->save();
+            $update_items = StockItem::findOrFail($request->stock_item_id[$key]);
+            $update_items->quantity = $update_items->quantity - $request->sale_amount[$key];
+            $update_items->save();
         }
     }
 
