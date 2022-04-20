@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\CustomerAccount;
 use App\Models\ExchangeRate;
 use App\Models\Sales;
 use App\Models\SalesItem;
 use App\Models\Seller;
+use App\Models\SellerAccount;
 use App\Models\StockItem;
 use Session;
 use Illuminate\Http\Request;
@@ -21,8 +23,7 @@ class SaleController extends Controller
 
     protected function create()
     {
-        $data['items'] = StockItem::where('quantity', '!=', 0)->orderBy('stock_item_id', 'DESC')->limit(10)->get();
-        return view('sale.create', $data);
+        return view('sale.create');
     }
     protected function showCustomer($id)
     {
@@ -50,7 +51,7 @@ class SaleController extends Controller
             foreach ($data as $item) {
                 $response[] = array(
                     'id' => $item->stock_item_id,
-                    'text' => 'Item Name : ' . $item->item_details->item_name . ' ' . $item->item_details->dose . ' ' . $item->item_details->measure_details->unit . ' Quantity (Carton): ' .  $item->quantity . ' Stock ' . $item->stock_details->stock_name
+                    'text' => $item->item_details->item_name . ' ' . $item->item_details->item_unit . ' ' . $item->item_details->item_type_details->type  . ' Quantity: ' .  $item->quantity . ' ' . $item->item_details->measure_details->unit . ' Stock: ' . $item->stock_details->stock_name
                 );
             }
         } else {
@@ -58,11 +59,13 @@ class SaleController extends Controller
                 ->join('items', 'stock_items.item_id', '=', 'items.item_id')
                 ->join('stocks', 'stocks.stock_id', '=', 'stock_items.stock_id')
                 ->join('measure_units', 'items.measure_unit_id', '=', 'measure_units.measure_unit_id')
+                ->join('item_types', 'items.item_type', '=', 'item_types.id')
                 ->select(
                     'stock_items.stock_item_id',
                     'items.item_name',
-                    'items.dose',
+                    'items.item_unit',
                     'measure_units.unit',
+                    'item_types.type',
                     'stock_items.quantity',
                     'stocks.stock_name'
                 )
@@ -72,7 +75,7 @@ class SaleController extends Controller
             foreach ($data as $item) {
                 $response[] = array(
                     'id' => $item->stock_item_id,
-                    'text' => 'Item Name : ' . $item->item_name . ' ' . $item->dose . ' ' . $item->unit . ' Quantity (Carton): ' .  $item->quantity . ' Stock ' . $item->stock_name
+                    'text' => $item->item_name . ' ' . $item->item_unit . ' ' . $item->type . ' Quantity: ' .  $item->quantity . ' ' . $item->unit . ' Stock: ' . $item->stock_name
                 );
             }
         }
@@ -138,7 +141,7 @@ class SaleController extends Controller
         $sale->save();
         $ex_rate = ExchangeRate::first();
         if ($request->sale_type == 1) {
-            $customer = new Customer();
+            $customer = new CustomerAccount();
             $customer->customer_id = $request->customer_id;
             $customer->bill_id = $sale->sale_id;
             $customer->money = $request->total;
@@ -150,7 +153,7 @@ class SaleController extends Controller
             $customer->date = $request->sale_date;
             $customer->save();
         } elseif ($request->sale_type == 2) {
-            $customer = new Customer();
+            $customer = new SellerAccount();
             $customer->seller_id = $request->customer_id;
             $customer->bill_id = $sale->sale_id;
             $customer->money = $request->total;
