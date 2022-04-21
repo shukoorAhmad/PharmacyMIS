@@ -20,6 +20,7 @@
             <th><b>{{$item->item_details->item_name}}</b> -- {{$item->item_details->dose.' -- '.$item->item_details->measure_details->unit}}
                 <input type="hidden" value="{{$item->item_details->item_id}}" name="item_id[]">
                 <input type="hidden" value="{{$item->stock_item_id}}" name="stock_item_id[]">
+                <input type="hidden" value="{{$item->purchase_id}}" name="purchase_id[]">
             </th>
             <th>{{$item->quantity}}
                 <input type="hidden" value="{{$item->quantity}}" name="item_qty[]">
@@ -38,7 +39,6 @@
 <script src="{{ asset('public/js/default-assets/datatables.bootstrap4.js') }}"></script>
 <script src="{{ asset('public/js/default-assets/datatable-responsive.min.js') }}"></script>
 <script src="{{ asset('public/js/default-assets/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('public/js/default-assets/demo.datatable-init.js') }}"></script>
 <script type="text/javascript">
     $(function() {
         var table = $('.data-table').DataTable({

@@ -44,7 +44,6 @@
 <script src="{{ asset('public/js/default-assets/datatables.bootstrap4.js') }}"></script>
 <script src="{{ asset('public/js/default-assets/datatable-responsive.min.js') }}"></script>
 <script src="{{ asset('public/js/default-assets/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('public/js/default-assets/demo.datatable-init.js') }}"></script>
 <script type="text/javascript">
     $(function() {
         var table = $('.data-table').DataTable({

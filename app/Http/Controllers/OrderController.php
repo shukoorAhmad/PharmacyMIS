@@ -8,6 +8,8 @@ use App\Models\OrderItem;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Support\Facades\DB;
+use Exception;
 
 class OrderController extends Controller
 {
@@ -64,11 +66,11 @@ class OrderController extends Controller
 
     protected function store(Request $request)
     {
-        $order_store = new Order();
-        $order_store->supplier_id = $request->supplier;
-        $order_store->order_date = $request->order_date;
-
-        if ($order_store->save()) {
+        DB::beginTransaction();
+        try {
+            $order_store = new Order();
+            $order_store->supplier_id = $request->supplier;
+            $order_store->order_date = $request->order_date;
             foreach ($request->quantity as $key => $value) {
                 $order_item_store = new OrderItem();
                 $order_item_store->order_id = $order_store->order_id;
@@ -76,9 +78,12 @@ class OrderController extends Controller
                 $order_item_store->quantity = $value;
                 $order_item_store->save();
             }
+            return redirect()->route('order-list')->with('success_insert', 'Order Successfully Added');
+            DB::commit();
+        } catch (Exception $e) {
+            return redirect()->route('order-list')->with('success_insert', 'Order Not Added');
+            DB::rollBack();
         }
-
-        return redirect()->route('order-list')->with('success_insert', 'Order Successfully Added');
     }
 
     protected function view($id)
@@ -121,7 +126,6 @@ class OrderController extends Controller
     protected function deleteOrderItem($id)
     {
         $delete = OrderItem::findOrFail($id)->delete();
-
         return redirect()->back()->with('success_update', 'Order Item Successfully Deleted');
     }
 }

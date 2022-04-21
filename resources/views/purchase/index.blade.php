@@ -4,11 +4,6 @@
 <link rel="stylesheet" href="{{ asset('public/css/default-assets/datatables.bootstrap4.css') }}">
 <link rel="stylesheet" href="{{ asset('public/css/default-assets/responsive.bootstrap4.css') }}">
 <style>
-    .odd>td,
-    .even>td {
-        text-align: center !important;
-    }
-
     .badge {
         font-size: 12px !important;
     }
@@ -45,10 +40,19 @@
 <script src="{{ asset('public/js/default-assets/datatables.bootstrap4.js') }}"></script>
 <script src="{{ asset('public/js/default-assets/datatable-responsive.min.js') }}"></script>
 <script src="{{ asset('public/js/default-assets/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('public/js/default-assets/demo.datatable-init.js') }}"></script>
 @if (session()->has('success_insert'))
 <script>
     success("{{ session()->get('success_insert') }}")
+</script>
+@endif
+@if (session()->has('suc_delete'))
+<script>
+    success("{{ session()->get('suc_delete') }}")
+</script>
+@endif
+@if (session()->has('err_delete'))
+<script>
+    error_function("{{ session()->get('err_delete') }}")
 </script>
 @endif
 
@@ -92,6 +96,23 @@
                     "data": 'action'
                 }
             ]
+        });
+    });
+    $(document).on('click', '.return_purchase', function() {
+        var id = $(this).attr('data-id');
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Return This Purchase",
+            type: "error",
+            showCancelButton: !0,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
+        }).then(function(result) {
+            if (result.value) {
+                window.location.href = "{{route('return-purchase')}}/" + id;
+            }
         });
     });
 </script>

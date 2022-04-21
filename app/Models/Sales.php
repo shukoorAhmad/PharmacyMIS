@@ -8,5 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Sales extends Model
 {
     public $primaryKey = "sale_id";
+    public function customer_details()
+    {
+        return $this->hasOne(Customer::class, 'customer_id', 'customer_id');
+    }
+    public function seller_details()
+    {
+        return $this->hasOne(Seller::class, 'seller_id', 'customer_id');
+    }
     use HasFactory;
 }

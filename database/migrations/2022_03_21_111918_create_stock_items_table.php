@@ -20,6 +20,7 @@ class CreateStockItemsTable extends Migration
             $table->float('purchase_price');
             $table->float('sale_price');
             $table->date('expiry_date');
+            $table->integer('purchase_id');
             $table->integer('stock_id');
             $table->timestamps();
         });

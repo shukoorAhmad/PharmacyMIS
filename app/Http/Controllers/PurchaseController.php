@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+use Exception;
 use App\Models\Currency;
 use App\Models\ExchangeRate;
 use App\Models\Item;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Purchase;
 use App\Models\Stock;
 use App\Models\PurchaseItem;
@@ -53,6 +56,7 @@ class PurchaseController extends Controller
                 })
                 ->addColumn('action', function ($data) {
                     $btn = '<a href="' . route('view-purchase-details', $data->purchase_id) . '" class="mr-2"><i class="fa fa-eye btn btn-warning btn-circle"></i></a>';
+                    $btn .= '<a title="Return Purchase" class="mr-2 return_purchase" data-id="' . $data->purchase_id . '"><i class="fa fa-undo btn btn-danger btn-circle"></i></a>';
                     return $btn;
                 })
                 ->rawColumns(['supplier_name'])
@@ -119,7 +123,7 @@ class PurchaseController extends Controller
         $data .= "</div>";
         $data .= "<div class='form-group col-md-2'>";
         $data .= "<label>Expiry Date:</label>";
-        $data .= "<input type='date' class='form-control' name='expiry_date[]'>";
+        $data .= "<input type='date' class='form-control' name='expiry_date[]' required>";
         $data .= "</div>";
         $data .= "<div class='form-group col-md-1'>";
         $data .= '<a class="btn btn-danger w-100 close_btn" id="' . $i . '" style="padding: 7px 1.75rem !important;margin-left:-12px !important;margin-top:30px !important;font-size:14px !important;"><i class="zmdi zmdi-close text-white"></i></a>';
@@ -152,25 +156,16 @@ class PurchaseController extends Controller
                 $purchase_item->purchase_price = $request->purchase_price[$key];
                 $purchase_item->expiry_date = $request->expiry_date[$key];
                 $purchase_item->save();
-            }
-            foreach ($request->item_id as $key => $value) {
-                $old = StockItem::where(['item_id' => $request->item_id[$key], 'expiry_date' => $request->expiry_date[$key], 'stock_id' => $request->stock_id])->first();
-                if ($old != "") {
-                    $update_items = StockItem::findOrFail($old->stock_item_id);
-                    $update_items->quantity = $old->quantity + $request->quantity[$key];
-                    $update_items->purchase_price = $request->purchase_price[$key];
-                    $update_items->sale_price = $request->sale_price[$key];
-                    $update_items->save();
-                } else {
-                    $stock_items = new StockItem();
-                    $stock_items->item_id = $request->item_id[$key];
-                    $stock_items->quantity = $request->quantity[$key];
-                    $stock_items->purchase_price = $request->purchase_price[$key];
-                    $stock_items->sale_price = $request->sale_price[$key];
-                    $stock_items->expiry_date = $request->expiry_date[$key];
-                    $stock_items->stock_id = $request->stock_id;
-                    $stock_items->save();
-                }
+                // to store in stock
+                $stock_items = new StockItem();
+                $stock_items->item_id = $request->item_id[$key];
+                $stock_items->quantity = $request->quantity[$key];
+                $stock_items->purchase_price = $request->purchase_price[$key];
+                $stock_items->sale_price = $request->sale_price[$key];
+                $stock_items->expiry_date = $request->expiry_date[$key];
+                $stock_items->stock_id = $request->stock_id;
+                $stock_items->purchase_id = $purchase->purchase_id;
+                $stock_items->save();
             }
             // to add purchase bill price in supplier account
             $supplier_account = new SupplierAccount();
@@ -198,7 +193,6 @@ class PurchaseController extends Controller
 
             if ($request->order_id != "") {
                 $order = Order::findOrFail($request->order_id)->update(['status' => 1]);
-                return redirect()->route('purchase-list')->with('success_insert', 'Items Successfully Purchased');
             }
         }
         return redirect()->route('purchase-list')->with('success_insert', 'Items Successfully Purchased');
@@ -208,5 +202,25 @@ class PurchaseController extends Controller
     {
         $data['purchase'] = Purchase::findOrFail($id);
         return view('purchase.view-purchase-items', $data);
+    }
+
+    protected function reutrnPurchase($id)
+    {
+        DB::beginTransaction();
+        try {
+            $purchase = Purchase::find($id);
+            if ($purchase->order_id != 0) {
+                $order = Order::find($purchase->order_id)->delete();
+                $orderItem = OrderItem::where('order_id', $purchase->order_id)->delete();
+            }
+            $purchase->delete();
+            $purchaseItem = PurchaseItem::where('purchase_id', $id)->delete();
+            $StockItem = StockItem::where('purchase_id', $id)->delete();
+            DB::commit();
+            return redirect()->route('purchase-list')->with('suc_delete', 'Purchase Successfully Returned');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->route('purchase-list')->with('err_delete', 'Purchase Not Returned');
+        }
     }
 }

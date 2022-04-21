@@ -81,7 +81,7 @@ class TransferController extends Controller
             'transfer_date' => 'required'
         ]);
         if ($this->checkArray($request->transfer_qty)) {
-            $transfer = new Transfer;
+            $transfer = new Transfer();
             $transfer->source_stock_id = $request->source_stock_id;
             $transfer->destination_stock_id = $request->destination_stock_id;
             $transfer->transfer_date = $request->transfer_date;
@@ -111,6 +111,7 @@ class TransferController extends Controller
                             $stock_items->purchase_price = $request->purchase_price[$key];
                             $stock_items->sale_price = $request->sale_price[$key];
                             $stock_items->expiry_date = $request->expiry_date[$key];
+                            $stock_items->purchase_id = $request->purchase_id[$key];
                             $stock_items->stock_id = $request->destination_stock_id;
                             $stock_items->save();
                         }

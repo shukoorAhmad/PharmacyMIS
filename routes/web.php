@@ -48,7 +48,7 @@ Route::get('/order-list', [OrderController::class, 'index'])->name('order-list')
 Route::get('/order', [OrderController::class, 'create'])->name('order');
 Route::post('/orderItemStore', [OrderController::class, 'store'])->name('orderItemStore');
 Route::get('/addNewItem', [OrderController::class, 'addNewItem'])->name('addNewItem');
-Route::get('view-order-details/{id}', [OrderController::class, 'view'])->name('view-order-details');
+Route::get('/view-order-details/{id}', [OrderController::class, 'view'])->name('view-order-details');
 Route::get('/edit-order-details/{id}', [OrderController::class, 'edit'])->name('edit-order-details');
 Route::post('/update-order-details', [OrderController::class, 'update'])->name('update-order-details');
 Route::get('/delete-order-item/{id}', [OrderController::class, 'deleteOrderItem'])->name('delete-order-item');
@@ -59,8 +59,8 @@ Route::get('/purchase-list', [PurchaseController::class, 'index'])->name('purcha
 Route::get('/purchase', [PurchaseController::class, 'create'])->name('purchase');
 Route::get('/filter-item', [PurchaseController::class, 'filter_items'])->name('filter-item');
 Route::get('/add_new_item/{item_id?}/{i?}', [PurchaseController::class, 'add_new_item'])->name('add_new_item');
-Route::get('view-purchase-details/{id}', [PurchaseController::class, 'show'])->name('view-purchase-details');
-
+Route::get('/view-purchase-details/{id}', [PurchaseController::class, 'show'])->name('view-purchase-details');
+Route::get('/return-purchase/{id?}', [PurchaseController::class, 'reutrnPurchase'])->name('return-purchase');
 // Seller Routes
 Route::get('/seller', [SellerController::class, 'index'])->name('seller');
 Route::post('/sellerstore', [SellerController::class, 'store'])->name('sellerstore');
@@ -81,6 +81,8 @@ Route::get('/show-customer/{id?}', [SaleController::class, 'showCustomer'])->nam
 Route::get('/filter-items', [SaleController::class, 'filterItems'])->name('filter-items');
 Route::get('/show-selected-item/{stock_item_id?}/{i?}', [SaleController::class, 'showSelectedItem'])->name('show-selected-item');
 Route::post('/sale-store', [SaleController::class, 'store'])->name('sale-store');
+Route::get('/show-sale-bill/{id}', [SaleController::class, 'show'])->name('show-sale-bill');
+Route::get('/return-sale/{id?}', [SaleController::class, 'returnSale'])->name('return-sale');
 
 // expense routes
 Route::get('/expense', [ExpenseController::class, 'create'])->name('expense');

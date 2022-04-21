@@ -90,7 +90,6 @@
         $.get("{{route('show-dest-stock')}}/" + $('#source_stock_id').val(), function(response) {
             $('#destination_stock_id').empty();
             $('#destination_stock_id').append(response);
-            // console.log(response);
         });
         $.get("{{route('show-stock-items')}}/" + $('#source_stock_id').val(), function(response) {
             $('#show-items').empty();

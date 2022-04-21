@@ -13,11 +13,49 @@ use App\Models\StockItem;
 use Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Exception;
+use DataTables;
 
 class SaleController extends Controller
 {
-    protected function index()
+    protected function index(Request $request)
     {
+        if ($request->ajax()) {
+            $data = Sales::orderBy('sale_id', 'desc')->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('customer_name', function ($data) {
+                    if ($data->sale_type == 1) {
+                        $val = $data->customer_details->phamarcy_name . ' ' . $data->customer_details->customer_name;
+                    } elseif ($data->sale_type == 2) {
+                        $val = $data->seller_details->seller_name . ' ' . $data->seller_details->seller_last_name;
+                    }
+                    return $val;
+                })
+                ->addColumn('customer_type', function ($data) {
+                    return $data->sale_type == 1 ? '<span class="badge badge-success pr-4 pl-4">Customer</span>' : '<span class="badge bg-teal pr-4 pl-4">Seller</span>';
+                })
+                ->addColumn('total_carton', function ($data) {
+                    $qty = SalesItem::where('sale_id', $data->sale_id)->get();
+                    $sum = null;
+                    foreach ($qty as $quantity) {
+                        $sum += $quantity->quantity / $quantity->items_details->quantity_per_carton;
+                    }
+                    $qty = SalesItem::where('sale_id', $data->sale_id)->sum('quantity');
+                    return $sum >= 1 ? number_format($sum, 2) . ' Carton(s) | ' . $qty . ' pcs' : $qty . ' pcs';
+                })
+                ->addColumn('action', function ($data) {
+                    $btn = '<a href="' . route('show-sale-bill', $data->sale_id) . '" class="mr-2"><i class="fa fa-eye btn btn-warning btn-circle"></i></a>';
+                    $btn .= '<a title="Return Sale" class="mr-2 return_sale" data-id="' . $data->sale_id . '"><i class="fa fa-undo btn btn-danger btn-circle"></i></a>';
+                    return $btn;
+                })
+                ->rawColumns(['customer_name'])
+                ->rawColumns(['customer_type'])
+                ->rawColumns(['total_carton'])
+                ->escapeColumns([])
+                ->rawColumns(['action'])
+                ->make(true);
+        }
         return view('sale.index');
     }
 
@@ -135,57 +173,88 @@ class SaleController extends Controller
             'sale_type' => 'required',
             'customer_id' => 'required',
         ]);
-        $sale = new Sales();
-        $sale->sale_type = $request->sale_type;
-        $sale->customer_id = $request->customer_id;
-        $sale->save();
-        $ex_rate = ExchangeRate::first();
-        if ($request->sale_type == 1) {
-            $customer = new CustomerAccount();
-            $customer->customer_id = $request->customer_id;
-            $customer->bill_id = $sale->sale_id;
-            $customer->money = $request->total;
-            $customer->afg = $request->paid_amount;
-            $customer->usd_afg = $ex_rate->usd_afg;
-            $customer->usd_kal = $ex_rate->usd_kal;
-            $customer->in_out = 2;
-            $customer->comment = $request->comment;
-            $customer->date = $request->sale_date;
-            $customer->save();
-        } elseif ($request->sale_type == 2) {
-            $customer = new SellerAccount();
-            $customer->seller_id = $request->customer_id;
-            $customer->bill_id = $sale->sale_id;
-            $customer->money = $request->total;
-            $customer->afg = $request->paid_amount;
-            $customer->usd_afg = $ex_rate->usd_afg;
-            $customer->usd_kal = $ex_rate->usd_kal;
-            $customer->percentage = $request->percentage;
-            $customer->in_out = 2;
-            $customer->comment = $request->comment;
-            $customer->date = $request->sale_date;
-            $customer->save();
-        }
-
-        foreach ($request->quantity as $key => $value) {
-            $sale_item = new SalesItem();
-            $sale_item->item_id = $request->item_id[$key];
-            $sale_item->quantity = $request->sale_amount[$key];
-            $sale_item->sale_price = $request->sale_price[$key];
-            $sale_item->discount = $request->discount[$key];
-            $sale_item->sale_id = $sale->sale_id;
-            $sale_item->save();
-            $update_items = StockItem::findOrFail($request->stock_item_id[$key]);
-            $update_items->quantity = $update_items->quantity - $request->sale_amount[$key];
-            $update_items->save();
+        DB::beginTransaction();
+        try {
+            $sale = new Sales();
+            $sale->sale_type = $request->sale_type;
+            $sale->customer_id = $request->customer_id;
+            $sale->sale_date = $request->sale_date;
+            $sale->save();
+            $ex_rate = ExchangeRate::first();
+            if ($request->sale_type == 1) {
+                $customer = new CustomerAccount();
+                $customer->customer_id = $request->customer_id;
+                $customer->bill_id = $sale->sale_id;
+                $customer->money = $request->total;
+                $customer->afg = $request->paid_amount;
+                $customer->usd_afg = $ex_rate->usd_afg;
+                $customer->usd_kal = $ex_rate->usd_kal;
+                $customer->in_out = 2;
+                $customer->comment = $request->comment;
+                $customer->date = $request->sale_date;
+                $customer->save();
+            } elseif ($request->sale_type == 2) {
+                $customer = new SellerAccount();
+                $customer->seller_id = $request->customer_id;
+                $customer->bill_id = $sale->sale_id;
+                $customer->money = $request->total;
+                $customer->afg = $request->paid_amount;
+                $customer->usd_afg = $ex_rate->usd_afg;
+                $customer->usd_kal = $ex_rate->usd_kal;
+                $customer->percentage = $request->percentage;
+                $customer->in_out = 2;
+                $customer->comment = $request->comment;
+                $customer->date = $request->sale_date;
+                $customer->save();
+            }
+            foreach ($request->quantity as $key => $value) {
+                $sale_item = new SalesItem();
+                $sale_item->item_id = $request->item_id[$key];
+                $sale_item->quantity = $request->sale_amount[$key];
+                $sale_item->sale_price = $request->sale_price[$key];
+                $sale_item->discount = $request->discount[$key];
+                $sale_item->sale_id = $sale->sale_id;
+                $sale_item->save();
+                $update_items = StockItem::findOrFail($request->stock_item_id[$key]);
+                $update_items->quantity = $update_items->quantity - $request->sale_amount[$key];
+                $update_items->save();
+            }
+            DB::commit();
+            return redirect()->route('show-sale-bill', $sale->sale_id);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->route('purchase-list')->with('err_delete', 'Purchase Not Returned');
         }
     }
 
     protected function show($id)
     {
-        //
+        $sale = Sales::findOrFail($id);
+        return view('sale.sale-bill', $sale);
     }
 
+    protected function returnSale($id)
+    {
+        DB::beginTransaction();
+        try {
+            $sale = Sales::find($id)->first();
+            $sale->sale_type == 1 ? CustomerAccount::where('bill_id', $id)->delete() : SellerAccount::where('bill_id', $id)->delete();
+
+            $saleItem = SalesItem::where('sale_id', $id)->get();
+            foreach ($saleItem as $value) {
+                $stockItem = StockItem::where('item_id', $value->item_id)->first();
+                $stockItem->quantity = $stockItem->quantity + $value->quantity;
+                $stockItem->save();
+            }
+            $saleItem = SalesItem::where('sale_id', $id)->delete();
+            $sale->delete();
+            DB::commit();
+            return redirect()->route('sale-list')->with('suc_delete', 'Sale Successfully Returned');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->route('sale-list')->with('err_delete', 'Sale Not Returned');
+        }
+    }
     protected function edit($id)
     {
         //

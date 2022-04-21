@@ -17,6 +17,7 @@ class CreateSalesTable extends Migration
             $table->id('sale_id');
             $table->tinyInteger('sale_type');
             $table->integer('customer_id');
+            $table->date('sale_date');
             $table->timestamps();
         });
     }
