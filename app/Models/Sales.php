@@ -16,5 +16,9 @@ class Sales extends Model
     {
         return $this->hasOne(Seller::class, 'seller_id', 'customer_id');
     }
+    public function sales_details()
+    {
+        return $this->hasMany(SalesItem::class, 'sale_id', 'sale_id');
+    }
     use HasFactory;
 }

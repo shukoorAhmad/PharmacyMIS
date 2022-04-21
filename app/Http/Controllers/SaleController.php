@@ -46,7 +46,7 @@ class SaleController extends Controller
                 })
                 ->addColumn('action', function ($data) {
                     $btn = '<a href="' . route('show-sale-bill', $data->sale_id) . '" class="mr-2"><i class="fa fa-eye btn btn-warning btn-circle"></i></a>';
-                    $btn .= '<a title="Return Sale" class="mr-2 return_sale" data-id="' . $data->sale_id . '"><i class="fa fa-undo btn btn-danger btn-circle"></i></a>';
+                    $btn .= '<a style="cursor:pointer;" title="Return Sale" class="mr-2 return_sale" data-id="' . $data->sale_id . '"><i class="fa fa-undo btn btn-danger btn-circle"></i></a>';
                     return $btn;
                 })
                 ->rawColumns(['customer_name'])
@@ -229,8 +229,8 @@ class SaleController extends Controller
 
     protected function show($id)
     {
-        $sale = Sales::findOrFail($id);
-        return view('sale.sale-bill', $sale);
+        $data['sale'] = Sales::findOrFail($id);
+        return view('sale.sale-bill', $data);
     }
 
     protected function returnSale($id)
@@ -254,19 +254,5 @@ class SaleController extends Controller
             DB::rollBack();
             return redirect()->route('sale-list')->with('err_delete', 'Sale Not Returned');
         }
-    }
-    protected function edit($id)
-    {
-        //
-    }
-
-    protected function update(Request $request, $id)
-    {
-        //
-    }
-
-    protected function destroy($id)
-    {
-        //
     }
 }

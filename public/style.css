@@ -1690,7 +1690,7 @@ div.tagsinput span.tag a {
 
 .main-panel {
     transition: width 0.25s ease, margin 0.25s ease;
-    width: calc(100% - 255px);
+    width: calc(100% - 190px);
     min-height: calc(100vh - 60px);
     display: -webkit-flex;
     display: flex;
@@ -1785,7 +1785,7 @@ div.tagsinput span.tag a {
     background: #f8f8f8;
     font-weight: 300;
     padding: 0;
-    width: 255px;
+    width: 190px;
     z-index: 11;
     transition: width 0.25s ease, background 0.25s ease;
     -webkit-transition: width 0.25s ease, background 0.25s ease;
@@ -2249,7 +2249,7 @@ div.tagsinput span.tag a {
     -webkit-transition: width 0.25s ease, background 0.25s ease;
     -moz-transition: width 0.25s ease, background 0.25s ease;
     -ms-transition: width 0.25s ease, background 0.25s ease;
-    width: 255px;
+    width: 190px;
     height: 60px;
     padding: 0 2.1875rem;
 }
@@ -2318,7 +2318,7 @@ div.tagsinput span.tag a {
     color: #ffffff;
     padding-left: 1.75rem;
     padding-right: 1.75rem;
-    width: calc(100% - 255px);
+    width: calc(100% - 190px);
     height: 60px;
 }
 

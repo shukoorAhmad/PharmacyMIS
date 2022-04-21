@@ -33,7 +33,6 @@
 <script src="{{ asset('public/js/default-assets/datatables.bootstrap4.js') }}"></script>
 <script src="{{ asset('public/js/default-assets/datatable-responsive.min.js') }}"></script>
 <script src="{{ asset('public/js/default-assets/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('public/js/default-assets/demo.datatable-init.js') }}"></script>
 @if (session()->has('success_insert'))
 <script>
     success("{{ session()->get('success_insert') }}")
