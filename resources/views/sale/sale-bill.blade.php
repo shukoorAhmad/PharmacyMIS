@@ -8,7 +8,9 @@
 
         td,
         th {
-            font-size: 16px !important;
+            font-size: 12px !important;
+            margin-top: 2px !important;
+            margin-bottom: 2px !important;
         }
 
         th {
@@ -80,6 +82,29 @@
                         <th>{{$total_money}}</th>
                     </tr>
                 </table>
+                <div class="col-md-4">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th colspan="2">Total</th>
+                        </tr>
+                        <tr>
+                            <th>Current Bill</th>
+                            <td>{{$total_money}}</td>
+                        </tr>
+                        <tr>
+                            <th>Current Bill Paid</th>
+                            <td>{{$current_paid_bill}}</td>
+                        </tr>
+                        <tr>
+                            <th>Previous Loan</th>
+                            <td>{{$loan}}</td>
+                        </tr>
+                        <tr>
+                            <th>Total Loan</th>
+                            <td>{{$loan+$total_money-$current_paid_bill}}</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div> <!-- end card body-->
     </div> <!-- end card -->

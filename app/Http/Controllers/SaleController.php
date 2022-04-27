@@ -229,7 +229,47 @@ class SaleController extends Controller
 
     protected function show($id)
     {
+        $loan = 0;
+        $paid = 0;
+        $current_paid_bill = 0;
         $data['sale'] = Sales::findOrFail($id);
+        if ($data['sale']->sale_type == 1) {
+            $ca = CustomerAccount::where('customer_id', $data['sale']->customer_id)->where('bill_id', '!=', $id)->get();
+            foreach ($ca as $row) {
+                $loan += $row->money;
+                if ($row->in_out == 0 || $row->in_out == 2) {
+                    $paid += $row->afg;
+                    $paid += $row->usd / $row->usd_afg;
+                    $paid += $row->kal / 2;
+                }
+                if ($row->in_out == 1) {
+                    $loan += $row->afg;
+                    $loan += $row->usd / $row->usd_afg;
+                    $loan += $row->kal / 2;
+                }
+            }
+            $current_pay = CustomerAccount::where('bill_id', $id)->first();
+            $current_paid_bill += $current_pay->afg;
+            $current_paid_bill += $current_pay->usd * $current_pay->usd_afg;
+            $current_paid_bill += $current_pay->kal / 2;
+            $data['current_paid_bill'] = $current_paid_bill;
+        } elseif ($data['sale']->sale_type == 1) {
+            $ca = SellerAccount::where('customer_id', $data['sale']->customer_id)->where('bill_id', '!=', $id)->get();
+            foreach ($ca as $row) {
+                $loan += $row->money;
+                if ($row->in_out == 0 || $row->in_out == 2) {
+                    $paid += $row->afg;
+                    $paid += $row->usd / $row->usd_afg;
+                    $paid += $row->kal / 2;
+                }
+                if ($row->in_out == 1) {
+                    $loan += $row->afg;
+                    $loan += $row->usd / $row->usd_afg;
+                    $loan += $row->kal / 2;
+                }
+            }
+        }
+        $data['loan'] = $loan - $paid;
         return view('sale.sale-bill', $data);
     }
 
