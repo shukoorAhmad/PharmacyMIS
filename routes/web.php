@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\JournalController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SaleController;
@@ -20,7 +22,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 // site crud
@@ -90,3 +92,6 @@ Route::get('/expense-list', [ExpenseController::class, 'index'])->name('expense-
 Route::post('/expense-store', [ExpenseController::class, 'store'])->name('expense-store');
 Route::get('/expense-edit', [ExpenseController::class, 'edit'])->name('expense-edit');
 Route::post('/expense-update', [ExpenseController::class, 'update'])->name('expense-update');
+// journal routes
+Route::get('/journal', [JournalController::class, 'index'])->name('journal');
+Route::post('/cash-store', [JournalController::class, 'cashStore'])->name('cash-store');
