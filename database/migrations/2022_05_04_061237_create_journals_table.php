@@ -16,8 +16,8 @@ class CreateJournalsTable extends Migration
         Schema::create('journals', function (Blueprint $table) {
             $table->id();
             $table->tinyInteger('source');
-            $table->integer('source_id');
-            $table->integer('bill_id');
+            $table->integer('source_id')->default(0);
+            $table->integer('bill_id')->default(0);
             $table->float('money')->default(0);
             $table->float('usd')->default(0);
             $table->float('afg')->default(0);

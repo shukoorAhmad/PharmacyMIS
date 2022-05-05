@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="{{ asset('public/css/default-assets/responsive.bootstrap4.css') }}">
 <link rel="stylesheet" href="{{ asset('public/css/default-assets/select2.min.css') }}">
 <link rel="stylesheet" href="{{asset('public/radio-button/index.css')}}">
+
 <div class="col-12 box-margin height-card">
     <div class="card">
         <div class="card-body">
@@ -32,23 +33,27 @@
                         <div class="row">
                             <div class="form-group col-md-2">
                                 <label for="">USD</label>
-                                <input type="text" name="usd" class="form-control inputNumeral" value="0">
+                                <input id="usd" name="usd" class="form-control inputNumeral check" value="0">
+                                <label class="text-danger" id="usd_error"></label>
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="">AFG</label>
-                                <input type="text" class="form-control inputNumeral" value="0">
+                                <input id="afg" name="afg" class="form-control inputNumeral check" value="0">
+                                <div class="text-danger" id="afg_error"></div>
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="">KAL</label>
-                                <input type="text" class="form-control inputNumeral" value="0">
+                                <input id="kal" name="kal" class="form-control inputNumeral check" value="0">
+                                <div class="text-danger" id="kal_error"></div>
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="">USD to AFG</label>
-                                <input type="text" class="form-control inputNumeral" value="{{$exchange_rate->usd_afg}}">
+                                <input id="" name="usd_afg" class="form-control inputNumeral" value="{{$exchange_rate->usd_afg}}">
+                                <input type="hidden" name="exchange_rate_id" class="form-control inputNumeral" value="{{$exchange_rate->exchange_rate_id}}">
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="">USD to Kal</label>
-                                <input type="text" class="form-control inputNumeral" value="{{$exchange_rate->usd_kal}}">
+                                <input id="" name="usd_kal" class="form-control inputNumeral" value="{{$exchange_rate->usd_kal}}">
                             </div>
                             <div class="col-md-2" style="margin-top: 30px !important;">
                                 <div id="div1" class="selectGroup">
@@ -57,10 +62,10 @@
                             </div>
                             <div class="form-group col-md-10">
                                 <label>Comment</label>
-                                <input type="text" class="form-control" placeholder="Write your comments here...">
+                                <input name="comment" class="form-control" placeholder="Write your comments here...">
                             </div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-primary mr-2 w-100" style="margin-top:28px !important;">Submit</button>
+                                <button type="submit" class="btn btn-primary mr-2 w-100 submit" style="margin-top:28px !important;">Submit</button>
                             </div>
                         </div>
                     </form>
@@ -87,7 +92,43 @@
 <script src="{{ asset('public/js/default-assets/select2.min.js') }}"></script>
 <script src="{{ asset('public/radio-button/toggle.js') }}"></script>
 <script src="{{asset('public/js/default-assets/cleave.min.js')}}"></script>
+@if(session()->has('success_insert'))
 <script>
+    success("{{session()->get('success_insert')}}");
+</script>
+@endif
+@if(session()->has('error_transaction'))
+<script>
+    error_function("{{session()->get('error_transaction')}}");
+</script>
+@endif
+<script>
+    $(document).on('keyup', '.check', function() {
+        if ($('#radio-value').val() == 1) {
+            var name = $(this).attr('name');
+            $.get("{{route('check-money')}}/" + $(this).val() + "/" + name, function(response) {
+                if (response != 1) {
+                    $('#' + name + '_error').html('You Have ' + response + ' ' + name);
+                    $('#' + name).css('border-color', '#dc3545');
+                    $('.submit').attr('disabled', 'disabled');
+                } else {
+                    $('#' + name).css('border-color', '#5867dd');
+                    $('#' + name + '_error').html('');
+                    $('#' + name + '_error').focus();
+                    $('.submit').removeAttr('disabled');
+                }
+            });
+        }
+    });
+
+    $(document).on('click', '.submit', function() {
+        if ($('#usd').val() == 0 && $('#afg').val() == 0 && $('#kal').val() == 0) {
+            error_function('please enter value');
+            return false;
+        } else {
+            return true;
+        }
+    });
     $("#div1").setupToggles();
     $(document).on('click', '.zero', function() {
         if ($(this).attr('value') == '0') {
