@@ -96,3 +96,4 @@ Route::post('/expense-update', [ExpenseController::class, 'update'])->name('expe
 Route::get('/journal', [JournalController::class, 'index'])->name('journal');
 Route::post('/cash-store', [JournalController::class, 'cashStore'])->name('cash-store');
 Route::get('/check-money/{money?}/{currency?}', [JournalController::class, 'checkMoney'])->name('check-money');
+Route::post('/expense-store', [JournalController::class, 'expenseStore'])->name('expense-store');

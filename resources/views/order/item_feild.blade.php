@@ -3,7 +3,7 @@
 <div class="row show_items">
     <div class="form-group col-md-6">
         <label class="col-form-label">Item Name</label>
-        <select name="item[]" class="form-control select2">
+        <select name="item[]" class="form-control select2" required>
             <option value="" selected disabled>Please Select Item</option>
             @foreach ($items as $item)
             <option value="{{ $item->item_id }}">{{ $item->item_name . ' ' . $item->item_unit . ' ' . $item->item_type_details->type }}</option>

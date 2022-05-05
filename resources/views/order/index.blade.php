@@ -43,6 +43,11 @@
     success("{{ session()->get('success_update') }}")
 </script>
 @endif
+@if (session()->has('error_insert'))
+<script>
+    error_function("{{ session()->get('error_insert') }}")
+</script>
+@endif
 
 <script type="text/javascript">
     $(function() {

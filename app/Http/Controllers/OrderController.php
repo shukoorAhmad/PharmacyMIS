@@ -71,6 +71,7 @@ class OrderController extends Controller
             $order_store = new Order();
             $order_store->supplier_id = $request->supplier;
             $order_store->order_date = $request->order_date;
+            $order_store->save();
             foreach ($request->quantity as $key => $value) {
                 $order_item_store = new OrderItem();
                 $order_item_store->order_id = $order_store->order_id;
@@ -81,7 +82,7 @@ class OrderController extends Controller
             return redirect()->route('order-list')->with('success_insert', 'Order Successfully Added');
             DB::commit();
         } catch (Exception $e) {
-            return redirect()->route('order-list')->with('success_insert', 'Order Not Added');
+            return redirect()->route('order-list')->with('error_insert', 'Order Not Added');
             DB::rollBack();
         }
     }

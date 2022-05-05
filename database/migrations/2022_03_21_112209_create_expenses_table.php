@@ -20,7 +20,6 @@ class CreateExpensesTable extends Migration
             $table->float('kal')->default(0);
             $table->float('usd_afg');
             $table->float('usd_kal');
-            $table->tinyInteger('in_out');
             $table->date('expense_date');
             $table->string('comment')->nullable();
             $table->timestamps();
