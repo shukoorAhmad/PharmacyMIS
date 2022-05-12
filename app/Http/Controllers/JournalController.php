@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cash;
+use App\Models\Customer;
+use App\Models\CustomerAccount;
 use App\Models\ExchangeRate;
 use App\Models\Expense;
 use App\Models\Journal;
+use App\Models\Seller;
+use App\Models\SellerAccount;
+use App\Models\Supplier;
+use App\Models\SupplierAccount;
 use Illuminate\Http\Request;
-use DB;
 
 class JournalController extends Controller
 {
@@ -23,6 +28,7 @@ class JournalController extends Controller
         $check = Cash::where('in_out', 0)->sum($currnecy);
         return $check > $money ? true : $check;
     }
+
     protected function cashStore(Request $request)
     {
         $request->validate([
@@ -61,6 +67,7 @@ class JournalController extends Controller
         $msg = $request->in_out == 0 ? 'Money Successfully Transfered To Cash' : 'Money Successfully Out From Cash';
         return redirect()->back()->with('success_insert', $msg);
     }
+
     protected function expenseStore(Request $request)
     {
         $request->validate([
@@ -96,5 +103,204 @@ class JournalController extends Controller
         $journal->comment = $request->comment;
         $journal->save();
         return redirect()->back()->with('success_insert', 'Expense Successfully Saved');
+    }
+
+    protected function filterCustomer(Request $request)
+    {
+        $search = $request->search;
+        if ($search == '') {
+            $data = Customer::orderBy('customer_id', 'DESC')->limit(10)->get();
+            $response = array();
+            foreach ($data as $customer) {
+                $response[] = array(
+                    'id' => $customer->customer_id,
+                    'text' => $customer->pharmacy_name . ' ' . $customer->customer_name . ' ' . $customer->customer_last_name  . ' ' .  $customer->site->site_name
+                );
+            }
+        } else {
+            $data = Customer::where('pharmacy_name', 'like', '%' . $search . '%')->orWhere('customer_name', 'like', '%' . $search . '%')->orWhere('customer_last_name', 'like', '%' . $search . '%')->get();
+            $response = array();
+            foreach ($data as $customer) {
+                $response[] = array(
+                    'id' => $customer->customer_id,
+                    'text' => $customer->pharmacy_name . ' ' . $customer->customer_name . ' ' . $customer->customer_last_name  . ' ' .  $customer->site->site_name
+                );
+            }
+        }
+        return response()->json($response);
+    }
+
+    protected function customerStore(Request $request)
+    {
+        $request->validate([
+            'usd' => 'numeric',
+            'afg' => 'numeric',
+            'kal' => 'numeric',
+            'usd_afg' => 'numeric',
+            'usd_kal' => 'numeric',
+            'customer' => 'required'
+        ]);
+
+        $exchange_rate = ExchangeRate::findOrFail($request->exchange_rate_id);
+        $exchange_rate->usd_afg = $request->usd_afg;
+        $exchange_rate->usd_kal = $request->usd_kal;
+        $exchange_rate->save();
+
+        $customer_account = new CustomerAccount();
+        $customer_account->customer_id = $request->customer;
+        $customer_account->usd = $request->usd;
+        $customer_account->afg = $request->afg;
+        $customer_account->kal = $request->kal;
+        $customer_account->usd_afg = $request->usd_afg;
+        $customer_account->usd_kal = $request->usd_kal;
+        $customer_account->in_out = $request->in_out;
+        $customer_account->comment = $request->comment;
+        $customer_account->save();
+
+        $journal = new Journal();
+        $journal->source = 3;
+        $journal->source_id = $request->customer;
+        $journal->usd = $request->usd;
+        $journal->afg = $request->afg;
+        $journal->kal = $request->kal;
+        $journal->usd_afg = $request->usd_afg;
+        $journal->usd_kal = $request->usd_kal;
+        $journal->in_out = $request->in_out;
+        $journal->comment = $request->comment;
+        $journal->save();
+        $msg = $request->in_out == 0 ? 'Money Successfully Received From Customer' : 'Money Successfully Send to Customer';
+        return redirect()->back()->with('success_insert', $msg);
+    }
+    protected function filterSeller(Request $request)
+    {
+        $search = $request->search;
+        if ($search == '') {
+            $data = Seller::orderBy('seller_id', 'DESC')->limit(10)->get();
+            $response = array();
+            foreach ($data as $customer) {
+                $response[] = array(
+                    'id' => $customer->seller_id,
+                    'text' => $customer->seller_name . ' ' . $customer->seller_last_name . ' ' . $customer->address
+                );
+            }
+        } else {
+            $data = Seller::where('seller_name', 'like', '%' . $search . '%')->orWhere('seller_last_name', 'like', '%' . $search . '%')->orWhere('address', 'like', '%' . $search . '%')->get();
+            $response = array();
+            foreach ($data as $customer) {
+                $response[] = array(
+                    'id' => $customer->seller_id,
+                    'text' => $customer->seller_name . ' ' . $customer->seller_last_name . ' ' . $customer->address
+                );
+            }
+        }
+        return response()->json($response);
+    }
+
+    protected function sellerStore(Request $request)
+    {
+        $request->validate([
+            'usd' => 'numeric',
+            'afg' => 'numeric',
+            'kal' => 'numeric',
+            'usd_afg' => 'numeric',
+            'usd_kal' => 'numeric',
+            'seller' => 'required'
+        ]);
+
+        $exchange_rate = ExchangeRate::findOrFail($request->exchange_rate_id);
+        $exchange_rate->usd_afg = $request->usd_afg;
+        $exchange_rate->usd_kal = $request->usd_kal;
+        $exchange_rate->save();
+
+        $seller_account = new SellerAccount();
+        $seller_account->seller_id = $request->seller;
+        $seller_account->usd = $request->usd;
+        $seller_account->afg = $request->afg;
+        $seller_account->kal = $request->kal;
+        $seller_account->usd_afg = $request->usd_afg;
+        $seller_account->usd_kal = $request->usd_kal;
+        $seller_account->in_out = $request->in_out;
+        $seller_account->comment = $request->comment;
+        $seller_account->save();
+
+        $journal = new Journal();
+        $journal->source = 4;
+        $journal->source_id = $request->seller;
+        $journal->usd = $request->usd;
+        $journal->afg = $request->afg;
+        $journal->kal = $request->kal;
+        $journal->usd_afg = $request->usd_afg;
+        $journal->usd_kal = $request->usd_kal;
+        $journal->in_out = $request->in_out;
+        $journal->comment = $request->comment;
+        $journal->save();
+        $msg = $request->in_out == 0 ? 'Money Successfully Received From Seller' : 'Money Successfully Send to Seller';
+        return redirect()->back()->with('success_insert', $msg);
+    }
+    protected function filterSupplier(Request $request)
+    {
+        $search = $request->search;
+        if ($search == '') {
+            $data = Supplier::orderBy('supplier_id', 'DESC')->limit(10)->get();
+            $response = array();
+            foreach ($data as $customer) {
+                $response[] = array(
+                    'id' => $customer->supplier_id,
+                    'text' => $customer->name . ' ' . $customer->email . ' ' . $customer->contact_no
+                );
+            }
+        } else {
+            $data = Supplier::where('name', 'like', '%' . $search . '%')->orWhere('email', 'like', '%' . $search . '%')->orWhere('contact_no', 'like', '%' . $search . '%')->get();
+            $response = array();
+            foreach ($data as $customer) {
+                $response[] = array(
+                    'id' => $customer->supplier_id,
+                    'text' => $customer->name . ' ' . $customer->email . ' ' . $customer->contact_no
+                );
+            }
+        }
+        return response()->json($response);
+    }
+
+    protected function supplierStore(Request $request)
+    {
+        $request->validate([
+            'usd' => 'numeric',
+            'afg' => 'numeric',
+            'kal' => 'numeric',
+            'usd_afg' => 'numeric',
+            'usd_kal' => 'numeric',
+            'supplier' => 'required'
+        ]);
+
+        $exchange_rate = ExchangeRate::findOrFail($request->exchange_rate_id);
+        $exchange_rate->usd_afg = $request->usd_afg;
+        $exchange_rate->usd_kal = $request->usd_kal;
+        $exchange_rate->save();
+
+        $seller_account = new SupplierAccount();
+        $seller_account->supplier_id = $request->supplier;
+        $seller_account->usd = $request->usd;
+        $seller_account->afg = $request->afg;
+        $seller_account->kal = $request->kal;
+        $seller_account->usd_afg = $request->usd_afg;
+        $seller_account->usd_kal = $request->usd_kal;
+        $seller_account->in_out = $request->in_out;
+        $seller_account->comment = $request->comment;
+        $seller_account->save();
+
+        $journal = new Journal();
+        $journal->source = 5;
+        $journal->source_id = $request->supplier;
+        $journal->usd = $request->usd;
+        $journal->afg = $request->afg;
+        $journal->kal = $request->kal;
+        $journal->usd_afg = $request->usd_afg;
+        $journal->usd_kal = $request->usd_kal;
+        $journal->in_out = $request->in_out;
+        $journal->comment = $request->comment;
+        $journal->save();
+        $msg = $request->in_out == 0 ? 'Money Successfully Received From Supplier' : 'Money Successfully Send to Supplier';
+        return redirect()->back()->with('success_insert', $msg);
     }
 }

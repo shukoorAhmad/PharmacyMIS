@@ -26,7 +26,6 @@ class CreateSupplierAccountsTable extends Migration
             $table->float('usd_kal');
             $table->boolean('in_out');
             $table->string('comment')->nullable();
-            $table->date('date');
             $table->timestamps();
         });
     }

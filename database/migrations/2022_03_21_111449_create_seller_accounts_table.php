@@ -26,7 +26,6 @@ class CreateSellerAccountsTable extends Migration
             $table->tinyInteger('percentage')->default(0);
             $table->tinyInteger('in_out');
             $table->string('comment')->nullable();
-            $table->date('date');
             $table->timestamps();
         });
     }
