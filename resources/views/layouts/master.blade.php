@@ -98,8 +98,9 @@
                             <img class="flex-30-img mr-2" src="{{ asset('public/img/shop-img/l5.png') }}" alt="">English<i class="arrow_carrot-down"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                            <a href="#" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/shop-img/l2.jpg') }}" alt=""> Dari</a>
-                            <a href="#" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/shop-img/l1.jpg') }}" alt=""> Pashto</a>
+                            <a href="{{route('en')}}" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/shop-img/l2.jpg') }}" alt=""> English</a>
+                            <a href="{{route('fa')}}" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/shop-img/l2.jpg') }}" alt=""> Dari</a>
+                            <a href="{{route('ps')}}" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/shop-img/l1.jpg') }}" alt=""> Pashto</a>
                         </div>
                     </li>
 
@@ -197,7 +198,7 @@
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                                 <line x1="12" y1="22.08" x2="12" y2="12"></line>
                             </svg>
-                            <span class="menu-title">Dashboard</span>
+                            <span class="menu-title">{{__('words.dashboard')}}</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -207,7 +208,7 @@
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                                 <line x1="12" y1="22.08" x2="12" y2="12"></line>
                             </svg>
-                            <span class="menu-title">Site</span>
+                            <span class="menu-title">{{__('words.Site')}}</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -217,7 +218,7 @@
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                                 <line x1="12" y1="22.08" x2="12" y2="12"></line>
                             </svg>
-                            <span class="menu-title">Supplier</span>
+                            <span class="menu-title">{{__('words.supplier')}}</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -227,7 +228,7 @@
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                                 <line x1="12" y1="22.08" x2="12" y2="12"></line>
                             </svg>
-                            <span class="menu-title">Customer</span>
+                            <span class="menu-title">{{__('words.customer')}}</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -237,7 +238,7 @@
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                                 <line x1="12" y1="22.08" x2="12" y2="12"></line>
                             </svg>
-                            <span class="menu-title">Items</span>
+                            <span class="menu-title">{{__('words.items')}}</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -248,7 +249,7 @@
                                 <line x1="8" y1="2" x2="8" y2="6"></line>
                                 <line x1="3" y1="10" x2="21" y2="10"></line>
                             </svg>
-                            <span class="menu-title">Stock</span>
+                            <span class="menu-title">{{__('words.stock')}}</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -259,7 +260,7 @@
                                 <line x1="8" y1="2" x2="8" y2="6"></line>
                                 <line x1="3" y1="10" x2="21" y2="10"></line>
                             </svg>
-                            <span class="menu-title">Order</span>
+                            <span class="menu-title">{{__('words.order')}}</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -270,7 +271,7 @@
                                 <line x1="8" y1="2" x2="8" y2="6"></line>
                                 <line x1="3" y1="10" x2="21" y2="10"></line>
                             </svg>
-                            <span class="menu-title">Purchase</span>
+                            <span class="menu-title">{{__('words.purchase')}}</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -280,7 +281,7 @@
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                                 <line x1="12" y1="22.08" x2="12" y2="12"></line>
                             </svg>
-                            <span class="menu-title">Seller</span>
+                            <span class="menu-title">{{__('words.seller')}}</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -290,7 +291,7 @@
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                                 <line x1="12" y1="22.08" x2="12" y2="12"></line>
                             </svg>
-                            <span class="menu-title">Transfer</span>
+                            <span class="menu-title">{{__('words.transfer')}}</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -300,7 +301,7 @@
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                                 <line x1="12" y1="22.08" x2="12" y2="12"></line>
                             </svg>
-                            <span class="menu-title">Sales</span>
+                            <span class="menu-title">{{__('words.sale')}}</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -310,7 +311,7 @@
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                                 <line x1="12" y1="22.08" x2="12" y2="12"></line>
                             </svg>
-                            <span class="menu-title">Journal</span>
+                            <span class="menu-title">{{__('words.journal')}}</span>
                         </a>
                     </li>
                 </ul>

@@ -10,7 +10,7 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 id="modal_title">Add New Item</h5>
+                <h5 id="modal_title">{{__('words.Add New Item')}}</h5>
             </div>
             <div class="modal-body">
                 <form id="store_form" method="POST" action="{{ route('itemstore') }}" autocomplete="off">
@@ -18,19 +18,19 @@
                     <input type="hidden" value="0" name="id" id="edit_record_id">
                     <div class="row">
                         <div class="form-group col-md-4">
-                            <label for="item_name" class="col-form-label">Item Name</label>
-                            <input class="form-control" name="item_name" required id="item_name" placeholder="Write Item Name Here...">
+                            <label for="item_name" class="col-form-label">{{__('words.Item Name')}}</label>
+                            <input class="form-control" name="item_name" required id="item_name" placeholder="{{__('words.Write Item Name Here...')}}">
                             <div class="invalid-feedback item_name_error"></div>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="item_unit" class="col-form-label">Item Unit</label>
-                            <input class="form-control" name="item_unit" id="item_unit" placeholder="Write Item Name Here...">
+                            <label for="item_unit" class="col-form-label">{{__('words.Item Unit')}}</label>
+                            <input class="form-control" name="item_unit" id="item_unit" placeholder="{{__('words.Write Item Unit Here...')}}">
                             <div class="invalid-feedback item_unit_error"></div>
                         </div>
                         <div class="form-group col-md-4">
-                            <label class="col-form-label w-100">Item Type</label>
+                            <label class="col-form-label w-100">{{__('words.Item Type')}}</label>
                             <select name="item_type" class="form-control select2" id="item_type" style="width: 100%;" required>
-                                <option value="" selected disabled>Select Item Type</option>
+                                <option value="" selected disabled>{{__('words.Select Item Type')}}</option>
                                 @foreach($type as $typ)
                                 <option value="{{$typ->id}}">{{$typ->type}}</option>
                                 @endforeach
@@ -38,9 +38,9 @@
                             <div class="invalid-feedback item_type_error"></div>
                         </div>
                         <div class="form-group col-md-3">
-                            <label class="col-form-label w-100">Unit</label>
+                            <label class="col-form-label w-100">{{__('words.Unit')}}</label>
                             <select name="measure_unit_id" class="form-control select2" id="measure_unit_id" style="width: 100%;" required>
-                                <option value="" selected disabled>Select Item Type</option>
+                                <option value="" selected disabled>{{__('words.Select Item Unit')}}</option>
                                 @foreach($measure as $m)
                                 <option value="{{$m->measure_unit_id}}">{{$m->unit}}</option>
                                 @endforeach
@@ -48,23 +48,23 @@
                             <div class="invalid-feedback measure_unit_id_error"></div>
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="quantity_per_carton" class="col-form-label">Quantity Per Carton</label>
-                            <input class="form-control" name="quantity_per_carton" required id="quantity_per_carton" placeholder="Write Quantity Per Carton Here...">
+                            <label for="quantity_per_carton" class="col-form-label">{{__('words.Quantity Per Carton')}}</label>
+                            <input class="form-control" name="quantity_per_carton" required id="quantity_per_carton" placeholder="{{__('words.Write Quantity Per Carton Here...')}}">
                             <div class="invalid-feedback quantity_per_carton_error"></div>
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="purchase_price" class="col-form-label">Purchase Price</label>
-                            <input class="form-control" name="purchase_price" required id="purchase_price" placeholder="Write Purchase Price Here...">
+                            <label for="purchase_price" class="col-form-label">{{__('words.Purchase Price')}}</label>
+                            <input class="form-control" name="purchase_price" required id="purchase_price" placeholder="{{__('words.Write Purchase Price Here...')}}">
                             <div class="invalid-feedback purchase_price_error"></div>
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="sale_price" class="col-form-label">Sale Price</label>
-                            <input class="form-control" name="sale_price" required id="sale_price" placeholder="Write Sale Price Here...">
+                            <label for="sale_price" class="col-form-label">{{__('words.Sale Price')}}</label>
+                            <input class="form-control" name="sale_price" required id="sale_price" placeholder="{{__('words.Write Sale Price Here...')}}">
                             <div class="invalid-feedback sale_price_error"></div>
                         </div>
                     </div>
-                    <button type="submit" id="submit_btn" class="btn btn-primary">Save</button>
-                    <button type="button" class="btn btn-danger" id="close_btn">Close</button>
+                    <button type="submit" id="submit_btn" class="btn btn-primary"> {{__('words.Save')}}</button>
+                    <button type="button" class="btn btn-danger" id="close_btn"> {{__('words.Close')}}</button>
                 </form>
             </div>
         </div>
@@ -75,20 +75,20 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between">
-                <h6 class="card-title">Item List</h6>
-                <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#add_modal">New Item <span class="fa fa-plus"></span></button>
+                <h6 class="card-title"> {{__('words.Item List')}}</h6>
+                <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#add_modal"> {{__('words.New Item')}}<span class="fa fa-plus"></span></button>
             </div>
             <div class="table-responsive">
                 <table class="table data-table table-striped w-100">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Item Name</th>
-                            <th>Measure Unit</th>
-                            <th>Quantity Per Carton</th>
-                            <th>Purchase Price</th>
-                            <th>Sale Price</th>
-                            <th>Action</th>
+                            <th> {{__('words.ID')}}</th>
+                            <th> {{__('words.Item Name')}}</th>
+                            <th> {{__('words.Measure Unit')}}</th>
+                            <th> {{__('words.Quantity Per Carton')}}</th>
+                            <th> {{__('words.Purchase Price')}}</th>
+                            <th> {{__('words.Sale Price')}}</th>
+                            <th> {{__('words.Action')}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -105,6 +105,8 @@
 <script src="{{ asset('public/js/default-assets/datatables.bootstrap4.js') }}"></script>
 <script src="{{ asset('public/js/default-assets/datatable-responsive.min.js') }}"></script>
 <script src="{{ asset('public/js/default-assets/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('public/js/default-assets/select2.min.js') }}"></script>
+
 
 <!-- Inject JS -->
 <script type="text/javascript">
@@ -180,12 +182,12 @@
                         $('.data-table').DataTable().ajax.reload();
                         if ($('#edit_record_id').val() != '0') {
                             $('#add_modal').modal('hide');
-                            $('#submit_btn').html('Save');
+                            $('#submit_btn').html("{{__('words.Save')}}");
                             $('#edit_record_id').val('0');
-                            $('#modal_title').html('Add New Item');
-                            success("Item Successfully Updated!!!");
+                            $('#modal_title').html(" {{__('words.Add New Item')}}");
+                            success("{{__('words.Item Successfully Updated!!!')}}");
                         } else {
-                            success("Item Successfully Added!!!");
+                            success("{{__('words.Item Successfully Added!!!')}}");
                         }
                     } else {
                         var response = JSON.parse(data);
@@ -201,7 +203,7 @@
                     submit_btn = false;
                 },
                 error: function() {
-                    error_function("There Is A Problem Please Contact Your Administrator!");
+                    error_function("{{__('words.There Is A Problem Please Contact Your Administrator!')}}");
                     submit_btn = false;
                 }
             });
@@ -209,8 +211,8 @@
     });
 
     $(document).on('click', '.edit_btn', function() {
-        $('#modal_title').html('Edit Item');
-        $('#submit_btn').html('Save Changes');
+        $('#modal_title').html("{{__('words.Edit Item')}}");
+        $('#submit_btn').html("{{__('words.Save Changes')}}");
         $('#edit_record_id').val($(this).attr('data-id'));
         $("input[name=item_name]").val($(this).attr('data-name'));
         $("input[name=item_unit]").val($(this).attr('data-unit'));
@@ -223,8 +225,8 @@
     });
 
     $('#close_btn').click(function() {
-        $('#add_modal').modal('hide');
-        $('#submit_btn').html('Save');
+        $('#add_modal').modal("hide");
+        $('#submit_btn').html("{{__('words.Save')}}");
         $('#edit_record_id').val('0');
         $("input[name=item_name]").val('');
         $("input[name=item_unit]").val('');
@@ -233,7 +235,7 @@
         $("input[name=quantity_per_carton]").val('');
         $("input[name=purchase_price]").val('');
         $("input[name=sale_price]").val('');
-        $('#modal_title').html('Add New Item');
+        $('#modal_title').html("{{__('words.Add New Item')}}");
     });
 </script>
 @endsection

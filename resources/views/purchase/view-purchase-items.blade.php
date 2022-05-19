@@ -19,28 +19,28 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between hop">
-                <h4 class="card-title mb-2">Purchase No {{$purchase->purchase_id}}</h4>
+                <h4 class="card-title mb-2"> {{ __('words.Purchase No') $purchase->purchase_id}}</h4>
                 <div>
-                    <a onclick="window.print()" class="btn btn-primary mb-3 text-white">Print</a>
-                    <a href="{{url()->previous()}}" class="btn btn-success mb-3">Back</a>
+                    <a onclick="window.print()" class="btn btn-primary mb-3 text-white">{{__('words.Print')}}</a>
+                    <a href="{{url()->previous()}}" class="btn btn-success mb-3">{{__('words.Back')}}</a>
                 </div>
             </div>
             <div>
                 <table class="table">
                     <tr>
-                        <th>From {{$purchase->supplier_details->name}} </th>
-                        <th>Purchase Invoice No: {{$purchase->purchase_invoice_no}}</th>
-                        <th>Purchase Date: {{$purchase->purchase_date}}</th>
+                        <th> {{__('words.From').' '.$purchase->supplier_details->name}} </th>
+                        <th> {{__('words.Purchase Invoice No').' '.$purchase->purchase_invoice_no}}</th>
+                        <th> {{__('words.Purchase Date').' '.$purchase->purchase_date}}</th>
                     </tr>
                 </table>
                 <table class="table table-bordered">
                     <tr>
-                        <th>No</th>
-                        <th>Item</th>
-                        <th>Quantity</th>
-                        <th>Purchase Price </th>
-                        <th>Purchase Price (Total)</th>
-                        <th>Expiry Date</th>
+                        <th>{{__('words.No')}}</th>
+                        <th>{{__('words.Item')}}</th>
+                        <th>{{__('words.Quantity')}}</th>
+                        <th>{{__('words.Purchase Price')}} </th>
+                        <th>{{__('words.Purchase Price (Total)')}}</th>
+                        <th>{{__('words.Expiry Date')}}</th>
                     </tr>
                     @php
                     $total=0;
@@ -62,7 +62,7 @@
                     </tr>
                     @endforeach
                     <tr>
-                        <th colspan="2">Total</th>
+                        <th colspan="2">{{__('words.Total')}}</th>
                         <th>{{$total}}</th>
                         <th></th>
                         <th>{{$total_price}}</th>

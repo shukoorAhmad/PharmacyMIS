@@ -7,23 +7,23 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between">
-                <h4 class="card-title mb-2">New Order</h4>
-                <a href="{{route('order-list')}}" class="btn btn-success mb-3">Order List</a>
+                <h4 class="card-title mb-2">{{__('New Order')}}</h4>
+                <a href="{{route('order-list')}}" class="btn btn-success mb-3">{{__('words.Order List')}}</a>
             </div>
             <form method="POST" action="{{ route('orderItemStore') }}">
                 @csrf
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <label class="col-form-label">Supplier Name</label>
+                        <label class="col-form-label">{{__('Supplier Name')}}</label>
                         <select name="supplier" id="supplier" class="form-control select2">
-                            <option value="" selected disabled>Please Select Company</option>
+                            <option value="" selected disabled>{{__('Please Select Company')}}</option>
                             @foreach ($supplier as $sup)
                             <option value="{{ $sup->supplier_id }}">{{ $sup->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group col-md-4">
-                        <label>Order Date</label>
+                        <label>{{__('words.Order Date')}}</label>
                         <input type="text" class="form-control" name="order_date" value="<?php echo date('Y-m-d'); ?>" data-date-format="yyyy-m-d" autocomplete="off" data-provide="datepicker" data-date-autoclose="true">
                     </div>
                     <div class="form-group col-md-2" style="margin-top: 34px;">
@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-md-12 pr-0" id="showItems">
                     </div>
-                    <button type="submit" class="btn btn-primary mb-2 ml-3 mt-3 d-none" id="submit_btn">Save</button>
+                    <button type="submit" class="btn btn-primary mb-2 ml-3 mt-3 d-none" id="submit_btn">{{__('words.Save')}}</button>
                 </div>
             </form>
         </div>

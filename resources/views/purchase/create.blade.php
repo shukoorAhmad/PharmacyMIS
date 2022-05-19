@@ -7,25 +7,25 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between">
-                <h4 class="card-title mb-2">New Purchase</h4>
-                <a href="{{ route('purchase-list') }}" class="btn btn-success mb-3">Purchase List</a>
+                <h4 class="card-title mb-2">{{__('words.New Purchase')}}</h4>
+                <a href="{{ route('purchase-list') }}" class="btn btn-success mb-3">{{__('words.Purchase List')}}</a>
             </div>
             <form method="POST" action="{{ route('store-purchase') }}">
                 @csrf
                 <div class="row">
                     <div class="form-group col-md-4">
-                        <label class="col-form-label">Supplier Name</label>
+                        <label class="col-form-label">{{__('words.Supplier Name')}}</label>
                         <select name="supplier_id" id="supplier" class="form-control select2" style="width: 100%;" required>
-                            <option value="" selected disabled>Please Select Supplier</option>
+                            <option value="" selected disabled>{{__('words.Please Select Supplier')}}</option>
                             @foreach ($supplier as $sup)
                             <option value="{{ $sup->supplier_id }}">{{ $sup->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group col-md-8">
-                        <label class="col-form-label">Items</label>
+                        <label class="col-form-label">{{__('words.Items')}}</label>
                         <select name="item_id" id="item_id" class="form-control" style="width: 100%;">
-                            <option value="" selected disabled>Please Select Item</option>
+                            <option value="" selected disabled>{{__('words.Please Select Item')}}</option>
                             @foreach ($items as $item)
                             <option value="{{ $item->item_id }}">{{ $item->item_name . ' ' . $item->item_unit . ' ' . $item->item_type_details->type }}</option>
                             @endforeach
@@ -39,16 +39,16 @@
                     <div class="col-md-9">
                         <div class="row">
                             <div class="form-group col-md-3">
-                                <label for="">USD TO AFG</label>
+                                <label for="">{{__('words.USD TO AFG')}}</label>
                                 <input type="text" class="form-control" value="{{ $ex_rate->usd_afg }}" name="usd_afg" id="usd_afg" required>
                                 <input type="hidden" value="{{ $ex_rate->exchange_rate_id }}" name="exchange_rate_id">
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="">USD TO KAL</label>
+                                <label for="">{{__('words.USD TO KAL')}}</label>
                                 <input type="text" class="form-control" value="{{ $ex_rate->usd_kal }}" name="usd_kal" id="usd_kal" required>
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="">Purchase In</label>
+                                <label for="">{{__('words.Purchase In')}}</label>
                                 <select name="purchase_currency" id="purchase_currency" class="form-control select2" style="width: 100%;" required>
                                     @foreach ($currencies as $currency)
                                     <option value="{{ $currency->currency_id }}" {{ $currency->currency_id == 1 ? 'selected' : '' }}>{{ $currency->currency }}</option>
@@ -56,36 +56,36 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-3">
-                                <label>Bill Total</label>
+                                <label>{{__('words.Bill Total')}}</label>
                                 <input type="text" class="form-control" id="total_bill" name="total" value="0">
                                 <input type="hidden" id="total_bill_usd" value="">
                             </div>
                         </div>
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="">Pay Amount</label>
+                        <label for="">{{__('words.Pay Amount')}}</label>
                         <input type="text" name="paid_amount" value="0" class="form-control">
                         <input type="hidden" id="total_bill_usd" value="0">
 
                     </div>
                     <div class="form-group col-md-4">
-                        <label>To Stock</label>
+                        <label>{{__('words.To Stock')}}</label>
                         <select name="stock_id" class="form-control select2" style="width: 100%;" required>
-                            <option value="">Select Stock</option>
+                            <option value="">{{__('words.Select Stock')}}</option>
                             @foreach ($stock as $stk)
                             <option value="{{ $stk->stock_id }}">{{ $stk->stock_name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group col-md-4">
-                        <label>Purchase Invoice #</label>
-                        <input class="form-control" name="purchase_invoice_no" placeholder="Enter Purchase Invoice No" required>
+                        <label>{{__('words.Purchase Invoice')}} #</label>
+                        <input class="form-control" name="purchase_invoice_no" placeholder="{{__('words.Enter Purchase Invoice No')}}" required>
                     </div>
                     <div class="form-group col-md-4">
-                        <label>Purchase Date:</label>
+                        <label>{{__('words.Purchase Date')}}</label>
                         <input class="form-control" name="purchase_date" data-date-format="yyyy-m-d" value="<?php echo date('Y-m-d'); ?>" autocomplete="off" data-provide="datepicker" data-date-autoclose="true" required>
                     </div>
-                    <button type="submit" class="btn btn-primary mb-2 mt-3 ml-3" id="submit_btn">Purchase</button>
+                    <button type="submit" class="btn btn-primary mb-2 mt-3 ml-3" id="submit_btn">{{__('words.Purchase')}}</button>
                 </div>
             </form>
         </div>

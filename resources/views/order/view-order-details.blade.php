@@ -21,10 +21,10 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between hop">
-                <h4 class="card-title mb-2">Invoice No {{$order->order_id}}</h4>
+                <h4 class="card-title mb-2"> {{ __('words.Invoice No').' '.  $order->order_id}}</h4>
                 <div>
-                    <a onclick="window.print()" class="btn btn-primary mb-3 text-white">Print</a>
-                    <a href="{{url()->previous()}}" class="btn btn-success mb-3">Back</a>
+                    <a onclick="window.print()" class="btn btn-primary mb-3 text-white">{{__('words.Print')}}</a>
+                    <a href="{{url()->previous()}}" class="btn btn-success mb-3">{{__('Back')}}</a>
                 </div>
             </div>
             <div>
@@ -33,16 +33,16 @@
                         <th colspan="3">Company Logo , Address And Contact</th>
                     </tr>
                     <tr>
-                        <th>To {{$order->supplier_detials->name}}</th>
-                        <th>Invoice No {{$order->order_id}}</th>
-                        <th>Order Date: {{$order->order_date}}</th>
+                        <th> {{ __('words.To') $order->supplier_detials->name}}</th>
+                        <th> {{ __('words.Invoice No').' '. $order->order_id}}</th>
+                        <th> {{ __('words.Order Date') $order->order_date}}</th>
                     </tr>
                 </table>
                 <table class="table table-bordered">
                     <tr>
-                        <th>No</th>
-                        <th>Item</th>
-                        <th>Quantity</th>
+                        <th>{{__('No')}}</th>
+                        <th>{{__('Item')}}</th>
+                        <th>{{__('words.Quantity')}}</th>
                     </tr>
                     @php
                     $total=0
@@ -59,7 +59,7 @@
                     </tr>
                     @endforeach
                     <tr>
-                        <th colspan="2">Total</th>
+                        <th colspan="2">{{__('words.Total')}}</th>
                         <th colspan="2">{{$total}}</th>
                     </tr>
                 </table>

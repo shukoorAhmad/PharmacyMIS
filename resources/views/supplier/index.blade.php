@@ -10,29 +10,29 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 id="modal_title">Add New Supplier</h5>
+                <h5 id="modal_title">{{__('words.Add New Supplier')}}</h5>
             </div>
             <div class="modal-body">
                 <form method="POST" action="{{ route('supplierstore') }}" id="store_form" autocomplete="off">
                     @csrf
                     <input type="hidden" value="0" id="edit_record_id" name="id">
                     <div class="form-group">
-                        <label class="col-form-label">Supplier Name</label>
-                        <input class="form-control" name="supplier_name" id="supplier_name" placeholder="Write Supplier Name Here..." autofocus required>
+                        <label class="col-form-label">{{__('words.Supplier Name')}}</label>
+                        <input class="form-control" name="supplier_name" id="supplier_name" placeholder="{{__('words.Write Supplier Name Here...')}}" autofocus required>
                         <div class="invalid-feedback supplier_name_error"></div>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Supplier Email</label>
-                        <input class="form-control" name="email" id="email" placeholder="Write Supplier Email Here...">
+                        <label class="col-form-label">{{__('words.Supplier Email')}}</label>
+                        <input class="form-control" name="email" id="email" placeholder="{{__('words.Write Supplier Email Here...')}}">
                         <div class="invalid-feedback email_error"></div>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label">Supplier Contact No</label>
-                        <input class="form-control" name="contact_no" id="contact_no" placeholder="Write Contact No Here...">
+                        <label class="col-form-label">{{__('words.Supplier Contact No')}}</label>
+                        <input class="form-control" name="contact_no" id="contact_no" placeholder="{{__('words.Write Contact No Here...')}}">
                         <div class="invalid-feedback contact_no_error"></div>
                     </div>
-                    <button type="submit" id="submit_btn" class="btn btn-primary mb-2 mr-2">Save</button>
-                    <button type="button" class="btn btn-danger  mb-2 mr-2" id="close_btn">Close</button>
+                    <button type="submit" id="submit_btn" class="btn btn-primary mb-2 mr-2"> {{__('words.Save')}}</button>
+                    <button type="button" class="btn btn-danger  mb-2 mr-2" id="close_btn"> {{__('words.Close')}}</button>
                 </form>
             </div>
         </div>
@@ -43,18 +43,18 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between">
-                <h4 class="card-title">Suppliers List</h4>
-                <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#add_modal">New Supplier <span class="fa fa-plus"></span></button>
+                <h4 class="card-title">{{__('words.Suppliers List')}}</h4>
+                <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#add_modal">{{__('words.New Supplier')}}<span class="fa fa-plus"></span></button>
             </div>
             <div class="table-responsive">
                 <table class="table table-striped  w-100 data-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Contact No</th>
-                            <th>Action</th>
+                            <th>{{__('words.ID')}}</th>
+                            <th> {{__('words.Name')}}</th>
+                            <th> {{__('words.Email')}}</th>
+                            <th> {{__('words.Contact No')}}</th>
+                            <th> {{__('words.Action')}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -135,10 +135,10 @@
                             $('#add_modal').modal('hide');
                             $('#submit_btn').html('Save');
                             $('#edit_record_id').val('0');
-                            $('#modal_title').html('Add New Supplier');
-                            success("Supplier Successfully Updated!!!");
+                            $('#modal_title').html(" {{__('words.Add New Supplier')}}");
+                            success("{{__('words.Supplier Successfully Updated!!!')}}");
                         } else {
-                            success("Supplier Successfully Added!!!");
+                            success("{{__('words.Supplier Successfully Added!!!')}}");
                         }
                     } else {
                         var response = JSON.parse(data);
@@ -153,7 +153,7 @@
                     submit_btn = false;
                 },
                 error: function() {
-                    error_function("There Is A Problem Please Contact Your Administrator!");
+                    error_function("{{__('words.There Is A Problem Please Contact Your Administrator!')}}");
                     submit_btn = false;
                 }
             });
@@ -161,8 +161,8 @@
     });
 
     $(document).on('click', '.edit_btn', function() {
-        $('#modal_title').html('Edit Supplier');
-        $('#submit_btn').html('Save Changes');
+        $('#modal_title').html("{{__('words.Edit Supplier')}}");
+        $('#submit_btn').html("{{__('words.Save Changes')}}");
         $('#edit_record_id').val($(this).attr('data-id'));
         $('#supplier_name').val($(this).attr('data-name'));
         $('#email').val($(this).attr('data-email'));
@@ -176,7 +176,7 @@
         $('#supplier_name').val('');
         $('#email').val('');
         $('#contact_no').val('');
-        $('#modal_title').html('Add New Supplier');
+        $('#modal_title').html("{{__('words.Add New Supplier')}}");
     });
 </script>
 

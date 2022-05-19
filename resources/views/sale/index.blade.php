@@ -9,18 +9,18 @@
         <div class="card-body">
             <div class="d-flex justify-content-between">
                 <h6 class="card-title">Sale List</h6>
-                <a href="{{route('sale')}}" class="btn btn-primary mb-4"> New Sale </a>
+                <a href="{{route('sale')}}" class="btn btn-primary mb-4"> {{__('words.New Sale')}} </a>
             </div>
             <div class="table-responsive">
                 <table class="table data-table table-striped w-100">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Customer Name</th>
-                            <th>Customer Type</th>
-                            <th>Total Items</th>
-                            <th>Sale Date</th>
-                            <th>Action</th>
+                            <th>{{__('words.ID')}}</th>
+                            <th>{{__('words.Customer Name')}}</th>
+                            <th>{{__('words.Customer Type')}}</th>
+                            <th>{{__('words.Total Items')}}</th>
+                            <th>{{__('words.Sale Date')}}</th>
+                            <th>{{__('words.Action')}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -88,8 +88,8 @@
     $(document).on('click', '.return_sale', function() {
         var id = $(this).attr('data-id');
         Swal.fire({
-            title: "Are you sure?",
-            text: "Return This Sale",
+            title: "{{__('words.Are you sure?')}}",
+            text: "{{__('words.Return This Sale')}}",
             type: "error",
             showCancelButton: !0,
             confirmButtonColor: "#3085d6",

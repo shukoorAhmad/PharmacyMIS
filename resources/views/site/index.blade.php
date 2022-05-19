@@ -10,29 +10,29 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 id="modal_title">Add New Site</h5>
+                <h5 id="modal_title">{{__('words.Add New Site')}}</h5>
             </div>
             <div class="modal-body">
                 <form id="store_form" method="POST" action="{{ route('sitestore') }}" autocomplete="off">
                     @csrf
                     <input type="hidden" value="0" name="id" id="edit_record_id">
                     <div class="form-group">
-                        <label for="site_name" class="col-form-label">Site Name</label>
-                        <input class="form-control" name="site_name" required id="site_name" placeholder="Write Site Name Here...">
+                        <label for="site_name" class="col-form-label">{{__('words.Site Name')}}</label>
+                        <input class="form-control" name="site_name" required id="site_name" placeholder="{{__('Write Site Name Here...')}}">
                         <div class="invalid-feedback site_name_error"></div>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label w-100">Province</label>
+                        <label class="col-form-label w-100">{{__('words.Province')}}</label>
                         <select name="province" class="form-control select2" id="province" style="width: 100%;" required>
-                            <option value="" selected disabled>Please Select Province</option>
+                            <option value="" selected disabled>{{__('words.Please Select Province')}}</option>
                             @foreach ($province as $pro)
                             <option value="{{ $pro->province_id }}">{{ $pro->name_en }}</option>
                             @endforeach
                         </select>
                         <div class="invalid-feedback province_error"></div>
                     </div>
-                    <button type="submit" id="submit_btn" class="btn btn-primary">Save</button>
-                    <button type="button" class="btn btn-danger" id="close_btn">Close</button>
+                    <button type="submit" id="submit_btn" class="btn btn-primary">{{__('words.Save')}}</button>
+                    <button type="button" class="btn btn-danger" id="close_btn">{{__('words.Close')}}</button>
                 </form>
             </div>
         </div>
@@ -43,17 +43,17 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between">
-                <h4 class="card-title">Site List</h4>
-                <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#add_modal">New Site <span class="fa fa-plus"></span></button>
+                <h4 class="card-title">{{__('words.Site List')}}</h4>
+                <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#add_modal">{{__('words.New Site')}}<span class="fa fa-plus"></span></button>
             </div>
             <div class="table-responsive">
                 <table class="table table-striped w-100 data-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Site Name</th>
-                            <th>Province</th>
-                            <th>Action</th>
+                            <th>{{__('words.ID')}}</th>
+                            <th>{{__('words.Site Name')}}</th>
+                            <th>{{__('words.Province')}}</th>
+                            <th>{{__('words.Action')}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -128,12 +128,12 @@
                         $('.data-table').DataTable().ajax.reload();
                         if ($('#edit_record_id').val() != '0') {
                             $('#add_modal').modal('hide');
-                            $('#submit_btn').html('Save');
+                            $('#submit_btn').html("{{__('words.Save')}}");
                             $('#edit_record_id').val('0');
-                            $('#modal_title').html('Add New Site');
-                            success("Site Successfully Updated!!!");
+                            $('#modal_title').html("{{__('words.Add New Site')}}");
+                            success("{{__('words.Site Successfully Updated!!!')}}");
                         } else {
-                            success("Site Successfully Added!!!");
+                            success("{{__('words.Site Successfully Added!!!')}}");
                         }
                     } else {
                         var response = JSON.parse(data);
@@ -149,7 +149,7 @@
                     submit_btn = false;
                 },
                 error: function() {
-                    error_function("There Is A Problem Please Contact Your Administrator!");
+                    error_function("{{__('words.There Is A Problem Please Contact Your Administrator!')}}");
                     submit_btn = false;
                 }
             });
@@ -157,8 +157,8 @@
     });
 
     $(document).on('click', '.edit_btn', function() {
-        $('#modal_title').html('Edit Site');
-        $('#submit_btn').html('Save Changes');
+        $('#modal_title').html("{{__('words.Edit Site')}}");
+        $('#submit_btn').html("{{__('words.Save Changes')}}");
         $('#edit_record_id').val($(this).attr('data-id'));
         $("#province").select2("val", $(this).attr('data-province'));
         $('#site_name').val($(this).attr('data-site'));
@@ -170,7 +170,7 @@
         $('#edit_record_id').val('0');
         $("#province").select2("val", '');
         $('#site_name').val('');
-        $('#modal_title').html('Add New Site');
+        $('#modal_title').html("{{__('words.Add New Site')}}");
     });
 </script>
 <!-- Inject JS -->

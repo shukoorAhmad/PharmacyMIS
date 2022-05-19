@@ -13,20 +13,20 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between">
-                <h4 class="card-title mb-2">Purchase List</h4>
-                <a href="{{ route('purchase') }}" class="btn btn-success mb-3">New Purchase</a>
+                <h4 class="card-title mb-2">{{__('words.Purchase List')}}</h4>
+                <a href="{{ route('purchase') }}" class="btn btn-success mb-3">{{__('words.New Purchase')}}</a>
             </div>
             <table class="table data-table w-100">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Supplier Name</th>
-                        <th>Purchase Invoice #</th>
-                        <th>Order Details</th>
-                        <th>Total Items</th>
-                        <th>Stock</th>
-                        <th>Purchase Date</th>
-                        <th>Action</th>
+                        <th>{{__('words.ID')}}</th>
+                        <th>{{__('words.Supplier Name')}}</th>
+                        <th>{{__('words.Purchase Invoice')}} #</th>
+                        <th>{{__('words.Order Details')}}</th>
+                        <th>{{__('words.Total Items')}}</th>
+                        <th>{{__('words.Stock')}}</th>
+                        <th>{{__('words.Purchase Date')}}</th>
+                        <th>{{__('words.Action')}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -101,8 +101,8 @@
     $(document).on('click', '.return_purchase', function() {
         var id = $(this).attr('data-id');
         Swal.fire({
-            title: "Are you sure?",
-            text: "Return This Purchase",
+            title: "{{__('words.Are you sure?')}}",
+            text: "{{__('words.Return This Purchase')}}",
             type: "error",
             showCancelButton: !0,
             confirmButtonColor: "#3085d6",

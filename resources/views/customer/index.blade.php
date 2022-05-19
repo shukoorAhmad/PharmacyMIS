@@ -11,7 +11,7 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 id="modal_title">Add New Customer</h5>
+                <h5 id="modal_title">{{__('words.Add New Customer')}}</h5>
             </div>
             <div class="modal-body">
                 <form method="POST" action="{{ route('customerstore') }}" id="store_form" autocomplete="off">
@@ -19,24 +19,24 @@
                     <input type="hidden" value="0" id="edit_record_id" name="id">
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label class="col-form-label">Pharmacy Name</label>
-                            <input class="form-control" name="pharmacy_name" id="pharmacy_name" placeholder="Write Pharmacy Name Here..." autofocus required>
+                            <label class="col-form-label">{{__('words.Pharmacy Name')}}</label>
+                            <input class="form-control" name="pharmacy_name" id="pharmacy_name" placeholder="{{__('words.Write Pharmacy Name Here...')}}" autofocus required>
                             <div class="invalid-feedback pharmacy_name_error"></div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="col-form-label">Customer Name</label>
-                            <input class="form-control" name="customer_name" id="customer_name" placeholder="Write Customer Name Here...">
+                            <label class="col-form-label">{{__('words.Customer Name')}}</label>
+                            <input class="form-control" name="customer_name" id="customer_name" placeholder="{{__('words.Write Customer Name Here...')}}">
                             <div class="invalid-feedback customer_name_error"></div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="col-form-label">Customer Last Name</label>
-                            <input class="form-control" name="customer_last_name" id="customer_last_name" placeholder="Write Customer Last Name Here...">
+                            <label class="col-form-label">{{__('words.Customer Last Name')}}</label>
+                            <input class="form-control" name="customer_last_name" id="customer_last_name" placeholder="{{__('words.Write Customer Last Name Here...')}}">
                             <div class="invalid-feedback customer_last_name_error"></div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="col-form-label">Customer Site</label>
+                            <label class="col-form-label">{{__('words.Customer Site')}}</label>
                             <select name="site_id" id="site_id" class="form-control select2" style="width: 100%;" required>
-                                <option value="" selected disabled>Select Customer Site</option>
+                                <option value="" selected disabled>{{__('words.Select Customer Site')}}</option>
                                 @foreach($site as $site_row)
                                 <option value="{{$site_row->site_id}}">{{$site_row->site_name.' '.$site_row->province_details->name_en}}</option>
                                 @endforeach
@@ -44,18 +44,18 @@
                             <div class="invalid-feedback site_id_error"></div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="col-form-label">Contact No 1</label>
-                            <input type="number" class="form-control" name="contact_no" id="contact_no" placeholder="Write Contact No Here..." oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxLength="10">
+                            <label class="col-form-label">{{__('words.Contact No 1')}}</label>
+                            <input type="number" class="form-control" name="contact_no" id="contact_no" placeholder="{{__('words.Write Contact No Here...')}}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxLength="10">
                             <div class="invalid-feedback contact_no_error"></div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="col-form-label">Contact No 2</label>
-                            <input type="number" class="form-control" id="contact_no_2" name="contact_no_2" value="{{ old('contact_no_2') }}" placeholder="Write Contact No 2 Here..." oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxLength="10">
+                            <label class="col-form-label">{{__('words.Contact No 2')}}</label>
+                            <input type="number" class="form-control" id="contact_no_2" name="contact_no_2" value="{{ old('contact_no_2') }}" placeholder="{{__('words.Write Contact No 2 Here...')}}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxLength="10">
                             <div class="invalid-feedback contact_no_2_error"></div>
                         </div>
                     </div>
-                    <button type="submit" id="submit_btn" class="btn btn-primary mb-2 mr-2">Save</button>
-                    <button type="button" class="btn btn-danger  mb-2 mr-2" id="close_btn">Close</button>
+                    <button type="submit" id="submit_btn" class="btn btn-primary mb-2 mr-2"> {{__('words.Save')}}</button>
+                    <button type="button" class="btn btn-danger  mb-2 mr-2" id="close_btn"> {{__('words.Close')}}</button>
                 </form>
             </div>
         </div>
@@ -66,21 +66,21 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between">
-                <h4 class="card-title">Customers List</h4>
-                <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#add_modal">New Customer <span class="fa fa-plus"></span></button>
+                <h4 class="card-title">{{__('words.Customers List')}}</h4>
+                <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#add_modal">{{__('words.New Customer')}}<span class="fa fa-plus"></span></button>
             </div>
 
             <div class="table-responsive">
                 <table class="table table-striped  w-100 data-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Pharmacy Name</th>
-                            <th>Customer Full Name</th>
-                            <th>Contact No</th>
-                            <th>Site</th>
-                            <th>Loan</th>
-                            <th>Action</th>
+                            <th> {{__('words.ID')}}</th>
+                            <th> {{__('words.Pharmacy Name')}}</th>
+                            <th> {{__('words.Customer Full Name')}}</th>
+                            <th> {{__('words.Contact No')}}</th>
+                            <th> {{__('words.Site')}}</th>
+                            <th> {{__('words.Loan')}}</th>
+                            <th> {{__('words.Action')}}</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -174,10 +174,10 @@
                             $('#add_modal').modal('hide');
                             $('#submit_btn').html('Save');
                             $('#edit_record_id').val('0');
-                            $('#modal_title').html('Add New Customer');
-                            success("Customer Successfully Updated!!!");
+                            $('#modal_title').html("{{__('words.Add New Customer ')}}");
+                            success("{{__('words.Customer Successfully Updated!!!')}}");
                         } else {
-                            success("Customer Successfully Added!!!");
+                            success("{{__('words.Customer Successfully Added!!!')}}");
                         }
                     } else {
                         var response = JSON.parse(data);
@@ -193,7 +193,7 @@
                     submit_btn = false;
                 },
                 error: function() {
-                    error_function("There Is A Problem Please Contact Your Administrator!");
+                    error_function("{{__('words.There Is A Problem Please Contact Your Administrator!')}}");
                     submit_btn = false;
                 }
             });
@@ -201,8 +201,8 @@
     });
 
     $(document).on('click', '.edit_btn', function() {
-        $('#modal_title').html('Edit Customer');
-        $('#submit_btn').html('Save Changes');
+        $('#modal_title').html("{{__('words.Edit Customer')}}");
+        $('#submit_btn').html("{{__('words.Save Changes')}}");
         $('#edit_record_id').val($(this).attr('data-id'));
         $("input[name=pharmacy_name]").val($(this).attr('data-pharmacy-name'));
         $("input[name=customer_name]").val($(this).attr('data-name'));
@@ -215,7 +215,7 @@
 
     $('#close_btn').click(function() {
         $('#add_modal').modal('hide');
-        $('#submit_btn').html('Save');
+        $('#submit_btn').html("{{__('words.Save')}}");
         $('#edit_record_id').val('0');
         $("input[name=pharmacy_name]").val('');
         $("input[name=customer_name]").val('');
@@ -223,7 +223,7 @@
         $("input[name=contact_no]").val('');
         $("input[name=contact_no_2]").val('');
         $("select[name=site_id]").val('').trigger('change');
-        $('#modal_title').html('Add New Customer');
+        $('#modal_title').html("{{__('words.Add New Customer')}}");
     });
 </script>
 @endsection

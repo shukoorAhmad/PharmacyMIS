@@ -7,21 +7,21 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between">
-                <h4 class="card-title">Edit Order</h4>
-                <a href="{{ url()->previous() }}" class="btn btn-success mb-3">Back</a>
+                <h4 class="card-title">{{__('words.Edit Order')}}</h4>
+                <a href="{{ url()->previous() }}" class="btn btn-success mb-3">{{__('words.Back')}}</a>
             </div>
             <form method="POST" action="{{ route('update-order-details') }}">
                 @csrf
                 <input type="hidden" name="order_id" value="{{ $order->order_id }}">
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <label>Supplier Name</label>
-                        <select name="supplier" class="form-control" disabled>
+                        <label>{{__('words.Supplier Name')}}</label>
+                        <select name="supplier" class="form-control" required>
                             <option value="{{ $supplier->supplier_id }}">{{ $supplier->name }}</option>
                         </select>
                     </div>
                     <div class="form-group col-md-4">
-                        <label>Order Date</label>
+                        <label>{{__('Order Date')}}</label>
                         <input type="text" class="form-control" value="{{ $order->order_date }}" name="order_date" autocomplete="off" data-date-format="yyyy-m-d" data-provide="datepicker" data-date-autoclose="true">
                     </div>
                     <div class="form-group col-md-2" style="margin-top: 34px;">
@@ -32,7 +32,7 @@
                 <input type="hidden" name="order_item_id[]" value="{{ $ord->order_item_id }}">
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <label>Item Name</label>
+                        <label>{{__('words.Item Name')}}</label>
                         <select name="old_item[]" class="form-control select2">
                             @foreach ($items as $item)
                             <option value="{{ $item->item_id }}" {{ $item->item_id == $ord->items_details->item_id ? 'selected' : '' }}>
@@ -42,7 +42,7 @@
                         </select>
                     </div>
                     <div class="form-group col-md-4">
-                        <label>Item Quantity</label>
+                        <label>{{__('words.Item Quantity')}}</label>
                         <input type="number" class="form-control" name="old_quantity[]" value="{{ $ord->quantity }}">
                     </div>
                     <div class="col-md-2">
@@ -54,7 +54,7 @@
                 @endforeach
                 <div class="col-md-12 p-0" id="showItems">
                 </div>
-                <button type="submit" class="btn btn-primary mt-2">Update</button>
+                <button type="submit" class="btn btn-primary mt-2">{{__('words.Update')}}</button>
             </form>
         </div>
     </div>

@@ -8,18 +8,18 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between">
-                <h4 class="card-title mb-2">Order List</h4>
-                <a href="{{ route('order') }}" class="btn btn-success mb-3">New Order</a>
+                <h4 class="card-title mb-2">{{__('words.Order List')}}</h4>
+                <a href="{{ route('order') }}" class="btn btn-success mb-3">{{__('words.New Order')}}</a>
             </div>
             <table class="table data-table w-100">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Supplier</th>
-                        <th>Order Date</th>
-                        <th>Total Items</th>
-                        <th>Purchase</th>
-                        <th>Action</th>
+                        <th>{{__('words.ID')}}</th>
+                        <th>{{__('words.Supplier')}}</th>
+                        <th>{{__('words.Order Date')}}</th>
+                        <th>{{__('words.Total Items')}}</th>
+                        <th>{{__('words.Purchase')}}</th>
+                        <th>{{__('words.Action')}}</th>
                     </tr>
                 </thead>
                 <tbody>
