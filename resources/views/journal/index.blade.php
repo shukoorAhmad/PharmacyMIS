@@ -12,27 +12,27 @@
             <ul class="nav nav-tabs nav-bordered nav-justified">
                 <li class="nav-item">
                     <a href="#cash-tab" data-toggle="tab" aria-expanded="false" class="nav-link active set_radio_value_0">
-                        Cash
+                        {{__('words.Cash')}}
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#expense-tab" data-toggle="tab" aria-expanded="true" class="nav-link set_radio_value_0">
-                        Expense
+                        {{__('words.Expense')}}
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#customer-tab" data-toggle="tab" aria-expanded="false" class="nav-link set_radio_value_0">
-                        Customers
+                        {{__('words.Customers')}}
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#seller-tab" data-toggle="tab" aria-expanded="false" class="nav-link set_radio_value_0">
-                        Sellers
+                        {{__('words.Sellers')}}
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#supplier-tab" data-toggle="tab" aria-expanded="false" class="nav-link set_radio_value_0">
-                        Suppliers
+                        {{__('words.Suppliers')}}
                     </a>
                 </li>
             </ul>
@@ -47,35 +47,35 @@
                                 <input type="hidden" name="in_out" class="radio-value" value="0">
                             </div>
                             <div class="form-group col-md-2">
-                                <label>USD</label>
+                                <label>{{__('words.USD')}}</label>
                                 <input name="usd" class="form-control inputNumeral check usd" value="0">
                                 <label class="text-danger usd_error"></label>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>AFG</label>
+                                <label>{{__('words.AFG')}}</label>
                                 <input name="afg" class="form-control inputNumeral check afg" value="0">
                                 <div class="text-danger afg_error"></div>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>KAL</label>
+                                <label>{{__('words.KAL')}}</label>
                                 <input name="kal" class="form-control inputNumeral check kal" value="0">
                                 <div class="text-danger kal_error"></div>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>USD to AFG</label>
+                                <label>{{__('words.USD to AFG')}}</label>
                                 <input name="usd_afg" class="form-control inputNumeral" value="{{$exchange_rate->usd_afg}}">
                                 <input type="hidden" name="exchange_rate_id" class="form-control inputNumeral" value="{{$exchange_rate->exchange_rate_id}}">
                             </div>
                             <div class="form-group col-md-2">
-                                <label>USD to Kal</label>
+                                <label>{{__('words.USD to KAL')}}</label>
                                 <input name="usd_kal" class="form-control inputNumeral" value="{{$exchange_rate->usd_kal}}">
                             </div>
                             <div class="form-group col-md-10">
-                                <label>Comment</label>
-                                <input name="comment" class="form-control" placeholder="Write your comments here...">
+                                <label>{{__('words.Comment')}}</label>
+                                <input name="comment" class="form-control" placeholder="{{__('words.Write your comments here...'}}">
                             </div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-primary mr-2 w-100 submit" style="margin-top:28px !important;">Submit</button>
+                                <button type="submit" class="btn btn-primary mr-2 w-100 submit" style="margin-top:28px !important;">{{__('words.Submit')}}</button>
                             </div>
                         </div>
                     </form>
@@ -87,38 +87,38 @@
                             <div class="col-md-8">
                                 <div class="row">
                                     <div class="form-group col-md-4">
-                                        <label>USD</label>
+                                        <label>{{__('words.USD')}}</label>
                                         <input name="usd" class="form-control inputNumeral check-expense usd_expense" value="0">
                                         <label class="text-danger usd_expense_error"></label>
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label>AFG</label>
+                                        <label>{{__('words.AFG')}}</label>
                                         <input name="afg" class="form-control inputNumeral check-expense afg_expense" value="0">
                                         <div class="text-danger afg_expense_error"></div>
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label>KAL</label>
+                                        <label>{{__('words.KAL')}}</label>
                                         <input name="kal" class="form-control inputNumeral check-expense kal_expense" value="0">
                                         <div class="text-danger kal_expense_error"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>USD to AFG</label>
+                                <label>{{__('words.USD to AFG')}}</label>
                                 <input name="usd_afg" class="form-control inputNumeral" value="{{$exchange_rate->usd_afg}}">
                                 <input type="hidden" name="exchange_rate_id" class="form-control inputNumeral" value="{{$exchange_rate->exchange_rate_id}}">
                             </div>
                             <div class="form-group col-md-2">
-                                <label>USD to Kal</label>
+                                <label>{{__('words.USD to KAL')}}</label>
                                 <input name="usd_kal" class="form-control inputNumeral" value="{{$exchange_rate->usd_kal}}">
                             </div>
                             <input type="hidden" name="in_out" class="expense-radio-value" value="1">
                             <div class="form-group col-md-10">
-                                <label>Comment</label>
-                                <input name="comment" class="form-control" placeholder="Write your comments here...">
+                                <label>{{__('words.Comment')}}</label>
+                                <input name="comment" class="form-control" placeholder="{{__('words.Write your comments here...'}}">
                             </div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-primary mr-2 w-100 submit_expense" style="margin-top:28px !important;">Submit</button>
+                                <button type="submit" class="btn btn-primary mr-2 w-100 submit_expense" style="margin-top:28px !important;">{{('words.Submit')}}</button>
                             </div>
                         </div>
                     </form>
@@ -133,45 +133,45 @@
                                 <input type="hidden" name="in_out" class="radio-value" value="0">
                             </div>
                             <div class="form-group col-md-4">
-                                <label>Customer</label>
+                                <label>{{__('words.Customers')}}</label>
                                 <select class="form-control select2" style="width: 100% !important;" name="customer" id="customer" required>
-                                    <option value="" selected disabled>Select Customer</option>
+                                    <option value="" selected disabled>{{__('words.Select Customer')}}</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>USD</label>
+                                <label>{{__('words.USD')}}</label>
                                 <input name="usd" class="form-control inputNumeral check-customer usd_customer" value="0">
                                 <label class="text-danger usd_customer_error"></label>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>AFG</label>
+                                <label>{{__('words.AFG')}}</label>
                                 <input name="afg" class="form-control inputNumeral check-customer afg_customer" value="0">
                                 <div class="text-danger afg_customer_error"></div>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>KAL</label>
+                                <label>{{__('words.KAL')}}</label>
                                 <input name="kal" class="form-control inputNumeral check-customer kal_customer" value="0">
                                 <div class="text-danger kal_customer_error"></div>
                             </div>
                             <div class="form-group col-md-7">
-                                <label>Comment</label>
-                                <input name="comment" class="form-control" placeholder="Write your comments here...">
+                                <label>{{__('words.Comment')}}</label>
+                                <input name="comment" class="form-control" placeholder="{{__('words.Write your comments here...'}}">
                             </div>
                             <div class="col-md-3">
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label>USD to AFG</label>
+                                        <label>{{__('words.USD to AFG')}}</label>
                                         <input id="" name="usd_afg" class="form-control inputNumeral" value="{{$exchange_rate->usd_afg}}">
                                         <input type="hidden" name="exchange_rate_id" class="form-control inputNumeral" value="{{$exchange_rate->exchange_rate_id}}">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>USD to Kal</label>
+                                        <label>{{__('words.USD to KAL')}}</label>
                                         <input id="" name="usd_kal" class="form-control inputNumeral" value="{{$exchange_rate->usd_kal}}">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-primary mr-2 w-100 submit_customer" style="margin-top:28px !important;">Submit</button>
+                                <button type="submit" class="btn btn-primary mr-2 w-100 submit_customer" style="margin-top:28px !important;">{{__('words.Submit')}}</button>
                             </div>
                         </div>
                     </form>
@@ -186,45 +186,45 @@
                                 <input type="hidden" name="in_out" class="radio-value" value="0">
                             </div>
                             <div class="form-group col-md-4">
-                                <label>Seller</label>
+                                <label>{{__('words.Sellers')}}</label>
                                 <select class="form-control select2" style="width: 100% !important;" name="seller" id="seller" required>
-                                    <option value="" selected disabled>Select Seller</option>
+                                    <option value="" selected disabled>{{__('words.Select Seller')}}</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>USD</label>
+                                <label>{{__('words.USD')}}</label>
                                 <input name="usd" class="form-control inputNumeral check-seller usd_seller" value="0">
                                 <label class="text-danger usd_seller_error"></label>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>AFG</label>
+                                <label>{{__('words.AFG')}}</label>
                                 <input name="afg" class="form-control inputNumeral check-seller afg_seller" value="0">
                                 <div class="text-danger afg_seller_error"></div>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>KAL</label>
+                                <label>{{__('words.KAL')}}</label>
                                 <input name="kal" class="form-control inputNumeral check-seller kal_seller" value="0">
                                 <div class="text-danger kal_seller_error"></div>
                             </div>
                             <div class="form-group col-md-7">
-                                <label>Comment</label>
-                                <input name="comment" class="form-control" placeholder="Write your comments here...">
+                                <label>{{__('words.Comment')}}</label>
+                                <input name="comment" class="form-control" placeholder="{{__('words.Write your comments here...'}}">
                             </div>
                             <div class="col-md-3">
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label>USD to AFG</label>
+                                        <label>{{__('words.USD to AFG')}}</label>
                                         <input id="" name="usd_afg" class="form-control inputNumeral" value="{{$exchange_rate->usd_afg}}">
                                         <input type="hidden" name="exchange_rate_id" class="form-control inputNumeral" value="{{$exchange_rate->exchange_rate_id}}">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>USD to Kal</label>
+                                        <label>{{__('words.USD to KAL')}}</label>
                                         <input id="" name="usd_kal" class="form-control inputNumeral" value="{{$exchange_rate->usd_kal}}">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-primary mr-2 w-100 submit_seller" style="margin-top:28px !important;">Submit</button>
+                                <button type="submit" class="btn btn-primary mr-2 w-100 submit_seller" style="margin-top:28px !important;">{{__('words.Submit')}}</button>
                             </div>
                         </div>
                     </form>
@@ -239,45 +239,45 @@
                                 <input type="hidden" name="in_out" class="radio-value" value="0">
                             </div>
                             <div class="form-group col-md-4">
-                                <label>Supplier</label>
+                                <label>{{__('words.Suppliers')}}</label>
                                 <select class="form-control select2" style="width: 100% !important;" name="supplier" id="supplier" required>
-                                    <option value="" selected disabled>Select Supplier</option>
+                                    <option value="" selected disabled>{{__('words.Select Supplier')}}</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>USD</label>
+                                <label>{{__('words.USD')}}</label>
                                 <input name="usd" class="form-control inputNumeral check-supplier usd_supplier" value="0">
                                 <label class="text-danger usd_supplier_error"></label>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>AFG</label>
+                                <label>{{__('words.AFG')}}</label>
                                 <input name="afg" class="form-control inputNumeral check-supplier afg_supplier" value="0">
                                 <div class="text-danger afg_supplier_error"></div>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>KAL</label>
+                                <label>{{__('words.KAL')}}</label>
                                 <input name="kal" class="form-control inputNumeral check-supplier kal_supplier" value="0">
                                 <div class="text-danger kal_supplier_error"></div>
                             </div>
                             <div class="form-group col-md-7">
-                                <label>Comment</label>
-                                <input name="comment" class="form-control" placeholder="Write your comments here...">
+                                <label>{{__('words.Comment')}}</label>
+                                <input name="comment" class="form-control" placeholder="{{__('words.Write your comments here...'}}">
                             </div>
                             <div class="col-md-3">
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label>USD to AFG</label>
+                                        <label>{{__('words.USD to AFG')}}</label>
                                         <input id="" name="usd_afg" class="form-control inputNumeral" value="{{$exchange_rate->usd_afg}}">
                                         <input type="hidden" name="exchange_rate_id" class="form-control inputNumeral" value="{{$exchange_rate->exchange_rate_id}}">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>USD to Kal</label>
+                                        <label>{{__('words.USD to KAL')}}</label>
                                         <input id="" name="usd_kal" class="form-control inputNumeral" value="{{$exchange_rate->usd_kal}}">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-primary mr-2 w-100 submit_seller" style="margin-top:28px !important;">Submit</button>
+                                <button type="submit" class="btn btn-primary mr-2 w-100 submit_seller" style="margin-top:28px !important;">{{__('words.Submit')}}</button>
                             </div>
                         </div>
                     </form>
@@ -318,7 +318,7 @@
     // to check for all zero values
     $(document).on('click', '.submit', function() {
         if ($('.usd').val() == 0 && $('.afg').val() == 0 && $('.kal').val() == 0) {
-            error_function('please enter value');
+            error_function("{{__('words.please enter value')}}");
             return false;
         } else {
             return true;
@@ -366,7 +366,7 @@
         var name = $(this).attr('name');
         $.get("{{route('check-money')}}/" + $(this).val() + "/" + name, function(response) {
             if (response != 1) {
-                $('.' + name + '_expense_error').html('You Have ' + response + ' ' + name);
+                $('.' + name + '_expense_error').html("{{__('words.You Have ')}}" + response + ' ' + name);
                 $('.' + name + '_expense').css('border-color', '#dc3545');
                 $('.submit_expense').attr('disabled', 'disabled');
                 $('.submit_expense').css('cursor', 'not-allowed');
@@ -406,7 +406,7 @@
         if ($('.radio-value').val() == 1) {
             $.get("{{route('check-money')}}/" + $(this).val() + "/" + name, function(response) {
                 if (response != 1) {
-                    $('.' + name + '_customer_error').html('You Have ' + response + ' ' + name);
+                    $('.' + name + '_customer_error').html("{{__('words.You Have ')}}" + response + ' ' + name);
                     $('.' + name + '_customer').css('border-color', '#dc3545');
                     $('.submit_customer').attr('disabled', 'disabled');
                     $('.submit_customer').css('cursor', 'not-allowed');
@@ -452,7 +452,7 @@
         if ($('.radio-value').val() == 1) {
             $.get("{{route('check-money')}}/" + $(this).val() + "/" + name, function(response) {
                 if (response != 1) {
-                    $('.' + name + '_seller_error').html('You Have ' + response + ' ' + name);
+                    $('.' + name + '_seller_error').html("{{__('words.You Have ')}}" + response + ' ' + name);
                     $('.' + name + '_seller').css('border-color', '#dc3545');
                     $('.submit_seller').attr('disabled', 'disabled');
                     $('.submit_seller').css('cursor', 'not-allowed');
@@ -498,7 +498,7 @@
         if ($('.radio-value').val() == 1) {
             $.get("{{route('check-money')}}/" + $(this).val() + "/" + name, function(response) {
                 if (response != 1) {
-                    $('.' + name + '_supplier_error').html('You Have ' + response + ' ' + name);
+                    $('.' + name + '_supplier_error').html("{{__('words.You Have ')}}" + response + ' ' + name);
                     $('.' + name + '_supplier').css('border-color', '#dc3545');
                     $('.submit_supplier').attr('disabled', 'disabled');
                     $('.submit_supplier').css('cursor', 'not-allowed');

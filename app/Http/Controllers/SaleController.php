@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\CustomerAccount;
 use App\Models\ExchangeRate;
+use App\Models\Journal;
 use App\Models\Sales;
 use App\Models\SalesItem;
 use App\Models\Seller;
@@ -180,6 +181,7 @@ class SaleController extends Controller
             $sale->customer_id = $request->customer_id;
             $sale->sale_date = $request->sale_date;
             $sale->save();
+            $journal = new Journal();
             $ex_rate = ExchangeRate::first();
             if ($request->sale_type == 1) {
                 $customer = new CustomerAccount();
@@ -193,20 +195,32 @@ class SaleController extends Controller
                 $customer->comment = $request->comment;
                 $customer->date = $request->sale_date;
                 $customer->save();
+                $journal->source = 3;
+                $journal->source_id = $customer->customer_account_id;
             } elseif ($request->sale_type == 2) {
-                $customer = new SellerAccount();
-                $customer->seller_id = $request->customer_id;
-                $customer->bill_id = $sale->sale_id;
-                $customer->money = $request->total;
-                $customer->afg = $request->paid_amount;
-                $customer->usd_afg = $ex_rate->usd_afg;
-                $customer->usd_kal = $ex_rate->usd_kal;
-                $customer->percentage = $request->percentage;
-                $customer->in_out = 2;
-                $customer->comment = $request->comment;
-                $customer->date = $request->sale_date;
-                $customer->save();
+                $seller = new SellerAccount();
+                $seller->seller_id = $request->customer_id;
+                $seller->bill_id = $sale->sale_id;
+                $seller->money = $request->total;
+                $seller->afg = $request->paid_amount;
+                $seller->usd_afg = $ex_rate->usd_afg;
+                $seller->usd_kal = $ex_rate->usd_kal;
+                $seller->percentage = $request->percentage;
+                $seller->in_out = 2;
+                $seller->comment = $request->comment;
+                $seller->date = $request->sale_date;
+                $seller->save();
+                $journal->source = 4;
+                $journal->source_id = $seller->seller_account_id;
             }
+            $journal->usd = $request->usd;
+            $journal->afg = $request->afg;
+            $journal->kal = $request->kal;
+            $journal->usd_afg = $request->usd_afg;
+            $journal->usd_kal = $request->usd_kal;
+            $journal->in_out = $request->in_out;
+            $journal->comment = $request->comment;
+            $journal->save();
             foreach ($request->quantity as $key => $value) {
                 $sale_item = new SalesItem();
                 $sale_item->item_id = $request->item_id[$key];
@@ -278,6 +292,8 @@ class SaleController extends Controller
         DB::beginTransaction();
         try {
             $sale = Sales::find($id)->first();
+            $old_id = $sale->sale_type == 1 ? CustomerAccount::where('bill_id', $id)->first() : SellerAccount::where('bill_id', $id)->first();
+            $sale->sale_type == 1 ? Journal::where('source_id', $old_id->customer_account_id)->delete() : Journal::where('source_id', $old_id->seller_account_id)->delete();
             $sale->sale_type == 1 ? CustomerAccount::where('bill_id', $id)->delete() : SellerAccount::where('bill_id', $id)->delete();
 
             $saleItem = SalesItem::where('sale_id', $id)->get();

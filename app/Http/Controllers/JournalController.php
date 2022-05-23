@@ -159,7 +159,7 @@ class JournalController extends Controller
 
         $journal = new Journal();
         $journal->source = 3;
-        $journal->source_id = $request->customer;
+        $journal->source_id = $customer_account->customer_account_id;
         $journal->usd = $request->usd;
         $journal->afg = $request->afg;
         $journal->kal = $request->kal;
@@ -225,7 +225,7 @@ class JournalController extends Controller
 
         $journal = new Journal();
         $journal->source = 4;
-        $journal->source_id = $request->seller;
+        $journal->source_id = $seller_account->seller_account_id;
         $journal->usd = $request->usd;
         $journal->afg = $request->afg;
         $journal->kal = $request->kal;
