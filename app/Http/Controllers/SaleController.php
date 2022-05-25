@@ -196,7 +196,7 @@ class SaleController extends Controller
                 $customer->date = $request->sale_date;
                 $customer->save();
                 $journal->source = 3;
-                $journal->source_id = $customer->customer_account_id;
+                $journal->source_id = $sale->customer_account_id;
             } elseif ($request->sale_type == 2) {
                 $seller = new SellerAccount();
                 $seller->seller_id = $request->customer_id;
