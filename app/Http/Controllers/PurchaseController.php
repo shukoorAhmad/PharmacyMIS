@@ -188,7 +188,6 @@ class PurchaseController extends Controller
             $supplier_account->usd_afg = $request->usd_afg;
             $supplier_account->usd_kal = $request->usd_kal;
             $supplier_account->in_out = 2;
-            $supplier_account->date = $request->purchase_date;
             $supplier_account->save();
 
             if ($request->order_id != "") {

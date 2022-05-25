@@ -174,6 +174,7 @@ class SaleController extends Controller
             'sale_type' => 'required',
             'customer_id' => 'required',
         ]);
+        
         DB::beginTransaction();
         try {
             $sale = new Sales();
@@ -193,10 +194,9 @@ class SaleController extends Controller
                 $customer->usd_kal = $ex_rate->usd_kal;
                 $customer->in_out = 2;
                 $customer->comment = $request->comment;
-                $customer->date = $request->sale_date;
                 $customer->save();
                 $journal->source = 3;
-                $journal->source_id = $sale->customer_account_id;
+                $journal->source_id = $customer->customer_account_id;
             } elseif ($request->sale_type == 2) {
                 $seller = new SellerAccount();
                 $seller->seller_id = $request->customer_id;
@@ -208,17 +208,14 @@ class SaleController extends Controller
                 $seller->percentage = $request->percentage;
                 $seller->in_out = 2;
                 $seller->comment = $request->comment;
-                $seller->date = $request->sale_date;
                 $seller->save();
                 $journal->source = 4;
                 $journal->source_id = $seller->seller_account_id;
             }
-            $journal->usd = $request->usd;
-            $journal->afg = $request->afg;
-            $journal->kal = $request->kal;
-            $journal->usd_afg = $request->usd_afg;
-            $journal->usd_kal = $request->usd_kal;
-            $journal->in_out = $request->in_out;
+            $journal->afg = $request->paid_amount;
+            $journal->usd_afg = $ex_rate->usd_afg;
+            $journal->usd_kal = $ex_rate->usd_kal;
+            $journal->in_out = 2;
             $journal->comment = $request->comment;
             $journal->save();
             foreach ($request->quantity as $key => $value) {
@@ -233,11 +230,12 @@ class SaleController extends Controller
                 $update_items->quantity = $update_items->quantity - $request->sale_amount[$key];
                 $update_items->save();
             }
+
             DB::commit();
             return redirect()->route('show-sale-bill', $sale->sale_id);
         } catch (Exception $e) {
             DB::rollBack();
-            return redirect()->route('purchase-list')->with('err_delete', 'Purchase Not Returned');
+            return redirect()->route('sale')->with('err_delete', 'Sale Not Stored');
         }
     }
 

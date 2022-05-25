@@ -33,9 +33,9 @@
                         <th colspan="3">Company Logo , Address And Contact</th>
                     </tr>
                     <tr>
-                        <th> {{ __('words.To') $order->supplier_detials->name}}</th>
+                        <th> {{ __('words.To') . ' ' .$order->supplier_detials->name}}</th>
                         <th> {{ __('words.Invoice No').' '. $order->order_id}}</th>
-                        <th> {{ __('words.Order Date') $order->order_date}}</th>
+                        <th> {{ __('words.Order Date').' '. $order->order_date}}</th>
                     </tr>
                 </table>
                 <table class="table table-bordered">

@@ -79,17 +79,18 @@ class OrderController extends Controller
                 $order_item_store->quantity = $value;
                 $order_item_store->save();
             }
-            return redirect()->route('order-list')->with('success_insert', 'Order Successfully Added');
             DB::commit();
+            return redirect()->route('order-list')->with('success_insert', 'Order Successfully Added');
         } catch (Exception $e) {
-            return redirect()->route('order-list')->with('error_insert', 'Order Not Added');
             DB::rollBack();
+            return redirect()->route('order-list')->with('error_insert', 'Order Not Added');
         }
     }
 
     protected function view($id)
     {
-        $data['order'] = Order::findOrFail($id);
+        $data['order'] = Order::with('supplier_detials')->findOrFail($id);
+        // dd($data);
         return view('order.view-order-details', $data);
     }
 

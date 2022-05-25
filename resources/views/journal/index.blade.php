@@ -62,17 +62,17 @@
                                 <div class="text-danger kal_error"></div>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>{{__('words.USD to AFG')}}</label>
+                                <label>{{__('words.USD TO AFG')}}</label>
                                 <input name="usd_afg" class="form-control inputNumeral" value="{{$exchange_rate->usd_afg}}">
                                 <input type="hidden" name="exchange_rate_id" class="form-control inputNumeral" value="{{$exchange_rate->exchange_rate_id}}">
                             </div>
                             <div class="form-group col-md-2">
-                                <label>{{__('words.USD to KAL')}}</label>
+                                <label>{{__('words.USD TO KAL')}}</label>
                                 <input name="usd_kal" class="form-control inputNumeral" value="{{$exchange_rate->usd_kal}}">
                             </div>
                             <div class="form-group col-md-10">
                                 <label>{{__('words.Comment')}}</label>
-                                <input name="comment" class="form-control" placeholder="{{__('words.Write your comments here...'}}">
+                                <input name="comment" class="form-control" placeholder="{{__('words.Write your comments here...')}}">
                             </div>
                             <div class="col-md-2">
                                 <button type="submit" class="btn btn-primary mr-2 w-100 submit" style="margin-top:28px !important;">{{__('words.Submit')}}</button>
@@ -104,21 +104,21 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>{{__('words.USD to AFG')}}</label>
+                                <label>{{__('words.USD TO AFG')}}</label>
                                 <input name="usd_afg" class="form-control inputNumeral" value="{{$exchange_rate->usd_afg}}">
                                 <input type="hidden" name="exchange_rate_id" class="form-control inputNumeral" value="{{$exchange_rate->exchange_rate_id}}">
                             </div>
                             <div class="form-group col-md-2">
-                                <label>{{__('words.USD to KAL')}}</label>
+                                <label>{{__('words.USD TO KAL')}}</label>
                                 <input name="usd_kal" class="form-control inputNumeral" value="{{$exchange_rate->usd_kal}}">
                             </div>
                             <input type="hidden" name="in_out" class="expense-radio-value" value="1">
                             <div class="form-group col-md-10">
                                 <label>{{__('words.Comment')}}</label>
-                                <input name="comment" class="form-control" placeholder="{{__('words.Write your comments here...'}}">
+                                <input name="comment" class="form-control" placeholder="{{__('words.Write your comments here...')}}">
                             </div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-primary mr-2 w-100 submit_expense" style="margin-top:28px !important;">{{('words.Submit')}}</button>
+                                <button type="submit" class="btn btn-primary mr-2 w-100 submit_expense" style="margin-top:28px !important;">{{__('words.Submit')}}</button>
                             </div>
                         </div>
                     </form>
@@ -155,17 +155,17 @@
                             </div>
                             <div class="form-group col-md-7">
                                 <label>{{__('words.Comment')}}</label>
-                                <input name="comment" class="form-control" placeholder="{{__('words.Write your comments here...'}}">
+                                <input name="comment" class="form-control" placeholder="{{__('words.Write your comments here...')}}">
                             </div>
                             <div class="col-md-3">
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label>{{__('words.USD to AFG')}}</label>
+                                        <label>{{__('words.USD TO AFG')}}</label>
                                         <input id="" name="usd_afg" class="form-control inputNumeral" value="{{$exchange_rate->usd_afg}}">
                                         <input type="hidden" name="exchange_rate_id" class="form-control inputNumeral" value="{{$exchange_rate->exchange_rate_id}}">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>{{__('words.USD to KAL')}}</label>
+                                        <label>{{__('words.USD TO KAL')}}</label>
                                         <input id="" name="usd_kal" class="form-control inputNumeral" value="{{$exchange_rate->usd_kal}}">
                                     </div>
                                 </div>
@@ -208,17 +208,17 @@
                             </div>
                             <div class="form-group col-md-7">
                                 <label>{{__('words.Comment')}}</label>
-                                <input name="comment" class="form-control" placeholder="{{__('words.Write your comments here...'}}">
+                                <input name="comment" class="form-control" placeholder="{{__('words.Write your comments here...')}}">
                             </div>
                             <div class="col-md-3">
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label>{{__('words.USD to AFG')}}</label>
+                                        <label>{{__('words.USD TO AFG')}}</label>
                                         <input id="" name="usd_afg" class="form-control inputNumeral" value="{{$exchange_rate->usd_afg}}">
                                         <input type="hidden" name="exchange_rate_id" class="form-control inputNumeral" value="{{$exchange_rate->exchange_rate_id}}">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>{{__('words.USD to KAL')}}</label>
+                                        <label>{{__('words.USD TO KAL')}}</label>
                                         <input id="" name="usd_kal" class="form-control inputNumeral" value="{{$exchange_rate->usd_kal}}">
                                     </div>
                                 </div>
@@ -261,17 +261,17 @@
                             </div>
                             <div class="form-group col-md-7">
                                 <label>{{__('words.Comment')}}</label>
-                                <input name="comment" class="form-control" placeholder="{{__('words.Write your comments here...'}}">
+                                <input name="comment" class="form-control" placeholder="{{__('words.Write your comments here...')}}">
                             </div>
                             <div class="col-md-3">
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label>{{__('words.USD to AFG')}}</label>
+                                        <label>{{__('words.USD TO AFG')}}</label>
                                         <input id="" name="usd_afg" class="form-control inputNumeral" value="{{$exchange_rate->usd_afg}}">
                                         <input type="hidden" name="exchange_rate_id" class="form-control inputNumeral" value="{{$exchange_rate->exchange_rate_id}}">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>{{__('words.USD to KAL')}}</label>
+                                        <label>{{__('words.USD TO KAL')}}</label>
                                         <input id="" name="usd_kal" class="form-control inputNumeral" value="{{$exchange_rate->usd_kal}}">
                                     </div>
                                 </div>

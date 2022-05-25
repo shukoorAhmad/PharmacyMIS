@@ -17,15 +17,9 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransferController;
 use Illuminate\Support\Facades\Route;
 
-
-
 Auth::routes();
 
-
 Route::middleware('localize')->group(function () {
-
-
-
     Route::get('/', function () {
         return view('auth/login');
     });

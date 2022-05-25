@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    public $primaryKey = "order_id";
     use HasFactory;
+    public $primaryKey = "order_id";
     protected $fillable = ['status'];
 
     public function supplier_detials()

@@ -19,7 +19,7 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between hop">
-                <h4 class="card-title mb-2"> {{ __('words.Purchase No') $purchase->purchase_id}}</h4>
+                <h4 class="card-title mb-2"> {{ __('words.Purchase No').' '.$purchase->purchase_id}}</h4>
                 <div>
                     <a onclick="window.print()" class="btn btn-primary mb-3 text-white">{{__('words.Print')}}</a>
                     <a href="{{url()->previous()}}" class="btn btn-success mb-3">{{__('words.Back')}}</a>
