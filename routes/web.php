@@ -19,13 +19,13 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::middleware('localize')->group(function () {
+Route::middleware(['auth', 'localize'])->group(function () {
     Route::get('/', function () {
         return view('auth/login');
     });
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::post('/settings-update', [HomeController::class, 'settingUpdate'])->name('settings.update');
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     // site crud
     Route::get('/site', [SiteController::class, 'index'])->name('site');
     Route::post('/sitestore', [SiteController::class, 'store'])->name('sitestore');

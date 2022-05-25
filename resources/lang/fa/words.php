@@ -196,4 +196,14 @@ return [
     'Price' => 'قیمت',
     'Discount' => 'تخفیف',
     'Date' => 'تاریخ ',
+    'Settings' => 'تنظیمات',
+    'Full Name' => 'نام و تخلص',
+    'Old Password' => 'رمز گذشته',
+    'New Password' => 'رمز جدید',
+    'Confirm Password' => 'تایید رمز',
+    'Attach Photo' => 'انتخاب تصویر',
+    'Write Old Password Here...' => 'رمز گذشته را بنویسید',
+    'Write New Password Here...' => 'رمز جدید را بنویسید',
+    'Write Confirm Password Here...' => 'تایید رمز را بنویسید',
+    'Logout' => 'خروج'
 ];

@@ -196,4 +196,14 @@ return [
     'Price' => 'Price',
     'Discount' => 'Discount',
     'Date' => 'Date',
+    'Settings' => 'Settings',
+    'Full Name' => 'Full Name',
+    'Old Password' => 'Old Password',
+    'New Password' => 'New Password',
+    'Confirm Password' => 'Confirm Password',
+    'Attach Photo' => 'Attach Photo',
+    'Write Old Password Here...' => 'Write Old Password Here...',
+    'Write New Password Here...' => 'Write New Password Here...',
+    'Write Confirm Password Here...' => 'Write Confirm Password Here...',
+    'Logout' => 'Logout'
 ];

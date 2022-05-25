@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('public/css/default-assets/new/sweetalert-2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/css/bootstrap-datepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/css/default-assets/form-picker.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/dropify/dropify.min.css') }}">
 
     <style>
         @media print {
@@ -95,16 +96,18 @@
                 <ul class="top-navbar-area navbar-nav navbar-nav-right">
                     <li class="nav-item dropdown dropdown-animate">
                         <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-                            <img class="flex-30-img mr-2" src="{{ asset('public/img/shop-img/l5.png') }}" alt="">English<i class="arrow_carrot-down"></i>
+                            <img class="flex-30-img mr-2" @if(Session::get('locale') == 'en') src="{{asset('public/img/US.png')}}" @else src="{{asset('public/img/AFG.png')}}" @endif alt="">
+                            @if(Session::get('locale') == 'en') English @elseif(Session::get('locale') == 'fa') Dari @elseif(Session::get('locale') == 'ps') Pashto @else English @endif<i class="arrow_carrot-down"></i>
+                            
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                            <a href="{{route('en')}}" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/shop-img/l2.jpg') }}" alt=""> English</a>
-                            <a href="{{route('fa')}}" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/shop-img/l2.jpg') }}" alt=""> Dari</a>
-                            <a href="{{route('ps')}}" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/shop-img/l1.jpg') }}" alt=""> Pashto</a>
+                            <a href="{{route('en')}}" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/US.png') }}" alt=""> English</a>
+                            <a href="{{route('fa')}}" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/AFG.png') }}" alt=""> Dari</a>
+                            <a href="{{route('ps')}}" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/AFG.png') }}" alt=""> Pashto</a>
                         </div>
                     </li>
 
-                    <li class="nav-item dropdown dropdown-animate">
+                    <!-- <li class="nav-item dropdown dropdown-animate">
                         <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
                             <i class="fa fa-bell-o"></i>
                             <span class="count"></span>
@@ -167,17 +170,27 @@
                             </a>
 
                         </div>
-                    </li>
+                    </li> -->
 
                     <li class="nav-item nav-profile dropdown dropdown-animate">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                            <img src="{{ asset('public/img/member-img/contact-2.jpg') }}" alt="profile" />
+                            @if(Auth::user()->photo != '')
+                                <img src="{{ asset('storage/app/public/images'). '/' .Auth::user()->photo }}" alt="profile" />
+                            @else
+                                <img src="{{ asset('public/img/user_default.jpg') }}" alt="profile" />
+                            @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown profile-top" aria-labelledby="profileDropdown">
-                            <a href="#" class="dropdown-item"><i class="zmdi zmdi-account profile-icon" aria-hidden="true"></i> My profile</a>
-                            <a href="#" class="dropdown-item"><i class="zmdi zmdi-email-open profile-icon" aria-hidden="true"></i> Messages</a>
-                            <a href="#" class="dropdown-item"><i class="zmdi zmdi-brightness-7 profile-icon" aria-hidden="true"></i> Settings</a>
-                            <a href="#" class="dropdown-item"><i class="ti-unlink profile-icon" aria-hidden="true"></i> Sign-out</a>
+                            <a href="#" class="dropdown-item"> Welcome, <b>{{Auth::user()->name}}</b></a>
+                            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#settings-modal"><i class="zmdi zmdi-brightness-7 profile-icon" aria-hidden="true"></i> {{__('words.Settings')}}</a>
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                <i class="ti-unlink profile-icon" aria-hidden="true"></i> {{ __('words.Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
                         </div>
                     </li>
                 </ul>
@@ -328,6 +341,54 @@
         </div>
     </div>
 
+    <div class="modal fade" id="settings-modal" data-backdrop="static" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="modal_title">{{__('words.Settings')}}</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="store_form" method="POST" action="{{ route('settings.update') }}" autocomplete="off" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group col-md-12 p-0">
+                            <label for="full_name" class="col-form-label">{{__('words.Full Name')}}</label>
+                            <input class="form-control" name="full_name" id="full_name" required value="{{Auth::user()->name}}">
+                            <div class="invalid-feedback full_name_error"></div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="old_password" class="col-form-label">{{__('words.Old Password')}}</label>
+                                <input type="password" class="form-control" name="old_password" id="old_password" placeholder="{{__('words.Write Old Password Here...')}}">
+                                <div class="invalid-feedback old_password_error"></div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="new_password" class="col-form-label">{{__('words.New Password')}}</label>
+                                <input type="password" class="form-control" name="new_password" id="new_password" placeholder="{{__('words.Write New Password Here...')}}">
+                                <div class="invalid-feedback new_password_error"></div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 p-0">
+                            <label for="confirm_password" class="col-form-label">{{__('words.Confirm Password')}}</label>
+                            <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="{{__('words.Write Confirm Password Here...')}}">
+                            <div class="invalid-feedback confirm_password_error"></div>
+                        </div>
+                        <div class="col-12 p-0 mb-3">
+                            <div id="file-upload0" class="section">
+                                <div class="row section">
+                                    <div class="col s12 m8 l9">
+                                        <label for="basicInputFile">{{__('words.Attach Photo')}}</label>
+                                        <input type="file" name="photo" class="dropify" data-max-file-size="5M" data-height="100" data-allowed-file-extensions="JPG jpg PNG png JPEG jpeg" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" id="submit_btn" class="btn btn-primary"> {{__('words.Save')}}</button>
+                        <button type="button" class="btn btn-danger" id="close_btn" data-dismiss="modal"> {{__('words.Close')}}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Plugins Js -->
     <script src="{{ asset('public/js/jquery.min.js') }}"></script>
@@ -344,7 +405,17 @@
     <script src="{{asset('public/js/default-assets/active.js')}}"></script>
     <script src="{{ asset('public/js/default-assets/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('public/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{asset('public/dropify/dropify.min.js') }}"></script>
     <script>
+        $('.dropify').dropify({
+            messages: {
+                'default': 'Drag and drop a file here or click',
+                'replace': 'Drag and drop or click to replace',
+                'remove': 'Remove',
+                'error': 'Ooops, something wrong happended.'
+            }
+        });
+
         function success(msg) {
             Swal.fire({
                 title: msg,
