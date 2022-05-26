@@ -96,7 +96,7 @@
                 <ul class="top-navbar-area navbar-nav navbar-nav-right">
                     <li class="nav-item dropdown dropdown-animate">
                         <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-                            <img class="flex-30-img mr-2" @if(Session::get('locale') == 'en') src="{{asset('public/img/US.png')}}" @elsef(Session::get('locale') == 'fa' || Session::get('locale') == 'ps') src="{{asset('public/img/AFG.png')}}" @else src="{{asset('public/img/US.png')}}" @endif alt="">
+                            <img class="flex-30-img mr-2" @if(Session::get('locale') == 'en') src="{{asset('public/img/US.png')}}" @elseif(Session::get('locale') == 'fa' || Session::get('locale') == 'ps') src="{{asset('public/img/AFG.png')}}" @else src="{{asset('public/img/US.png')}}" @endif alt="">
                             @if(Session::get('locale') == 'en') English @elseif(Session::get('locale') == 'fa') Dari @elseif(Session::get('locale') == 'ps') Pashto @else English @endif<i class="arrow_carrot-down"></i>
                             
                         </a>
