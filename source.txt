@@ -1,0 +1,5 @@
+tbl cash=1
+tbl expense=2
+tbl customer=3
+tbl seller=4
+tbl supplier=5

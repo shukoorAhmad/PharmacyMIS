@@ -174,7 +174,7 @@ class SaleController extends Controller
             'sale_type' => 'required',
             'customer_id' => 'required',
         ]);
-        
+
         DB::beginTransaction();
         try {
             $sale = new Sales();
@@ -280,7 +280,12 @@ class SaleController extends Controller
                     $loan += $row->kal / 2;
                 }
             }
+            $current_pay = SellerAccount::where('bill_id', $id)->first();
+            $current_paid_bill += $current_pay->afg;
+            $current_paid_bill += $current_pay->usd * $current_pay->usd_afg;
+            $current_paid_bill += $current_pay->kal / 2;
         }
+        $data['current_paid_bill'] = $current_paid_bill;
         $data['loan'] = $loan - $paid;
         return view('sale.sale-bill', $data);
     }
