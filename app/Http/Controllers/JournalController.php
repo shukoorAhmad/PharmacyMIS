@@ -30,7 +30,7 @@ class JournalController extends Controller
         $data['journals'] = Journal::whereDate('created_at', '=', $date)->get();
         $data['date'] = $date;
         $data['exchange_rate'] = ExchangeRate::first();
-
+        
         return view('journal.show_data', $data);
     }
 
@@ -313,5 +313,27 @@ class JournalController extends Controller
         $journal->save();
         $msg = $request->in_out == 0 ? 'Money Successfully Received From Supplier' : 'Money Successfully Send to Supplier';
         return redirect()->back()->with('success_insert', $msg);
+    }
+
+    protected function showStatment($source)
+    {
+        if ($source == 1) {
+            $data = Cash::all();
+            $title = 'Cashe';
+        } else if ($source == 2) {
+            $data = Expense::all();
+            $title = 'Expense';
+        } else if ($source == 3) {
+            $data = CustomerAccount::all();
+            $title = 'Customer';
+        } else if ($source == 4) {
+            $data = SellerAccount::all();
+            $title = 'Seller';
+        } else if ($source == 5) {
+            $data = SupplierAccount::all();
+            $title = 'Supplier';
+        }
+
+        return view('journal.show_statment', compact('data', 'title'));
     }
 }

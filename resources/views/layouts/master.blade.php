@@ -76,8 +76,8 @@
         <!-- Top bar area -->
         <nav class="navbar col-lg-12 col-12 fixed-top d-flex hop flex-row p-0">
             <div class="navbar-brand-wrapper d-flex align-items-center justify-content-center text-center">
-                <a class="navbar-brand brand-logo ml-1 text-white">{{ __('words.Pharmacy MIS') }}</a>
-                <a class="navbar-brand brand-logo-mini text-white">{{ __('words.PMIS') }}</a>
+                <a class="navbar-brand brand-logo ml-1 text-white" style="font-family: Kaushan; color: #e77817 !important;">{{ __('words.Pharmacy MIS') }}</a>
+                <a class="navbar-brand brand-logo-mini text-white" style="font-family: Kaushan; color: #e77817 !important;">{{ __('words.PMIS') }}</a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-between">
                 <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">

@@ -133,6 +133,11 @@ Last Updated: Nov 25, 2019
 
 /* :: Reboot CSS */
 
+@font-face {
+    font-family: "Kaushan";
+    src: url("../public/fonts/KaushanScript-Regular.ttf");
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -2260,7 +2265,7 @@ div.tagsinput span.tag a {
 
 .navbar .navbar-brand-wrapper .navbar-brand {
     color: #27367f;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     margin-right: 0;
     padding: .25rem 0;
 }

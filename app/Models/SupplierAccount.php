@@ -9,6 +9,7 @@ class SupplierAccount extends Model
 {
     public $primaryKey = "supplier_account_id";
     use HasFactory;
+
     public function supplier_function()
     {
         return $this->hasOne(Supplier::class, 'supplier_id', 'supplier_id');
