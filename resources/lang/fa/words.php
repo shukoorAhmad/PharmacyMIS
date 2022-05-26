@@ -205,5 +205,7 @@ return [
     'Write Old Password Here...' => 'رمز گذشته را بنویسید',
     'Write New Password Here...' => 'رمز جدید را بنویسید',
     'Write Confirm Password Here...' => 'تایید رمز را بنویسید',
-    'Logout' => 'خروج'
+    'Logout' => 'خروج',
+    'Pharmacy MIS' => 'مدیریت دواخانه',
+    'PMIS' => 'PMIS',
 ];

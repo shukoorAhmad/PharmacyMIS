@@ -212,6 +212,8 @@ class SaleController extends Controller
                 $journal->source = 4;
                 $journal->source_id = $seller->seller_account_id;
             }
+            $journal->bill_id = $sale->sale_id;
+            $journal->money = $request->total;
             $journal->afg = $request->paid_amount;
             $journal->usd_afg = $ex_rate->usd_afg;
             $journal->usd_kal = $ex_rate->usd_kal;

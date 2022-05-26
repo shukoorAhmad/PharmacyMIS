@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Required meta tags -->
 
-    <title>Pharmacy MIS</title>
+    <title>{{ __('words.Pharmacy MIS') }}</title>
 
     <!-- Favicon -->
     <link rel="icon" href="">
@@ -54,6 +54,7 @@
         .even>td {
             text-align: center !important;
         }
+
     </style>
 </head>
 
@@ -75,8 +76,8 @@
         <!-- Top bar area -->
         <nav class="navbar col-lg-12 col-12 fixed-top d-flex hop flex-row p-0">
             <div class="navbar-brand-wrapper d-flex align-items-center justify-content-center text-center">
-                <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="{{ asset('public/img/core-img/logo.png') }}" class="mr-2" alt="logo" /></a>
-                <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{{ asset('public/img/core-img/small-logo.png') }}" alt="logo" /></a>
+                <a class="navbar-brand brand-logo ml-1 text-white">{{ __('words.Pharmacy MIS') }}</a>
+                <a class="navbar-brand brand-logo-mini text-white">{{ __('words.PMIS') }}</a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-between">
                 <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -90,36 +91,41 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('site') }}">
                             <i class="fa fa-sitemap mr-2 font-17"></i>
-                            <span class="menu-title">{{__('words.Site')}}</span>
+                            <span class="menu-title">{{ __('words.Site') }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('item') }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box link-icon">
-                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                            </svg>
-                            <span class="menu-title">{{__('words.Items')}}</span>
+                            <i class="fa fa-book-medical mr-2 font-17"></i>
+                            <span class="menu-title">{{ __('words.Items') }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('stock') }}">
-                            <i class="fa fa-layer mr-2 font-17"></i>
-                            <span class="menu-title">{{__('words.Stock')}}</span>
+                            <i class="fa fa-archive mr-2 font-17"></i>
+                            <span class="menu-title">{{ __('words.Stock') }}</span>
                         </a>
                     </li>
                 </ul>
                 <ul class="top-navbar-area navbar-nav navbar-nav-right">
                     <li class="nav-item dropdown dropdown-animate">
                         <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-                            <img class="flex-30-img mr-2" @if(Session::get('locale')=='en' ) src="{{asset('public/img/US.png')}}" @elseif(Session::get('locale')=='fa' || Session::get('locale')=='ps' ) src="{{asset('public/img/AFG.png')}}" @else src="{{asset('public/img/US.png')}}" @endif alt="">
-                            @if(Session::get('locale') == 'en') English @elseif(Session::get('locale') == 'fa') Dari @elseif(Session::get('locale') == 'ps') Pashto @else English @endif<i class="arrow_carrot-down"></i>
+                            <img class="flex-30-img mr-2" @if (Session::get('locale') == 'en') src="{{ asset('public/img/US.png') }}" @elseif(Session::get('locale') == 'fa' || Session::get('locale') == 'ps') src="{{ asset('public/img/AFG.png') }}" @else src="{{ asset('public/img/US.png') }}" @endif alt="">
+                            @if (Session::get('locale') == 'en')
+                                English
+                            @elseif(Session::get('locale') == 'fa')
+                                Dari
+                            @elseif(Session::get('locale') == 'ps')
+                                Pashto
+                            @else
+                                English
+                            @endif
+                            <i class="arrow_carrot-down"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                            <a href="{{route('en')}}" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/US.png') }}" alt=""> English</a>
-                            <a href="{{route('fa')}}" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/AFG.png') }}" alt=""> Dari</a>
-                            <a href="{{route('ps')}}" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/AFG.png') }}" alt=""> Pashto</a>
+                            <a href="{{ route('en') }}" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/US.png') }}" alt=""> English</a>
+                            <a href="{{ route('fa') }}" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/AFG.png') }}" alt=""> Dari</a>
+                            <a href="{{ route('ps') }}" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/AFG.png') }}" alt=""> Pashto</a>
                         </div>
                     </li>
 
@@ -190,15 +196,15 @@
 
                     <li class="nav-item nav-profile dropdown dropdown-animate">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                            @if(Auth::user()->photo != '')
-                            <img src="{{ asset('storage/app/public/images'). '/' .Auth::user()->photo }}" alt="profile" />
+                            @if (Auth::user()->photo != '')
+                                <img src="{{ asset('storage/app/public/images') . '/' . Auth::user()->photo }}" alt="profile" />
                             @else
-                            <img src="{{ asset('public/img/user_default.jpg') }}" alt="profile" />
+                                <img src="{{ asset('public/img/user_default.jpg') }}" alt="profile" />
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown profile-top" aria-labelledby="profileDropdown">
-                            <a href="#" class="dropdown-item"> Welcome, <b>{{Auth::user()->name}}</b></a>
-                            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#settings-modal"><i class="zmdi zmdi-brightness-7 profile-icon" aria-hidden="true"></i> {{__('words.Settings')}}</a>
+                            <a href="#" class="dropdown-item"> Welcome, <b>{{ Auth::user()->name }}</b></a>
+                            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#settings-modal"><i class="zmdi zmdi-brightness-7 profile-icon" aria-hidden="true"></i> {{ __('words.Settings') }}</a>
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                 <i class="ti-unlink profile-icon" aria-hidden="true"></i> {{ __('words.Logout') }}
@@ -223,23 +229,19 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('dashboard') }}">
                             <i class="fa fa-tachometer mr-2 font-17"></i>
-                            <span class="menu-title">{{__('words.Dashboard')}}</span>
+                            <span class="menu-title">{{ __('words.Dashboard') }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('supplier') }}">
                             <i class="fa fa-user mr-2 font-17"></i>
-                            <span class="menu-title">{{__('words.Suppliers')}}</span>
+                            <span class="menu-title">{{ __('words.Suppliers') }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('customer') }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box link-icon">
-                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                            </svg>
-                            <span class="menu-title">{{__('words.Customers')}}</span>
+                            <i class="fa fa-users mr-2 font-17"></i>
+                            <span class="menu-title">{{ __('words.Customers') }}</span>
                         </a>
                     </li>
 
@@ -251,7 +253,7 @@
                                 <line x1="8" y1="2" x2="8" y2="6"></line>
                                 <line x1="3" y1="10" x2="21" y2="10"></line>
                             </svg>
-                            <span class="menu-title">{{__('words.Order')}}</span>
+                            <span class="menu-title">{{ __('words.Order') }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -262,7 +264,7 @@
                                 <line x1="8" y1="2" x2="8" y2="6"></line>
                                 <line x1="3" y1="10" x2="21" y2="10"></line>
                             </svg>
-                            <span class="menu-title">{{__('words.Purchase')}}</span>
+                            <span class="menu-title">{{ __('words.Purchase') }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -272,27 +274,19 @@
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                                 <line x1="12" y1="22.08" x2="12" y2="12"></line>
                             </svg>
-                            <span class="menu-title">{{__('words.Sellers')}}</span>
+                            <span class="menu-title">{{ __('words.Sellers') }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('transfer-list') }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box link-icon">
-                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                            </svg>
-                            <span class="menu-title">{{__('words.Transfer')}}</span>
+                            <i class="fa fa-arrows mr-2 font-17"></i>
+                            <span class="menu-title">{{ __('words.Transfer') }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('sale') }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box link-icon">
-                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                            </svg>
-                            <span class="menu-title">{{__('words.Sale')}}</span>
+                            <i class="fa fa-arrows mr-2 font-17"></i>
+                            <span class="menu-title">{{ __('words.Sale') }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -302,7 +296,7 @@
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                                 <line x1="12" y1="22.08" x2="12" y2="12"></line>
                             </svg>
-                            <span class="menu-title">{{__('words.Journal')}}</span>
+                            <span class="menu-title">{{ __('words.Journal') }}</span>
                         </a>
                     </li>
                 </ul>
@@ -323,45 +317,45 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 id="modal_title">{{__('words.Settings')}}</h5>
+                    <h5 id="modal_title">{{ __('words.Settings') }}</h5>
                 </div>
                 <div class="modal-body">
                     <form id="store_form" method="POST" action="{{ route('settings.update') }}" autocomplete="off" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group col-md-12 p-0">
-                            <label for="full_name" class="col-form-label">{{__('words.Full Name')}}</label>
-                            <input class="form-control" name="full_name" id="full_name" required value="{{Auth::user()->name}}">
+                            <label for="full_name" class="col-form-label">{{ __('words.Full Name') }}</label>
+                            <input class="form-control" name="full_name" id="full_name" required value="{{ Auth::user()->name }}">
                             <div class="invalid-feedback full_name_error"></div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label for="old_password" class="col-form-label">{{__('words.Old Password')}}</label>
-                                <input type="password" class="form-control" name="old_password" id="old_password" placeholder="{{__('words.Write Old Password Here...')}}">
+                                <label for="old_password" class="col-form-label">{{ __('words.Old Password') }}</label>
+                                <input type="password" class="form-control" name="old_password" id="old_password" placeholder="{{ __('words.Write Old Password Here...') }}">
                                 <div class="invalid-feedback old_password_error"></div>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="new_password" class="col-form-label">{{__('words.New Password')}}</label>
-                                <input type="password" class="form-control" name="new_password" id="new_password" placeholder="{{__('words.Write New Password Here...')}}">
+                                <label for="new_password" class="col-form-label">{{ __('words.New Password') }}</label>
+                                <input type="password" class="form-control" name="new_password" id="new_password" placeholder="{{ __('words.Write New Password Here...') }}">
                                 <div class="invalid-feedback new_password_error"></div>
                             </div>
                         </div>
                         <div class="form-group col-md-12 p-0">
-                            <label for="confirm_password" class="col-form-label">{{__('words.Confirm Password')}}</label>
-                            <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="{{__('words.Write Confirm Password Here...')}}">
+                            <label for="confirm_password" class="col-form-label">{{ __('words.Confirm Password') }}</label>
+                            <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="{{ __('words.Write Confirm Password Here...') }}">
                             <div class="invalid-feedback confirm_password_error"></div>
                         </div>
                         <div class="col-12 p-0 mb-3">
                             <div id="file-upload0" class="section">
                                 <div class="row section">
                                     <div class="col s12 m8 l9">
-                                        <label for="basicInputFile">{{__('words.Attach Photo')}}</label>
+                                        <label for="basicInputFile">{{ __('words.Attach Photo') }}</label>
                                         <input type="file" name="photo" class="dropify" data-max-file-size="5M" data-height="100" data-allowed-file-extensions="JPG jpg PNG png JPEG jpeg" />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" id="submit_btn" class="btn btn-primary"> {{__('words.Save')}}</button>
-                        <button type="button" class="btn btn-danger" id="close_btn" data-dismiss="modal"> {{__('words.Close')}}</button>
+                        <button type="submit" id="submit_btn" class="btn btn-primary"> {{ __('words.Save') }}</button>
+                        <button type="button" class="btn btn-danger" id="close_btn" data-dismiss="modal"> {{ __('words.Close') }}</button>
                     </form>
                 </div>
             </div>
@@ -380,10 +374,10 @@
     <script src="{{ asset('public/js/collapse.js') }}"></script>
     <script src="{{ asset('public/js/settings.js') }}"></script>
     <script src="{{ asset('public/js/template.js') }}"></script>
-    <script src="{{asset('public/js/default-assets/active.js')}}"></script>
+    <script src="{{ asset('public/js/default-assets/active.js') }}"></script>
     <script src="{{ asset('public/js/default-assets/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('public/js/bootstrap-datepicker.min.js') }}"></script>
-    <script src="{{asset('public/dropify/dropify.min.js') }}"></script>
+    <script src="{{ asset('public/dropify/dropify.min.js') }}"></script>
     <script>
         $('.dropify').dropify({
             messages: {

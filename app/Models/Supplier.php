@@ -9,4 +9,5 @@ class Supplier extends Model
 {
     public $primaryKey = "supplier_id";
     use HasFactory;
+    
 }

@@ -19,6 +19,7 @@ class JournalController extends Controller
 
     protected function index()
     {
+        $data['journals'] = Journal::whereDate('created_at', '=', date('Y-m-d'))->get();
         $data['exchange_rate'] = ExchangeRate::first();
         return view('journal.index', $data);
     }

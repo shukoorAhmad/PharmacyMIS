@@ -14,7 +14,7 @@ class CreateSupplierAccountsTable extends Migration
     public function up()
     {
         Schema::create('supplier_accounts', function (Blueprint $table) {
-            $table->id('supplie_account_id');
+            $table->id('supplier_account_id');
             $table->integer('supplier_id');
             $table->integer('bill_id')->default(0);
             $table->float('money')->default(0);
