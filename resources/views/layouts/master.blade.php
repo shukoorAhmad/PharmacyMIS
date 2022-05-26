@@ -87,18 +87,34 @@
                     </svg>
                 </button>
                 <ul class="navbar-nav mr-lg-2">
-                    <li class="nav-item app-search d-none d-md-block">
-                        <form role="search" class=""><input type="text" placeholder="Search..." class="form-control">
-                            <button type="submit" class="search-btn mr-0"><i class="fa fa-search"></i></button>
-                        </form>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('site') }}">
+                            <i class="fa fa-sitemap mr-2 font-17"></i>
+                            <span class="menu-title">{{__('words.Site')}}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('item') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box link-icon">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                            </svg>
+                            <span class="menu-title">{{__('words.Items')}}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('stock') }}">
+                            <i class="fa fa-layer mr-2 font-17"></i>
+                            <span class="menu-title">{{__('words.Stock')}}</span>
+                        </a>
                     </li>
                 </ul>
                 <ul class="top-navbar-area navbar-nav navbar-nav-right">
                     <li class="nav-item dropdown dropdown-animate">
                         <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-                            <img class="flex-30-img mr-2" @if(Session::get('locale') == 'en') src="{{asset('public/img/US.png')}}" @elseif(Session::get('locale') == 'fa' || Session::get('locale') == 'ps') src="{{asset('public/img/AFG.png')}}" @else src="{{asset('public/img/US.png')}}" @endif alt="">
+                            <img class="flex-30-img mr-2" @if(Session::get('locale')=='en' ) src="{{asset('public/img/US.png')}}" @elseif(Session::get('locale')=='fa' || Session::get('locale')=='ps' ) src="{{asset('public/img/AFG.png')}}" @else src="{{asset('public/img/US.png')}}" @endif alt="">
                             @if(Session::get('locale') == 'en') English @elseif(Session::get('locale') == 'fa') Dari @elseif(Session::get('locale') == 'ps') Pashto @else English @endif<i class="arrow_carrot-down"></i>
-                            
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                             <a href="{{route('en')}}" class="dropdown-item preview-item d-flex align-items-center"><img class="language-thumb" src="{{ asset('public/img/US.png') }}" alt=""> English</a>
@@ -175,9 +191,9 @@
                     <li class="nav-item nav-profile dropdown dropdown-animate">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
                             @if(Auth::user()->photo != '')
-                                <img src="{{ asset('storage/app/public/images'). '/' .Auth::user()->photo }}" alt="profile" />
+                            <img src="{{ asset('storage/app/public/images'). '/' .Auth::user()->photo }}" alt="profile" />
                             @else
-                                <img src="{{ asset('public/img/user_default.jpg') }}" alt="profile" />
+                            <img src="{{ asset('public/img/user_default.jpg') }}" alt="profile" />
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown profile-top" aria-labelledby="profileDropdown">
@@ -206,31 +222,13 @@
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('dashboard') }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box link-icon">
-                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                            </svg>
+                            <i class="fa fa-tachometer mr-2 font-17"></i>
                             <span class="menu-title">{{__('words.Dashboard')}}</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('site') }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box link-icon">
-                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                            </svg>
-                            <span class="menu-title">{{__('words.Site')}}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('supplier') }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box link-icon">
-                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                            </svg>
+                            <i class="fa fa-user mr-2 font-17"></i>
                             <span class="menu-title">{{__('words.Suppliers')}}</span>
                         </a>
                     </li>
@@ -244,27 +242,7 @@
                             <span class="menu-title">{{__('words.Customers')}}</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('item') }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box link-icon">
-                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                            </svg>
-                            <span class="menu-title">{{__('words.Items')}}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('stock') }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar link-icon">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                            </svg>
-                            <span class="menu-title">{{__('words.Stock')}}</span>
-                        </a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('order-list') }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar link-icon">
