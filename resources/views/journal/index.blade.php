@@ -44,7 +44,7 @@
                     </li>
                     <li class="nav-item">
                         <a aria-expanded="false" class="nav-link" style="margin-top:-10px !important;">
-                            <input type="text" class="form-control" value="<?php echo date('Y-m-d'); ?>" data-date-format="yyyy-m-d" autocomplete="off" data-provide="datepicker" data-date-autoclose="true">
+                            <input type="text" class="form-control" value="<?php echo date('Y-m-d'); ?>" id="date-value" data-date-format="yyyy-m-d" autocomplete="off" data-provide="datepicker" data-date-autoclose="true">
                         </a>
                     </li>
                 </ul>
@@ -298,6 +298,7 @@
             </div>
         </div>
     </div>
+
     <div class="col-12 box-margin height-card">
         <div class="card">
             <h5 class="mt-2 ml-2">Date <?php echo date('Y-m-d'); ?></p>
@@ -425,6 +426,12 @@
             </script>
         @endif
         <script>
+            // search by date
+            $('#date-value').change(function(){
+                $.get("{{route('filter-journal-by-date')}}/" + $(this).val(), function(data){
+                    console.log(data);
+                })
+            });
             // to set radio values to zero
             $(document).on('click', '.set_radio_value_0', function() {
                 $('.selectItem[value=0]').addClass('selected');

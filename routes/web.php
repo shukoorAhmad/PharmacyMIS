@@ -104,6 +104,7 @@ Route::middleware(['auth', 'localize'])->group(function () {
     Route::post('/seller-store', [JournalController::class, 'sellerStore'])->name('seller-store');
     Route::get('/filter-supplier', [JournalController::class, 'filterSupplier'])->name('filter-supplier');
     Route::post('/supplier-store', [JournalController::class, 'supplierStore'])->name('supplier-store');
+    Route::get('/filter-journal-by-date/{date?}', [JournalController::class, 'filterJournalByDate'])->name('filter-journal-by-date');
 });
 // Language Routes
 Route::get('/en', [LanguageController::class, 'en'])->name('en');

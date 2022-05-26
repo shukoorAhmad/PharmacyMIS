@@ -21,7 +21,16 @@ class JournalController extends Controller
     {
         $data['journals'] = Journal::whereDate('created_at', '=', date('Y-m-d'))->get();
         $data['exchange_rate'] = ExchangeRate::first();
+
         return view('journal.index', $data);
+    }
+
+    protected function filterJournalByDate($date)
+    {
+        $data['journals'] = Journal::whereDate('created_at', '=', $date)->get();
+        $data['exchange_rate'] = ExchangeRate::first();
+
+        return view('journal.show_data', $data);
     }
 
     protected function checkMoney($money, $currnecy)
