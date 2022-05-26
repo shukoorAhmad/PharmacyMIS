@@ -1,6 +1,6 @@
 <div class="col-12 box-margin height-card">
     <div class="card">
-        <h5 class="mt-2 ml-2">Date <?php echo date('Y-m-d'); ?></p>
+        <h5 class="mt-2 ml-2">Date {{$date}}</p>
             <div class="card-body">
                 <table class="table table-bordered">
                     <tr>

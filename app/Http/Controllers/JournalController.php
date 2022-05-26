@@ -28,6 +28,7 @@ class JournalController extends Controller
     protected function filterJournalByDate($date)
     {
         $data['journals'] = Journal::whereDate('created_at', '=', $date)->get();
+        $data['date'] = $date;
         $data['exchange_rate'] = ExchangeRate::first();
 
         return view('journal.show_data', $data);

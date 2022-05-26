@@ -299,348 +299,248 @@
         </div>
     </div>
 
-    <div class="col-12 box-margin height-card">
-        <div class="card">
-            <h5 class="mt-2 ml-2">Date <?php echo date('Y-m-d'); ?></p>
-            <div class="card-body">
-                <table class="table table-bordered">
-                    <tr>
-                        <th>ID</th>
-                        <th>For</th>
-                        <th>Details</th>
-                        <th>AFG</th>
-                        <th>USD</th>
-                        <th>KAL</th>
-                        <th>Total (USD)</th>
-                    </tr>
-                    @foreach ($journals as $journal)
-                        <tr>
-                            <th>{{ $loop->iteration }}</th>
-                            <td>
-                                @switch ($journal->source)
-                                    @case(1)
-                                        <a href="">Cash</a>
-                                    @break
+    <div id="show-data"></div>
 
-                                    @case(2)
-                                        <a href="">Expense</a>
-                                    @break
-
-                                    @case(3)
-                                        <a href="">{{ $journal->customer_account_function->customer_function->pharmacy_name }}</a>
-                                    @break
-
-                                    @case(4)
-                                        <a href="">{{ $journal->seller_account_function->seller_function->seller_name }}</a>
-                                    @break
-
-                                    @case(5)
-                                        <a href="">{{ $journal->supplier_account_function->supplier_function->name }}</a>
-                                    @break
-
-                                    @default
-                                @endswitch
-                            </td>
-                            <td>
-                                @if ($journal->bill_id != 0)
-                                    <p class="float-left">{{ __('words.For Sale Of Bill No') }}
-                                        <a href="{{ $journal->bill_id }}">{{ $journal->bill_id }}</a>
-                                    </p>
-                                    <p class="float-right">{{ $journal->money }}</p>
-                                @else
-                                    {{ $journal->comment }}
-                                @endif
-                            </td>
-                            <td>
-                                <?php echo $journal->in_out == 1 ? '<p class="float-left">-</p><p class="float-right">' . $journal->afg . '</p>' : '<p class="float-right">-</p><p class="float-left">' . $journal->afg . '</p>'; ?>
-                            </td>
-                            <td>
-                                <?php echo $journal->in_out == 1 ? '<p class="float-left">-</p><p class="float-right">' . $journal->usd . '</p>' : '<p class="float-right">-</p><p class="float-left">' . $journal->usd . '</p>'; ?>
-                            </td>
-                            <td>
-                                <?php echo $journal->in_out == 1 ? '<p class="float-left">-</p><p class="float-right">' . $journal->kal . '</p>' : '<p class="float-right">-</p><p class="float-left">' . $journal->kal . '</p>'; ?>
-                            </td>
-                            <td>
-                                <?php $total_usd = 0; ?>
-                                @switch ($journal->in_out)
-                                    @case(1)
-                                        <p class="float-left">-</p>
-                                        <p class="float-right">
-                                            <?php
-                                            $journal->kal != 0 ? ($total_usd += $journal->kal / $journal->usd_kal) : $total_usd;
-                                            $journal->afg != 0 ? ($total_usd += $journal->afg / $journal->usd_afg) : $total_usd;
-                                            echo number_format($total_usd + $journal->usd, 2);
-                                            ?>
-                                        </p>
-                                    @break
-
-                                    @case(2)
-                                        <p class="float-left">
-                                            <?php
-                                            $journal->kal != 0 ? ($total_usd += $journal->kal / $journal->usd_kal) : $total_usd;
-                                            $journal->afg != 0 ? ($total_usd += $journal->afg / $journal->usd_afg) : $total_usd;
-                                            echo number_format($total_usd + $journal->usd, 2);
-                                            ?>
-                                        </p>
-                                        <p class="float-right">-</p>
-                                    @break
-
-                                    @case(0)
-                                        <p class="float-left">
-                                            <?php
-                                            $journal->kal != 0 ? ($total_usd += $journal->kal / $journal->usd_kal) : $total_usd;
-                                            $journal->afg != 0 ? ($total_usd += $journal->afg / $journal->usd_afg) : $total_usd;
-                                            echo number_format($total_usd + $journal->usd, 2);
-                                            ?>
-                                        </p>
-                                        <p class="float-right">-</p>
-                                    @break
-
-                                    @default
-                                @endswitch
-                            </td>
-                        </tr>
-                    @endforeach
-                </table>
-            </div>
-        </div>
-    </div>
-
-    @section('script')
-        <!-- Inject JS -->
-        <script src="{{ asset('public/js/default-assets/jquery.datatables.min.js') }}"></script>
-        <script src="{{ asset('public/js/default-assets/datatables.bootstrap4.js') }}"></script>
-        <script src="{{ asset('public/js/default-assets/datatable-responsive.min.js') }}"></script>
-        <script src="{{ asset('public/js/default-assets/responsive.bootstrap4.min.js') }}"></script>
-        <script src="{{ asset('public/js/default-assets/select2.min.js') }}"></script>
-        <script src="{{ asset('public/radio-button/toggle.js') }}"></script>
-        <script src="{{ asset('public/js/default-assets/cleave.min.js') }}"></script>
-        @if (session()->has('success_insert'))
-            <script>
-                success("{{ session()->get('success_insert') }}");
-            </script>
-        @endif
-        @if (session()->has('error_transaction'))
-            <script>
-                error_function("{{ session()->get('error_transaction') }}");
-            </script>
-        @endif
+@section('script')
+    <!-- Inject JS -->
+    <script src="{{ asset('public/js/default-assets/jquery.datatables.min.js') }}"></script>
+    <script src="{{ asset('public/js/default-assets/datatables.bootstrap4.js') }}"></script>
+    <script src="{{ asset('public/js/default-assets/datatable-responsive.min.js') }}"></script>
+    <script src="{{ asset('public/js/default-assets/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('public/js/default-assets/select2.min.js') }}"></script>
+    <script src="{{ asset('public/radio-button/toggle.js') }}"></script>
+    <script src="{{ asset('public/js/default-assets/cleave.min.js') }}"></script>
+    @if (session()->has('success_insert'))
         <script>
-            // search by date
-            $('#date-value').change(function(){
-                $.get("{{route('filter-journal-by-date')}}/" + $(this).val(), function(data){
-                    console.log(data);
-                })
+            success("{{ session()->get('success_insert') }}");
+        </script>
+    @endif
+    @if (session()->has('error_transaction'))
+        <script>
+            error_function("{{ session()->get('error_transaction') }}");
+        </script>
+    @endif
+    <script>
+        // search by date
+        $(document).ready(function() {
+            $.get("{{ route('filter-journal-by-date') }}/" + $('#date-value').val(), function(response) {
+                $('#show-data').html(response);
             });
-            // to set radio values to zero
-            $(document).on('click', '.set_radio_value_0', function() {
-                $('.selectItem[value=0]').addClass('selected');
-                $('.selectItem[value=1]').removeClass('selected');
-                $('.radio-value').val(0);
+        });
+        $('#date-value').change(function() {
+            $.get("{{ route('filter-journal-by-date') }}/" + $(this).val(), function(response) {
+                $('#show-data').html(response);
             });
-            // to initialize select 2
-            $('.select2').select2();
-            // to check for all zero values
-            $(document).on('click', '.submit', function() {
-                if ($('.usd').val() == 0 && $('.afg').val() == 0 && $('.kal').val() == 0) {
-                    error_function("{{ __('words.please enter value') }}");
-                    return false;
-                } else {
-                    return true;
-                }
+        });
+        // to set radio values to zero
+        $(document).on('click', '.set_radio_value_0', function() {
+            $('.selectItem[value=0]').addClass('selected');
+            $('.selectItem[value=1]').removeClass('selected');
+            $('.radio-value').val(0);
+        });
+        // to initialize select 2
+        $('.select2').select2();
+        // to check for all zero values
+        $(document).on('click', '.submit', function() {
+            if ($('.usd').val() == 0 && $('.afg').val() == 0 && $('.kal').val() == 0) {
+                error_function("{{ __('words.please enter value') }}");
+                return false;
+            } else {
+                return true;
+            }
+        });
+        // input number validations
+        $('.inputNumeral').toArray().forEach(function(field) {
+            new Cleave(field, {
+                numeral: !0,
+                numeralThousandsGroupStyle: "false"
             });
-            // input number validations
-            $('.inputNumeral').toArray().forEach(function(field) {
-                new Cleave(field, {
-                    numeral: !0,
-                    numeralThousandsGroupStyle: "false"
-                });
-            });
-            // to initialize cash tab in_out radio buttons
-            $("#div1").setupToggles();
-            // to change radio type value of cash tab
-            $(document).on('click', '.zero', function() {
-                $(this).attr('value') == '0' ? $('.radio-value').val(0) : $('.radio-value').val(1);
-            });
-            // to check available cash
-            $(document).on('keyup', '.check', function() {
-                if ($('.radio-value').val() == 1) {
-                    var name = $(this).attr('name');
-                    $.get("{{ route('check-money') }}/" + $(this).val() + "/" + name, function(response) {
-                        if (response != 1) {
-                            $('.' + name + '_error').html('You Have ' + response + ' ' + name);
-                            $('.' + name).css('border-color', '#dc3545');
-                            $('.submit').attr('disabled', 'disabled');
-                            $('.submit').css('cursor', 'not-allowed');
-                        } else {
-                            $('.' + name).css('border-color', '#5867dd');
-                            $('.' + name + '_error').html('');
-                            $('.' + name + '_error').focus();
-                            $('.submit').removeAttr('disabled');
-                        }
-                    });
-                } else {
-                    $('.' + name).css('border-color', '#5867dd');
-                    $('.' + name + '_error').html('');
-                    $('.' + name + '_error').focus();
-                    $('.submit').removeAttr('disabled');
-                }
-            });
-            // to check available cash in expense tab
-            $(document).on('keyup', '.check-expense', function() {
+        });
+        // to initialize cash tab in_out radio buttons
+        $("#div1").setupToggles();
+        // to change radio type value of cash tab
+        $(document).on('click', '.zero', function() {
+            $(this).attr('value') == '0' ? $('.radio-value').val(0) : $('.radio-value').val(1);
+        });
+        // to check available cash
+        $(document).on('keyup', '.check', function() {
+            if ($('.radio-value').val() == 1) {
                 var name = $(this).attr('name');
                 $.get("{{ route('check-money') }}/" + $(this).val() + "/" + name, function(response) {
                     if (response != 1) {
-                        $('.' + name + '_expense_error').html("{{ __('words.You Have ') }}" + response + ' ' + name);
-                        $('.' + name + '_expense').css('border-color', '#dc3545');
-                        $('.submit_expense').attr('disabled', 'disabled');
-                        $('.submit_expense').css('cursor', 'not-allowed');
+                        $('.' + name + '_error').html('You Have ' + response + ' ' + name);
+                        $('.' + name).css('border-color', '#dc3545');
+                        $('.submit').attr('disabled', 'disabled');
+                        $('.submit').css('cursor', 'not-allowed');
                     } else {
-                        $('.' + name + '_expense').css('border-color', '#5867dd');
-                        $('.' + name + '_expense_error').html('');
-                        $('.' + name + '_expense_error').focus();
-                        $('.submit_expense').removeAttr('disabled');
+                        $('.' + name).css('border-color', '#5867dd');
+                        $('.' + name + '_error').html('');
+                        $('.' + name + '_error').focus();
+                        $('.submit').removeAttr('disabled');
                     }
                 });
-            });
-            // to initialize customer tab in_out radio buttons
-            $("#div2").setupToggles();
-            // customer list server side
-            $('#customer').select2({
-                ajax: {
-                    url: "{{ route('filter-customer') }}",
-                    type: "get",
-                    dataType: 'json',
-                    delay: 200,
-                    data: function(params) {
-                        return {
-                            search: params.term // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response
-                        };
-                    },
-                    cache: true
-                }
-            });
-            // to check available cash in customer tab
-            $(document).on('keyup', '.check-customer', function() {
-                var name = $(this).attr('name');
-                if ($('.radio-value').val() == 1) {
-                    $.get("{{ route('check-money') }}/" + $(this).val() + "/" + name, function(response) {
-                        if (response != 1) {
-                            $('.' + name + '_customer_error').html("{{ __('words.You Have ') }}" + response + ' ' + name);
-                            $('.' + name + '_customer').css('border-color', '#dc3545');
-                            $('.submit_customer').attr('disabled', 'disabled');
-                            $('.submit_customer').css('cursor', 'not-allowed');
-                        } else {
-                            $('.' + name + '_customer').css('border-color', '#5867dd');
-                            $('.' + name + '_customer_error').html('');
-                            $('.' + name + '_customer_error').focus();
-                            $('.submit_customer').removeAttr('disabled');
-                        }
-                    });
+            } else {
+                $('.' + name).css('border-color', '#5867dd');
+                $('.' + name + '_error').html('');
+                $('.' + name + '_error').focus();
+                $('.submit').removeAttr('disabled');
+            }
+        });
+        // to check available cash in expense tab
+        $(document).on('keyup', '.check-expense', function() {
+            var name = $(this).attr('name');
+            $.get("{{ route('check-money') }}/" + $(this).val() + "/" + name, function(response) {
+                if (response != 1) {
+                    $('.' + name + '_expense_error').html("{{ __('words.You Have ') }}" + response + ' ' + name);
+                    $('.' + name + '_expense').css('border-color', '#dc3545');
+                    $('.submit_expense').attr('disabled', 'disabled');
+                    $('.submit_expense').css('cursor', 'not-allowed');
                 } else {
-                    $('.' + name + '_customer').css('border-color', '#5867dd');
-                    $('.' + name + '_customer_error').html('');
-                    $('.' + name + '_customer_error').focus();
-                    $('.submit_customer').removeAttr('disabled');
+                    $('.' + name + '_expense').css('border-color', '#5867dd');
+                    $('.' + name + '_expense_error').html('');
+                    $('.' + name + '_expense_error').focus();
+                    $('.submit_expense').removeAttr('disabled');
                 }
             });
-            // to initialize seller tab in_out radio buttons
-            $("#div3").setupToggles();
-            // seller list server side
-            $('#seller').select2({
-                ajax: {
-                    url: "{{ route('filter-seller') }}",
-                    type: "get",
-                    dataType: 'json',
-                    delay: 200,
-                    data: function(params) {
-                        return {
-                            search: params.term // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response
-                        };
-                    },
-                    cache: true
-                }
-            });
-            // to check available cash in seller tab
-            $(document).on('keyup', '.check-seller', function() {
-                var name = $(this).attr('name');
-                if ($('.radio-value').val() == 1) {
-                    $.get("{{ route('check-money') }}/" + $(this).val() + "/" + name, function(response) {
-                        if (response != 1) {
-                            $('.' + name + '_seller_error').html("{{ __('words.You Have ') }}" + response + ' ' + name);
-                            $('.' + name + '_seller').css('border-color', '#dc3545');
-                            $('.submit_seller').attr('disabled', 'disabled');
-                            $('.submit_seller').css('cursor', 'not-allowed');
-                        } else {
-                            $('.' + name + '_seller').css('border-color', '#5867dd');
-                            $('.' + name + '_seller_error').html('');
-                            $('.' + name + '_seller_error').focus();
-                            $('.submit_seller').removeAttr('disabled');
-                        }
-                    });
-                } else {
-                    $('.' + name + '_seller').css('border-color', '#5867dd');
-                    $('.' + name + '_seller_error').html('');
-                    $('.' + name + '_seller_error').focus();
-                    $('.submit_seller').removeAttr('disabled');
-                }
-            });
-            // to initialize supplier tab in_out radio buttons
-            $("#div4").setupToggles();
-            // seller list server side
-            $('#supplier').select2({
-                ajax: {
-                    url: "{{ route('filter-supplier') }}",
-                    type: "get",
-                    dataType: 'json',
-                    delay: 200,
-                    data: function(params) {
-                        return {
-                            search: params.term // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response
-                        };
-                    },
-                    cache: true
-                }
-            });
-            // to check available cash in seller tab
-            $(document).on('keyup', '.check-supplier', function() {
-                var name = $(this).attr('name');
-                if ($('.radio-value').val() == 1) {
-                    $.get("{{ route('check-money') }}/" + $(this).val() + "/" + name, function(response) {
-                        if (response != 1) {
-                            $('.' + name + '_supplier_error').html("{{ __('words.You Have ') }}" + response + ' ' + name);
-                            $('.' + name + '_supplier').css('border-color', '#dc3545');
-                            $('.submit_supplier').attr('disabled', 'disabled');
-                            $('.submit_supplier').css('cursor', 'not-allowed');
-                        } else {
-                            $('.' + name + '_supplier').css('border-color', '#5867dd');
-                            $('.' + name + '_supplier_error').html('');
-                            $('.' + name + '_supplier_error').focus();
-                            $('.submit_supplier').removeAttr('disabled');
-                        }
-                    });
-                } else {
-                    $('.' + name + '_supplier').css('border-color', '#5867dd');
-                    $('.' + name + '_supplier_error').html('');
-                    $('.' + name + '_supplier_error').focus();
-                    $('.submit_supplier').removeAttr('disabled');
-                }
-            });
-        </script>
-    @endsection
+        });
+        // to initialize customer tab in_out radio buttons
+        $("#div2").setupToggles();
+        // customer list server side
+        $('#customer').select2({
+            ajax: {
+                url: "{{ route('filter-customer') }}",
+                type: "get",
+                dataType: 'json',
+                delay: 200,
+                data: function(params) {
+                    return {
+                        search: params.term // search term
+                    };
+                },
+                processResults: function(response) {
+                    return {
+                        results: response
+                    };
+                },
+                cache: true
+            }
+        });
+        // to check available cash in customer tab
+        $(document).on('keyup', '.check-customer', function() {
+            var name = $(this).attr('name');
+            if ($('.radio-value').val() == 1) {
+                $.get("{{ route('check-money') }}/" + $(this).val() + "/" + name, function(response) {
+                    if (response != 1) {
+                        $('.' + name + '_customer_error').html("{{ __('words.You Have ') }}" + response + ' ' + name);
+                        $('.' + name + '_customer').css('border-color', '#dc3545');
+                        $('.submit_customer').attr('disabled', 'disabled');
+                        $('.submit_customer').css('cursor', 'not-allowed');
+                    } else {
+                        $('.' + name + '_customer').css('border-color', '#5867dd');
+                        $('.' + name + '_customer_error').html('');
+                        $('.' + name + '_customer_error').focus();
+                        $('.submit_customer').removeAttr('disabled');
+                    }
+                });
+            } else {
+                $('.' + name + '_customer').css('border-color', '#5867dd');
+                $('.' + name + '_customer_error').html('');
+                $('.' + name + '_customer_error').focus();
+                $('.submit_customer').removeAttr('disabled');
+            }
+        });
+        // to initialize seller tab in_out radio buttons
+        $("#div3").setupToggles();
+        // seller list server side
+        $('#seller').select2({
+            ajax: {
+                url: "{{ route('filter-seller') }}",
+                type: "get",
+                dataType: 'json',
+                delay: 200,
+                data: function(params) {
+                    return {
+                        search: params.term // search term
+                    };
+                },
+                processResults: function(response) {
+                    return {
+                        results: response
+                    };
+                },
+                cache: true
+            }
+        });
+        // to check available cash in seller tab
+        $(document).on('keyup', '.check-seller', function() {
+            var name = $(this).attr('name');
+            if ($('.radio-value').val() == 1) {
+                $.get("{{ route('check-money') }}/" + $(this).val() + "/" + name, function(response) {
+                    if (response != 1) {
+                        $('.' + name + '_seller_error').html("{{ __('words.You Have ') }}" + response + ' ' + name);
+                        $('.' + name + '_seller').css('border-color', '#dc3545');
+                        $('.submit_seller').attr('disabled', 'disabled');
+                        $('.submit_seller').css('cursor', 'not-allowed');
+                    } else {
+                        $('.' + name + '_seller').css('border-color', '#5867dd');
+                        $('.' + name + '_seller_error').html('');
+                        $('.' + name + '_seller_error').focus();
+                        $('.submit_seller').removeAttr('disabled');
+                    }
+                });
+            } else {
+                $('.' + name + '_seller').css('border-color', '#5867dd');
+                $('.' + name + '_seller_error').html('');
+                $('.' + name + '_seller_error').focus();
+                $('.submit_seller').removeAttr('disabled');
+            }
+        });
+        // to initialize supplier tab in_out radio buttons
+        $("#div4").setupToggles();
+        // seller list server side
+        $('#supplier').select2({
+            ajax: {
+                url: "{{ route('filter-supplier') }}",
+                type: "get",
+                dataType: 'json',
+                delay: 200,
+                data: function(params) {
+                    return {
+                        search: params.term // search term
+                    };
+                },
+                processResults: function(response) {
+                    return {
+                        results: response
+                    };
+                },
+                cache: true
+            }
+        });
+        // to check available cash in seller tab
+        $(document).on('keyup', '.check-supplier', function() {
+            var name = $(this).attr('name');
+            if ($('.radio-value').val() == 1) {
+                $.get("{{ route('check-money') }}/" + $(this).val() + "/" + name, function(response) {
+                    if (response != 1) {
+                        $('.' + name + '_supplier_error').html("{{ __('words.You Have ') }}" + response + ' ' + name);
+                        $('.' + name + '_supplier').css('border-color', '#dc3545');
+                        $('.submit_supplier').attr('disabled', 'disabled');
+                        $('.submit_supplier').css('cursor', 'not-allowed');
+                    } else {
+                        $('.' + name + '_supplier').css('border-color', '#5867dd');
+                        $('.' + name + '_supplier_error').html('');
+                        $('.' + name + '_supplier_error').focus();
+                        $('.submit_supplier').removeAttr('disabled');
+                    }
+                });
+            } else {
+                $('.' + name + '_supplier').css('border-color', '#5867dd');
+                $('.' + name + '_supplier_error').html('');
+                $('.' + name + '_supplier_error').focus();
+                $('.submit_supplier').removeAttr('disabled');
+            }
+        });
+    </script>
+@endsection
 @endsection
