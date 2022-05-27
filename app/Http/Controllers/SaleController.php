@@ -237,7 +237,13 @@ class SaleController extends Controller
             return redirect()->route('show-sale-bill', $sale->sale_id);
         } catch (Exception $e) {
             DB::rollBack();
-            return redirect()->route('sale')->with('err_delete', 'Sale Not Stored');
+            if (Session::get('locale') == 'en')
+                $msg = 'This is not saled please try again';
+            if (Session::get('locale') == 'fa')
+                $msg = 'بل فروش نشد لطفا دوباره کوشش نمایید';
+            if (Session::get('locale') == 'ps')
+                $msg = 'Money Successfully Transfered To Cash';
+            return redirect()->route('sale')->with('err_delete', $msg);
         }
     }
 
@@ -310,10 +316,22 @@ class SaleController extends Controller
             $saleItem = SalesItem::where('sale_id', $id)->delete();
             $sale->delete();
             DB::commit();
-            return redirect()->route('sale-list')->with('suc_delete', 'Sale Successfully Returned');
+            if (Session::get('locale') == 'en')
+                $msg = 'Bill Successfully Returned';
+            if (Session::get('locale') == 'fa')
+                $msg = 'بل موفقانه برگشت گردید';
+            if (Session::get('locale') == 'ps')
+                $msg = 'Money Successfully Transfered To Cash';
+            return redirect()->route('sale-list')->with('suc_delete', $msg);
         } catch (Exception $e) {
             DB::rollBack();
-            return redirect()->route('sale-list')->with('err_delete', 'Sale Not Returned');
+            if (Session::get('locale') == 'en')
+                $msg = 'Sale Not Returned Please Try Again!!';
+            if (Session::get('locale') == 'fa')
+                $msg = 'فروش برگشت نگردید لطفا دوباره کوشش نمایید';
+            if (Session::get('locale') == 'ps')
+                $msg = 'Money Successfully Transfered To Cash';
+            return redirect()->route('sale-list')->with('err_delete', $msg);
         }
     }
 }

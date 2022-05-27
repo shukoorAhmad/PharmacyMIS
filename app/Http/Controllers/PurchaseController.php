@@ -194,7 +194,13 @@ class PurchaseController extends Controller
                 $order = Order::findOrFail($request->order_id)->update(['status' => 1]);
             }
         }
-        return redirect()->route('purchase-list')->with('success_insert', 'Items Successfully Purchased');
+        if (Session::get('locale') == 'en')
+            $msg = 'Items Successfully Purchased';
+        if (Session::get('locale') == 'fa')
+            $msg = 'اجناس موفقانه خریداری گردید';
+        if (Session::get('locale') == 'ps')
+            $msg = 'Money Successfully Transfered To Cash';
+        return redirect()->route('purchase-list')->with('success_insert', $msg);
     }
 
     protected function show($id)
@@ -216,10 +222,22 @@ class PurchaseController extends Controller
             $purchaseItem = PurchaseItem::where('purchase_id', $id)->delete();
             $StockItem = StockItem::where('purchase_id', $id)->delete();
             DB::commit();
-            return redirect()->route('purchase-list')->with('suc_delete', 'Purchase Successfully Returned');
+            if (Session::get('locale') == 'en')
+                $msg = 'Purchase Successfully Returned';
+            if (Session::get('locale') == 'fa')
+                $msg = 'خرید موفقانه مسترد گردید';
+            if (Session::get('locale') == 'ps')
+                $msg = 'Money Successfully Transfered To Cash';
+            return redirect()->route('purchase-list')->with('suc_delete', $msg);
         } catch (Exception $e) {
             DB::rollBack();
-            return redirect()->route('purchase-list')->with('err_delete', 'Purchase Not Returned');
+            if (Session::get('locale') == 'en')
+                $msg = 'Purchase Not Returned Please Try Again';
+            if (Session::get('locale') == 'fa')
+                $msg = 'خرید مسترد نگردید لطفا دوباره کوشش نمایید';
+            if (Session::get('locale') == 'ps')
+                $msg = 'Money Successfully Transfered To Cash';
+            return redirect()->route('purchase-list')->with('err_delete', $msg);
         }
     }
 }

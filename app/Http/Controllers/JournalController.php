@@ -13,6 +13,7 @@ use App\Models\SellerAccount;
 use App\Models\Supplier;
 use App\Models\SupplierAccount;
 use Illuminate\Http\Request;
+use Session;
 
 class JournalController extends Controller
 {
@@ -75,7 +76,12 @@ class JournalController extends Controller
         $journal->in_out = $request->in_out;
         $journal->comment = $request->comment;
         $journal->save();
-        $msg = $request->in_out == 0 ? 'Money Successfully Transfered To Cash' : 'Money Successfully Out From Cash';
+        if (Session::get('locale') == 'en')
+            $msg = $request->in_out == 0 ? 'Money Successfully Transfered To Cash' : 'Money Successfully Out From Cash';
+        if (Session::get('locale') == 'fa')
+            $msg = $request->in_out == 0 ? 'پول موفقانه به سیف انتقال یافت' : 'پول موفقانه از سیف برداشت گردید';
+        if (Session::get('locale') == 'ps')
+            $msg = $request->in_out == 0 ? 'Money Successfully Transfered To Cash' : 'Money Successfully Out From Cash';
         return redirect()->back()->with('success_insert', $msg);
     }
 
@@ -113,7 +119,13 @@ class JournalController extends Controller
         $journal->in_out = 1;
         $journal->comment = $request->comment;
         $journal->save();
-        return redirect()->back()->with('success_insert', 'Expense Successfully Saved');
+        if (Session::get('locale') == 'en')
+            $msg = 'Expense Successfully Save';
+        if (Session::get('locale') == 'fa')
+            $msg = '';
+        if (Session::get('locale') == 'ps')
+            $msg = 'Money Successfully Transfered To Cash';
+        return redirect()->back()->with('success_insert', $msg);
     }
 
     protected function filterCustomer(Request $request)
@@ -179,7 +191,12 @@ class JournalController extends Controller
         $journal->in_out = $request->in_out;
         $journal->comment = $request->comment;
         $journal->save();
-        $msg = $request->in_out == 0 ? 'Money Successfully Received From Customer' : 'Money Successfully Send to Customer';
+        if (Session::get('locale') == 'en')
+            $msg = $request->in_out == 0 ? 'Money Successfully Received From Customer' : 'Money Successfully Send to Customer';
+        if (Session::get('locale') == 'fa')
+            $msg = $request->in_out == 0 ? 'پول موفقانه از مشتری دریافت گردید' : 'پول موفقانه به مشتری پرداخت گردید';
+        if (Session::get('locale') == 'ps')
+            $msg = $request->in_out == 0 ? 'Money Successfully Transfered To Cash' : 'Money Successfully Out From Cash';
         return redirect()->back()->with('success_insert', $msg);
     }
     protected function filterSeller(Request $request)
@@ -245,7 +262,12 @@ class JournalController extends Controller
         $journal->in_out = $request->in_out;
         $journal->comment = $request->comment;
         $journal->save();
-        $msg = $request->in_out == 0 ? 'Money Successfully Received From Seller' : 'Money Successfully Send to Seller';
+        if (Session::get('locale') == 'en')
+            $msg = $request->in_out == 0 ? 'Money Successfully Received From Seller' : 'Money Successfully Send to Seller';
+        if (Session::get('locale') == 'fa')
+            $msg = $request->in_out == 0 ? 'پول موفقانه از فروشنده دریافت گردید' : 'پول موفقانه به فروشنده پرداخت گردید';
+        if (Session::get('locale') == 'ps')
+            $msg = $request->in_out == 0 ? 'Money Successfully Transfered To Cash' : 'Money Successfully Out From Cash';
         return redirect()->back()->with('success_insert', $msg);
     }
     protected function filterSupplier(Request $request)
@@ -311,6 +333,12 @@ class JournalController extends Controller
         $journal->in_out = $request->in_out;
         $journal->comment = $request->comment;
         $journal->save();
+        if (Session::get('locale') == 'en')
+            $msg = $request->in_out == 0 ? 'Money Successfully Received From Supplier' : 'Money Successfully Send to Supplier';
+        if (Session::get('locale') == 'fa')
+            $msg = $request->in_out == 0 ? 'پول موفقانه از کمپنی دریافت گردید' : 'پول موفقانه به کمپنی پرداخت گردید';
+        if (Session::get('locale') == 'ps')
+            $msg = $request->in_out == 0 ? 'Money Successfully Transfered To Cash' : 'Money Successfully Out From Cash';
         $msg = $request->in_out == 0 ? 'Money Successfully Received From Supplier' : 'Money Successfully Send to Supplier';
         return redirect()->back()->with('success_insert', $msg);
     }

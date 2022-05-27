@@ -117,10 +117,22 @@ class TransferController extends Controller
                         }
                     }
                 }
-                return redirect()->route('show-transfer-bill', $transfer->transfer_id)->with('success_transfer', 'Items Successfully Transfered');
+                if (Session::get('locale') == 'en')
+                    $msg = 'Items Successfully Transfered';
+                if (Session::get('locale') == 'fa')
+                    $msg = 'اجناس موفقانه انتقال یافت';
+                if (Session::get('locale') == 'ps')
+                    $msg = 'Money Successfully Transfered To Cash';
+                return redirect()->route('show-transfer-bill', $transfer->transfer_id)->with('success_transfer', $msg);
             }
         } else {
-            return redirect()->back()->with('error_message', 'Please Select Transfer Cartons');
+            if (Session::get('locale') == 'en')
+                $msg = 'Please Specify Amount Transfer';
+            if (Session::get('locale') == 'fa')
+                $msg = 'لطفا مقدار انتقال را بنوسید';
+            if (Session::get('locale') == 'ps')
+                $msg = 'Money Successfully Transfered To Cash';
+            return redirect()->back()->with('error_message', $msg);
         }
     }
 
