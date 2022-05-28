@@ -196,10 +196,13 @@ class PurchaseController extends Controller
         }
         if (Session::get('locale') == 'en')
             $msg = 'Items Successfully Purchased';
-        if (Session::get('locale') == 'fa')
+        else if (Session::get('locale') == 'fa')
             $msg = 'اجناس موفقانه خریداری گردید';
-        if (Session::get('locale') == 'ps')
+        else if (Session::get('locale') == 'ps')
             $msg = 'Money Successfully Transfered To Cash';
+        else
+            $msg = 'Items Successfully Purchased';
+
         return redirect()->route('purchase-list')->with('success_insert', $msg);
     }
 
@@ -224,19 +227,25 @@ class PurchaseController extends Controller
             DB::commit();
             if (Session::get('locale') == 'en')
                 $msg = 'Purchase Successfully Returned';
-            if (Session::get('locale') == 'fa')
+            else if (Session::get('locale') == 'fa')
                 $msg = 'خرید موفقانه مسترد گردید';
-            if (Session::get('locale') == 'ps')
+            else if (Session::get('locale') == 'ps')
                 $msg = 'Money Successfully Transfered To Cash';
+            else
+                $msg = 'Purchase Successfully Returned';
+
             return redirect()->route('purchase-list')->with('suc_delete', $msg);
         } catch (Exception $e) {
             DB::rollBack();
             if (Session::get('locale') == 'en')
                 $msg = 'Purchase Not Returned Please Try Again';
-            if (Session::get('locale') == 'fa')
+            else if (Session::get('locale') == 'fa')
                 $msg = 'خرید مسترد نگردید لطفا دوباره کوشش نمایید';
-            if (Session::get('locale') == 'ps')
+            else if (Session::get('locale') == 'ps')
                 $msg = 'Money Successfully Transfered To Cash';
+            else
+                $msg = 'Purchase Not Returned Please Try Again';
+
             return redirect()->route('purchase-list')->with('err_delete', $msg);
         }
     }

@@ -11,6 +11,7 @@
                     <th>USD</th>
                     <th>KAL</th>
                     <th>Total (USD)</th>
+                    <th>Action</th>
                 </tr>
                 @foreach ($journals as $journal)
                     <tr>
@@ -98,6 +99,9 @@
                                 @default
                             @endswitch
                         </td>
+                        <th>
+                            <a class='journal-edit-btn ml-1' style='cursor: pointer;' data-id="{{ $journal->id }}"><i class='btn btn-outline-primary btn-circle fa fa-edit'></i></a>
+                        </th>
                     </tr>
                 @endforeach
             </table>

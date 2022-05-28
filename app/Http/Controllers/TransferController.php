@@ -119,19 +119,25 @@ class TransferController extends Controller
                 }
                 if (Session::get('locale') == 'en')
                     $msg = 'Items Successfully Transfered';
-                if (Session::get('locale') == 'fa')
+                else if (Session::get('locale') == 'fa')
                     $msg = 'اجناس موفقانه انتقال یافت';
-                if (Session::get('locale') == 'ps')
+                else if (Session::get('locale') == 'ps')
                     $msg = 'Money Successfully Transfered To Cash';
+                else
+                    $msg = 'Items Successfully Transfered';
+
                 return redirect()->route('show-transfer-bill', $transfer->transfer_id)->with('success_transfer', $msg);
             }
         } else {
             if (Session::get('locale') == 'en')
                 $msg = 'Please Specify Amount Transfer';
-            if (Session::get('locale') == 'fa')
+            else if (Session::get('locale') == 'fa')
                 $msg = 'لطفا مقدار انتقال را بنوسید';
-            if (Session::get('locale') == 'ps')
+            else if (Session::get('locale') == 'ps')
                 $msg = 'Money Successfully Transfered To Cash';
+            else
+                $msg = 'Please Specify Amount Transfer';
+
             return redirect()->back()->with('error_message', $msg);
         }
     }

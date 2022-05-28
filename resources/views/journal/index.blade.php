@@ -541,6 +541,11 @@
                 $('.submit_supplier').removeAttr('disabled');
             }
         });
+
+        // to update Journal and Its source
+        $(document).on('click', '.journal-edit-btn', function(){
+            alert($(this).attr('data-id'));
+        });
     </script>
 @endsection
 @endsection

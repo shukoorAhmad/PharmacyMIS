@@ -11,6 +11,7 @@
                         <th>AFG</th>
                         <th>USD</th>
                         <th>KAL</th>
+                        <th>Comment</th>
                     </tr>
                     @php
                         $total_afg = 0;
@@ -29,6 +30,7 @@
                             <td>
                                 {!! $row->in_out == 1 ? '<p class="float-left">-</p><p class="float-right">' . $row->kal . '</p>' : '<p class="float-right">-</p><p class="float-left">' . $row->kal . '</p>' !!}
                             </td>
+                            <td>{{ $row->comment }}</td>
                         </tr>
                         @php
                             $row->in_out == 0 ? ($total_afg += $row->afg) : ($total_afg -= $row->afg);
@@ -41,6 +43,7 @@
                         <th><b>Total AFG</b>: {{ $total_afg }}</th>
                         <th><b>Total USD</b>: {{ $total_usd }}</th>
                         <th><b>Total KAL</b>: {{ $total_kal }}</th>
+                        <th><b>N/A</b></th>
                     </tr>
                 </table>
             </div>

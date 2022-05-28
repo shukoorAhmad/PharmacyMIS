@@ -239,10 +239,13 @@ class SaleController extends Controller
             DB::rollBack();
             if (Session::get('locale') == 'en')
                 $msg = 'This is not saled please try again';
-            if (Session::get('locale') == 'fa')
+            else if (Session::get('locale') == 'fa')
                 $msg = 'بل فروش نشد لطفا دوباره کوشش نمایید';
-            if (Session::get('locale') == 'ps')
+            else if (Session::get('locale') == 'ps')
                 $msg = 'Money Successfully Transfered To Cash';
+            else
+                $msg = 'This is not saled please try again';
+
             return redirect()->route('sale')->with('err_delete', $msg);
         }
     }
@@ -318,19 +321,25 @@ class SaleController extends Controller
             DB::commit();
             if (Session::get('locale') == 'en')
                 $msg = 'Bill Successfully Returned';
-            if (Session::get('locale') == 'fa')
+            elseif (Session::get('locale') == 'fa')
                 $msg = 'بل موفقانه برگشت گردید';
-            if (Session::get('locale') == 'ps')
+            else if (Session::get('locale') == 'ps')
                 $msg = 'Money Successfully Transfered To Cash';
+            else
+                $msg = 'Bill Successfully Returned';
+
             return redirect()->route('sale-list')->with('suc_delete', $msg);
         } catch (Exception $e) {
             DB::rollBack();
             if (Session::get('locale') == 'en')
                 $msg = 'Sale Not Returned Please Try Again!!';
-            if (Session::get('locale') == 'fa')
+            else if (Session::get('locale') == 'fa')
                 $msg = 'فروش برگشت نگردید لطفا دوباره کوشش نمایید';
-            if (Session::get('locale') == 'ps')
+            else if (Session::get('locale') == 'ps')
                 $msg = 'Money Successfully Transfered To Cash';
+            else
+                $msg = 'Sale Not Returned Please Try Again!!';
+
             return redirect()->route('sale-list')->with('err_delete', $msg);
         }
     }

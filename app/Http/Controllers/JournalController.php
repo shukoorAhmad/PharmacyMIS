@@ -31,7 +31,7 @@ class JournalController extends Controller
         $data['journals'] = Journal::whereDate('created_at', '=', $date)->get();
         $data['date'] = $date;
         $data['exchange_rate'] = ExchangeRate::first();
-        
+
         return view('journal.show_data', $data);
     }
 
@@ -78,10 +78,13 @@ class JournalController extends Controller
         $journal->save();
         if (Session::get('locale') == 'en')
             $msg = $request->in_out == 0 ? 'Money Successfully Transfered To Cash' : 'Money Successfully Out From Cash';
-        if (Session::get('locale') == 'fa')
+        else if (Session::get('locale') == 'fa')
             $msg = $request->in_out == 0 ? 'پول موفقانه به سیف انتقال یافت' : 'پول موفقانه از سیف برداشت گردید';
-        if (Session::get('locale') == 'ps')
+        else if (Session::get('locale') == 'ps')
             $msg = $request->in_out == 0 ? 'Money Successfully Transfered To Cash' : 'Money Successfully Out From Cash';
+        else
+            $msg = $request->in_out == 0 ? 'Money Successfully Transfered To Cash' : 'Money Successfully Out From Cash';
+
         return redirect()->back()->with('success_insert', $msg);
     }
 
@@ -121,10 +124,13 @@ class JournalController extends Controller
         $journal->save();
         if (Session::get('locale') == 'en')
             $msg = 'Expense Successfully Save';
-        if (Session::get('locale') == 'fa')
+        else if (Session::get('locale') == 'fa')
             $msg = '';
-        if (Session::get('locale') == 'ps')
+        else if (Session::get('locale') == 'ps')
             $msg = 'Money Successfully Transfered To Cash';
+        else
+            $msg = 'Expense Successfully Save';
+
         return redirect()->back()->with('success_insert', $msg);
     }
 
@@ -193,10 +199,13 @@ class JournalController extends Controller
         $journal->save();
         if (Session::get('locale') == 'en')
             $msg = $request->in_out == 0 ? 'Money Successfully Received From Customer' : 'Money Successfully Send to Customer';
-        if (Session::get('locale') == 'fa')
+        else if (Session::get('locale') == 'fa')
             $msg = $request->in_out == 0 ? 'پول موفقانه از مشتری دریافت گردید' : 'پول موفقانه به مشتری پرداخت گردید';
-        if (Session::get('locale') == 'ps')
+        else if (Session::get('locale') == 'ps')
             $msg = $request->in_out == 0 ? 'Money Successfully Transfered To Cash' : 'Money Successfully Out From Cash';
+        else
+            $msg = $request->in_out == 0 ? 'Money Successfully Received From Customer' : 'Money Successfully Send to Customer';
+
         return redirect()->back()->with('success_insert', $msg);
     }
     protected function filterSeller(Request $request)
@@ -264,10 +273,13 @@ class JournalController extends Controller
         $journal->save();
         if (Session::get('locale') == 'en')
             $msg = $request->in_out == 0 ? 'Money Successfully Received From Seller' : 'Money Successfully Send to Seller';
-        if (Session::get('locale') == 'fa')
+        else if (Session::get('locale') == 'fa')
             $msg = $request->in_out == 0 ? 'پول موفقانه از فروشنده دریافت گردید' : 'پول موفقانه به فروشنده پرداخت گردید';
-        if (Session::get('locale') == 'ps')
+        else if (Session::get('locale') == 'ps')
             $msg = $request->in_out == 0 ? 'Money Successfully Transfered To Cash' : 'Money Successfully Out From Cash';
+        else
+            $msg = $request->in_out == 0 ? 'Money Successfully Received From Seller' : 'Money Successfully Send to Seller';
+
         return redirect()->back()->with('success_insert', $msg);
     }
     protected function filterSupplier(Request $request)
@@ -324,7 +336,7 @@ class JournalController extends Controller
 
         $journal = new Journal();
         $journal->source = 5;
-        $journal->source_id = $request->supplier;
+        $journal->source_id = $seller_account->supplier_account_id;
         $journal->usd = $request->usd;
         $journal->afg = $request->afg;
         $journal->kal = $request->kal;
@@ -335,11 +347,12 @@ class JournalController extends Controller
         $journal->save();
         if (Session::get('locale') == 'en')
             $msg = $request->in_out == 0 ? 'Money Successfully Received From Supplier' : 'Money Successfully Send to Supplier';
-        if (Session::get('locale') == 'fa')
+        else if (Session::get('locale') == 'fa')
             $msg = $request->in_out == 0 ? 'پول موفقانه از کمپنی دریافت گردید' : 'پول موفقانه به کمپنی پرداخت گردید';
-        if (Session::get('locale') == 'ps')
+        else if (Session::get('locale') == 'ps')
             $msg = $request->in_out == 0 ? 'Money Successfully Transfered To Cash' : 'Money Successfully Out From Cash';
-        $msg = $request->in_out == 0 ? 'Money Successfully Received From Supplier' : 'Money Successfully Send to Supplier';
+        else
+            $msg = $request->in_out == 0 ? 'Money Successfully Received From Supplier' : 'Money Successfully Send to Supplier';
         return redirect()->back()->with('success_insert', $msg);
     }
 
