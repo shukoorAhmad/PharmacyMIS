@@ -31,16 +31,16 @@
                             </td>
                         </tr>
                         @php
-                            $row->in_out == 1 ? ($total_afg += $row->afg) : ($total_afg -= $row->afg);
-                            $row->in_out == 1 ? ($total_usd += $row->usd) : ($total_usd -= $row->usd);
-                            $row->in_out == 1 ? ($total_kal += $row->kal) : ($total_kal -= $row->kal);
+                            $row->in_out == 0 ? ($total_afg += $row->afg) : ($total_afg -= $row->afg);
+                            $row->in_out == 0 ? ($total_usd += $row->usd) : ($total_usd -= $row->usd);
+                            $row->in_out == 0 ? ($total_kal += $row->kal) : ($total_kal -= $row->kal);
                         @endphp
                     @endforeach
                     <tr>
                         <th><b>N/A</b></th>
-                        <th><b>Total AFG</b> - {{ $total_afg }}</th>
-                        <th><b>Total USD</b> - {{ $total_usd }}</th>
-                        <th><b>Total KAL</b> - {{ $total_kal }}</th>
+                        <th><b>Total AFG</b>: {{ $total_afg }}</th>
+                        <th><b>Total USD</b>: {{ $total_usd }}</th>
+                        <th><b>Total KAL</b>: {{ $total_kal }}</th>
                     </tr>
                 </table>
             </div>
