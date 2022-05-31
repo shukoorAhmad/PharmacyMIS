@@ -17,12 +17,20 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransferController;
 use Illuminate\Support\Facades\Route;
 
+
 Auth::routes();
 
+// Language Routes
+Route::get('/en', [LanguageController::class, 'en'])->name('en');
+Route::get('/fa', [LanguageController::class, 'fa'])->name('fa');
+Route::get('/ps', [LanguageController::class, 'ps'])->name('ps');
+
+Route::get('/', function () {
+    return view('auth/login');
+});
+
 Route::middleware(['auth', 'localize'])->group(function () {
-    Route::get('/', function () {
-        return view('auth/login');
-    });
+
     Route::post('/settings-update', [HomeController::class, 'settingUpdate'])->name('settings.update');
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -107,7 +115,3 @@ Route::middleware(['auth', 'localize'])->group(function () {
     Route::get('/filter-journal-by-date/{date?}', [JournalController::class, 'filterJournalByDate'])->name('filter-journal-by-date');
     Route::get('/show-statment/{source}', [JournalController::class, 'showStatment'])->name('show-statment');
 });
-// Language Routes
-Route::get('/en', [LanguageController::class, 'en'])->name('en');
-Route::get('/fa', [LanguageController::class, 'fa'])->name('fa');
-Route::get('/ps', [LanguageController::class, 'ps'])->name('ps');

@@ -208,4 +208,12 @@ return [
     'Logout' => 'خروج',
     'Pharmacy MIS' => 'مدیریت دواخانه',
     'PMIS' => 'PMIS',
+    'Total (USD)' => 'مجموع دالر',
+    'Details' => 'تفصیل',
+    'For' => 'برای',
+    'For Sale Of Bill No' => 'ثبت فروش بل نمبر',
+    'Login Panel' => 'صفحه ورودی',
+    'Log In' => 'ورود به سیستم',
+    'Enter Your Email Here' => 'ایمیل خود را بنوسید',
+    'Enter Your Password Here' => 'رمز عبور خود را بنوسید',
 ];

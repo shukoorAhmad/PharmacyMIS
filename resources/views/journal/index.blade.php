@@ -543,7 +543,7 @@
         });
 
         // to update Journal and Its source
-        $(document).on('click', '.journal-edit-btn', function(){
+        $(document).on('click', '.journal-edit-btn', function() {
             alert($(this).attr('data-id'));
         });
     </script>

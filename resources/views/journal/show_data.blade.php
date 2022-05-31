@@ -1,17 +1,17 @@
 <div class="col-12 box-margin height-card">
     <div class="card">
-        <h5 class="mt-2 ml-2">Date {{ $date }}</h5>
+        <h5 class="mt-2 ml-2"> {{ __('words.Date') . $date }}</h5>
         <div class="card-body">
             <table class="table table-bordered">
                 <tr>
-                    <th>ID</th>
-                    <th>For</th>
-                    <th>Details</th>
-                    <th>AFG</th>
-                    <th>USD</th>
-                    <th>KAL</th>
-                    <th>Total (USD)</th>
-                    <th>Action</th>
+                    <th>{{ __('words.ID') }}</th>
+                    <th>{{ __('words.For') }}</th>
+                    <th>{{ __('words.Details') }}</th>
+                    <th>{{ __('words.AFG') }}</th>
+                    <th>{{ __('words.USD') }}</th>
+                    <th>{{ __('words.KAL') }}</th>
+                    <th>{{ __('words.Total (USD)') }}</th>
+                    <th>{{ __('words.Action') }}</th>
                 </tr>
                 @foreach ($journals as $journal)
                     <tr>
@@ -19,23 +19,23 @@
                         <td>
                             @switch ($journal->source)
                                 @case(1)
-                                    <a href="{{route('show-statment', 1)}}">Cash</a>
+                                    <a href="{{ route('show-statment', 1) }}">{{__('words.Cash')}}</a>
                                 @break
 
                                 @case(2)
-                                    <a href="{{route('show-statment', 2)}}">Expense</a>
+                                    <a href="{{ route('show-statment', 2) }}">{{__('words.Expense')}}</a>
                                 @break
 
                                 @case(3)
-                                    <a href="{{route('show-statment', 3)}}">{{ $journal->customer_account_function->customer_function->pharmacy_name }}</a>
+                                    <a href="{{ route('show-statment', 3) }}">{{ $journal->customer_account_function->customer_function->pharmacy_name }}</a>
                                 @break
 
                                 @case(4)
-                                    <a href="{{route('show-statment', 4)}}">{{ $journal->seller_account_function->seller_function->seller_name }}</a>
+                                    <a href="{{ route('show-statment', 4) }}">{{ $journal->seller_account_function->seller_function->seller_name }}</a>
                                 @break
 
                                 @case(5)
-                                    <a href="{{route('show-statment', 5)}}">{{ $journal->supplier_account_function->supplier_function->name }}</a>
+                                    <a href="{{ route('show-statment', 5) }}">{{ $journal->supplier_account_function->supplier_function->name }}</a>
                                 @break
 
                                 @default
@@ -100,7 +100,9 @@
                             @endswitch
                         </td>
                         <th>
-                            <a class='journal-edit-btn ml-1' style='cursor: pointer;' data-id="{{ $journal->id }}"><i class='btn btn-outline-primary btn-circle fa fa-edit'></i></a>
+                            @if ($journal->bill_id == 0)
+                                <a class='journal-edit-btn ml-1' style='cursor: pointer;' data-id="{{ $journal->id }}"><i class='btn btn-outline-primary btn-circle fa fa-edit'></i></a>
+                            @endif
                         </th>
                     </tr>
                 @endforeach

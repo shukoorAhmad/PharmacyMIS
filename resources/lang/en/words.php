@@ -206,8 +206,11 @@ return [
     'Write New Password Here...' => 'Write New Password Here...',
     'Write Confirm Password Here...' => 'Write Confirm Password Here...',
     'Logout' => 'Logout',
-    // shukoor new uploaded
     'Pharmacy MIS' => 'Pharmacy MIS',
     'PMIS' => 'PMIS',
     'For Sale Of Bill No' => 'For Sale Of Bill No',
+    'Login Panel' => 'Login Panel',
+    'Log In' => 'Log In',
+    'Enter Your Email Here' => 'Enter Your Email Here',
+    'Enter Your Password Here' => 'Enter Your Password Here',
 ];
