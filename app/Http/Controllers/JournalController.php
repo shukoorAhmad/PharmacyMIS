@@ -360,7 +360,7 @@ class JournalController extends Controller
     {
         if ($source == 1) {
             $data = Cash::all();
-            $title = 'Cashe';
+            $title = 'Cash';
         } else if ($source == 2) {
             $data = Expense::all();
             $title = 'Expense';
@@ -376,5 +376,9 @@ class JournalController extends Controller
         }
 
         return view('journal.show_statment', compact('data', 'title'));
+    }
+
+    protected function edit_journal()
+    {
     }
 }

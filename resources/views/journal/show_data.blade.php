@@ -1,6 +1,6 @@
 <div class="col-12 box-margin height-card">
     <div class="card">
-        <h5 class="mt-2 ml-2"> {{ __('words.Date') . $date }}</h5>
+        <h5 class="mt-2 ml-2 mr-2"> {{ __('words.Date') . $date }}</h5>
         <div class="card-body">
             <table class="table table-bordered">
                 <tr>

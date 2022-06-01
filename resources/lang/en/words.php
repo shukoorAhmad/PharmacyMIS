@@ -209,8 +209,11 @@ return [
     'Pharmacy MIS' => 'Pharmacy MIS',
     'PMIS' => 'PMIS',
     'For Sale Of Bill No' => 'For Sale Of Bill No',
+    'For' => 'For',
     'Login Panel' => 'Login Panel',
     'Log In' => 'Log In',
     'Enter Your Email Here' => 'Enter Your Email Here',
     'Enter Your Password Here' => 'Enter Your Password Here',
+    'Total (USD)' => 'Total (USD)',
+
 ];

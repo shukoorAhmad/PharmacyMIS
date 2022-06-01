@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="{{ asset('public/css/bootstrap-datepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/css/default-assets/form-picker.css') }}">
     <link rel="stylesheet" href="{{ asset('public/dropify/dropify.min.css') }}">
-
     <style>
         @media print {
             .hop {
@@ -58,7 +57,7 @@
     </style>
 </head>
 
-<body>
+<body class="{{ Session::get('locale') == 'en' ? '' : 'rtl' }}">
     <!-- Preloader -->
     <div id="preloader-area">
         <div class="lds-ripple">
@@ -90,19 +89,19 @@
                 <ul class="navbar-nav mr-lg-2">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('site') }}">
-                            <i class="fa fa-sitemap mr-2 font-17"></i>
+                            <i class="fa fa-sitemap mr-2 font-17 ml-2"></i>
                             <span class="menu-title">{{ __('words.Site') }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('item') }}">
-                            <i class="fa fa-medkit mr-2 font-17"></i>
+                            <i class="fa fa-medkit mr-2 font-17 ml-2"></i>
                             <span class="menu-title">{{ __('words.Items') }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('stock') }}">
-                            <i class="fa fa-archive mr-2 font-17"></i>
+                            <i class="fa fa-archive mr-2 font-17 ml-2"></i>
                             <span class="menu-title">{{ __('words.Stock') }}</span>
                         </a>
                     </li>
@@ -228,61 +227,56 @@
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('dashboard') }}">
-                            <i class="fa fa-tachometer mr-2 font-17"></i>
+                            <i class="fa fa-tachometer mr-2 font-17 ml-2"></i>
                             <span class="menu-title">{{ __('words.Dashboard') }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('supplier') }}">
-                            <i class="fa fa-user mr-2 font-17"></i>
+                            <i class="fa fa-user mr-2 font-17 ml-2"></i>
                             <span class="menu-title">{{ __('words.Suppliers') }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('customer') }}">
-                            <i class="fa fa-user-md mr-2 font-17"></i>
+                            <i class="fa fa-user-md mr-2 font-17 ml-2"></i>
                             <span class="menu-title">{{ __('words.Customers') }}</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('order-list') }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar link-icon">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                            </svg>
+                            <i class="fa fa-calendar mr-2 font-17 ml-2"></i>
                             <span class="menu-title">{{ __('words.Order') }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('purchase-list') }}">
-                            <i class="fa fa-shopping-cart mr-2 font-17"></i>
+                            <i class="fa fa-shopping-cart mr-2 font-17 ml-2"></i>
                             <span class="menu-title">{{ __('words.Purchase') }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('seller') }}">
-                            <i class="fa fa-users mr-2 font-17"></i>
+                            <i class="fa fa-users mr-2 font-17 ml-2"></i>
                             <span class="menu-title">{{ __('words.Sellers') }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('transfer-list') }}">
-                            <i class="fa fa-arrows mr-2 font-17"></i>
+                            <i class="fa fa-arrows mr-2 font-17 ml-2"></i>
                             <span class="menu-title">{{ __('words.Transfer') }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('sale') }}">
-                            <i class="fa fa-usd mr-2 font-17"></i>
+                            <i class="fa fa-usd mr-2 font-17 ml-2"></i>
                             <span class="menu-title">{{ __('words.Sale') }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('journal') }}">
-                            <i class="fa fa-th-list mr-2 font-17"></i>
+                            <i class="fa fa-th-list mr-2 font-17 ml-2"></i>
 
                             <span class="menu-title">{{ __('words.Journal') }}</span>
                         </a>

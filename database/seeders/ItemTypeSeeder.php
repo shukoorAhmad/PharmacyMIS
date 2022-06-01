@@ -16,11 +16,13 @@ class ItemTypeSeeder extends Seeder
     {
         $items = [
             ['type' => 'SYP'],
+            ['type' => 'DRY SYP'],
             ['type' => 'TAB'],
-            ['type' => 'AMP'],
+            ['type' => 'INJ'],
             ['type' => 'CAP'],
             ['type' => 'PWD'],
             ['type' => 'LOTION'],
+            ['type' => 'SUSPENSION'],
             ['type' => 'DRP'],
             ['type' => 'PMD'],
             ['type' => 'SERM'],

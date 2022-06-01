@@ -36,33 +36,9 @@
                 <div class="col-sm-10 col-md-8 col-lg-5">
                     <!-- Middle Box -->
                     <div class="middle-box">
-                        <style>
-                            span {
-                                font-size: 14px !important;
-                                color: white !important;
-                                font-weight: bolder !important;
-                            }
-
-                        </style>
                         <div class="card" style="background-color: #88aacc !important;">
                             <div class="card-header">
                                 <div style="display: flex; justify-content: space-around;border-bottom: 2px solid #a1a1a1;margin-bottom: 0.7rem; padding-bottom: 0.2rem;">
-                                    <a href="{{ route('ps') }}" class="connection-item">
-                                        <img src="{{ asset('public/img/AFG.png') }}" alt="" style="width: 2rem;">
-                                        <br>
-                                        <span class="block">پشتو</span>
-                                    </a>
-                                    <a href="{{ route('en') }}" class="connection-item">
-                                        <center><img src="{{ asset('public/img/US.png') }}" alt="" style="width: 2rem;"></center>
-                                        <span class="block">English</span>
-                                    </a>
-                                    <a href="{{ route('fa') }}" class="connection-item">
-                                        <img src="{{ asset('public/img/AFG.png') }}" alt="" style="width: 2rem;">
-                                        <br>
-                                        <span class="block text-center">دری</span>
-                                    </a>
-                                </div>
-                            </div>
                             <div class="card-body p-4">
                                 <!-- Logo -->
                                 <h4 class="font-24 mb-30 text-white text-center">{{ __('words.Login Panel') }}</h4>

@@ -300,6 +300,7 @@
     </div>
 
     <div id="show-data"></div>
+    <div id="edit-data"></div>
 
 @section('script')
     <!-- Inject JS -->
@@ -544,7 +545,10 @@
 
         // to update Journal and Its source
         $(document).on('click', '.journal-edit-btn', function() {
-            alert($(this).attr('data-id'));
+            $.get("{{ route('edit-journal') }}/" + $(this).attr('data'), function(success) {
+                $('#edit-data').html(success);
+                $('#edit-modal').modal('show');
+            });
         });
     </script>
 @endsection
