@@ -53,7 +53,6 @@
         .even>td {
             text-align: center !important;
         }
-
     </style>
 </head>
 
