@@ -33,21 +33,14 @@ class StockController extends Controller
         if ($validator->fails()) {
             return json_encode($validator->errors()->toArray());
         }
-        if ($request->id == '0') {
-            $store = new Stock();
-            $store->stock_name = $request->stock_name;
-            $store->stock_address = $request->stock_address;
-            $store->incharge = $request->incharge;
-            $store->contact_no = $request->contact_no;
-            $store->save();
-        } else {
-            $store = Stock::findOrFail($request->id);
-            $store->stock_name = $request->stock_name;
-            $store->stock_address = $request->stock_address;
-            $store->incharge = $request->incharge;
-            $store->contact_no = $request->contact_no;
-            $store->save();
-        }
+        $request->id == '0' ? $store = new Stock() : $store = Stock::findOrFail($request->id);
+
+        $store->stock_name = $request->stock_name;
+        $store->stock_address = $request->stock_address;
+        $store->incharge = $request->incharge;
+        $store->contact_no = $request->contact_no;
+        $store->save();
+
         return true;
     }
 }

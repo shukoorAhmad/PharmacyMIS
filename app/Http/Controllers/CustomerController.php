@@ -52,25 +52,16 @@ class CustomerController extends Controller
         if ($validator->fails()) {
             return json_encode($validator->errors()->toArray());
         }
-        if ($request->id == '0') {
-            $customer = new Customer();
-            $customer->pharmacy_name = $request->pharmacy_name;
-            $customer->customer_name = $request->customer_name;
-            $customer->customer_last_name = $request->customer_last_name;
-            $customer->site_id = $request->site_id;
-            $customer->contact_no = $request->contact_no;
-            $customer->contact_no_2 = $request->contact_no_2;
-            $customer->save();
-        } else {
-            $customer = Customer::findOrFail($request->id);
-            $customer->pharmacy_name = $request->pharmacy_name;
-            $customer->customer_name = $request->customer_name;
-            $customer->customer_last_name = $request->customer_last_name;
-            $customer->site_id = $request->site_id;
-            $customer->contact_no = $request->contact_no;
-            $customer->contact_no_2 = $request->contact_no_2;
-            $customer->save();
-        }
+        $request->id == '0' ? $customer = new Customer() : $customer = Customer::findOrFail($request->id);
+
+        $customer->pharmacy_name = $request->pharmacy_name;
+        $customer->customer_name = $request->customer_name;
+        $customer->customer_last_name = $request->customer_last_name;
+        $customer->site_id = $request->site_id;
+        $customer->contact_no = $request->contact_no;
+        $customer->contact_no_2 = $request->contact_no_2;
+        $customer->save();
+
         return true;
     }
 }

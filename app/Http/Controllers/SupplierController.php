@@ -32,19 +32,14 @@ class SupplierController extends Controller
         if ($validator->fails()) {
             return json_encode($validator->errors()->toArray());
         }
-        if ($request->id == '0') {
-            $site = new Supplier();
-            $site->name = $request->supplier_name;
-            $site->email = $request->email;
-            $site->contact_no = $request->contact_no;
-            $site->save();
-        } else {
-            $site = Supplier::findOrFail($request->id);
-            $site->name = $request->supplier_name;
-            $site->email = $request->email;
-            $site->contact_no = $request->contact_no;
-            $site->save();
-        }
+
+        $request->id == '0' ?  $site = new Supplier() : $site = Supplier::findOrFail($request->id);
+
+        $site->name = $request->supplier_name;
+        $site->email = $request->email;
+        $site->contact_no = $request->contact_no;
+        $site->save();
+
         return true;
     }
 }

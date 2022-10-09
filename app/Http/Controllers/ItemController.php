@@ -49,27 +49,17 @@ class ItemController extends Controller
         if ($validator->fails()) {
             return json_encode($validator->errors()->toArray());
         }
-        if ($request->id == '0') {
-            $store = new Item();
-            $store->item_name =  $request->item_name;
-            $store->item_unit =  $request->item_unit;
-            $store->item_type =  $request->item_type;
-            $store->measure_unit_id = $request->measure_unit_id;
-            $store->quantity_per_carton = $request->quantity_per_carton;
-            $store->purchase_price = $request->purchase_price;
-            $store->sale_price = $request->sale_price;
-            $store->save();
-        } else {
-            $store = Item::findOrFail($request->id);
-            $store->item_name =  $request->item_name;
-            $store->item_unit =  $request->item_unit;
-            $store->item_type =  $request->item_type;
-            $store->measure_unit_id = $request->measure_unit_id;
-            $store->quantity_per_carton = $request->quantity_per_carton;
-            $store->purchase_price = $request->purchase_price;
-            $store->sale_price = $request->sale_price;
-            $store->save();
-        }
+        $request->id == '0' ? $store = new Item() : $store = Item::findOrFail($request->id);
+
+        $store->item_name =  $request->item_name;
+        $store->item_unit =  $request->item_unit;
+        $store->item_type =  $request->item_type;
+        $store->measure_unit_id = $request->measure_unit_id;
+        $store->quantity_per_carton = $request->quantity_per_carton;
+        $store->purchase_price = $request->purchase_price;
+        $store->sale_price = $request->sale_price;
+        $store->save();
+
         return true;
     }
 }

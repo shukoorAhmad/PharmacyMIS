@@ -41,23 +41,16 @@ class SellerController extends Controller
         if ($validator->fails()) {
             return json_encode($validator->errors()->toArray());
         }
-        if ($request->id == '0') {
-            $seller = new Seller();
-            $seller->seller_name = $request->seller_name;
-            $seller->seller_last_name = $request->seller_last_name;
-            $seller->address = $request->address;
-            $seller->contact_no = $request->contact_no;
-            $seller->contact_no_2 = $request->contact_no_2;
-            $seller->save();
-        } else {
-            $seller = Seller::findOrFail($request->id);
-            $seller->seller_name = $request->seller_name;
-            $seller->seller_last_name = $request->seller_last_name;
-            $seller->address = $request->address;
-            $seller->contact_no = $request->contact_no;
-            $seller->contact_no_2 = $request->contact_no_2;
-            $seller->save();
-        }
+
+        $request->id == '0' ?  $seller = new Seller()   :  $seller = Seller::findOrFail($request->id);
+
+        $seller->seller_name = $request->seller_name;
+        $seller->seller_last_name = $request->seller_last_name;
+        $seller->address = $request->address;
+        $seller->contact_no = $request->contact_no;
+        $seller->contact_no_2 = $request->contact_no_2;
+        $seller->save();
+
         return true;
     }
 }

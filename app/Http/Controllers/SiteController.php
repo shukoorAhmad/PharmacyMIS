@@ -40,17 +40,12 @@ class SiteController extends Controller
         if ($validator->fails()) {
             return json_encode($validator->errors()->toArray());
         }
-        if ($request->id == '0') {
-            $site = new Site();
-            $site->site_name = $request->site_name;
-            $site->province = $request->province;
-            $site->save();
-        } else {
-            $site = Site::findOrFail($request->id);
-            $site->site_name = $request->site_name;
-            $site->province = $request->province;
-            $site->save();
-        }
+        $request->id == '0' ?  $site = new Site() : $site = Site::findOrFail($request->id);
+
+        $site->site_name = $request->site_name;
+        $site->province = $request->province;
+        $site->save();
+
         return true;
     }
 }
