@@ -29,6 +29,8 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
+Route::view('/cover', 'cover_letter');
+
 Route::middleware(['auth', 'localize'])->group(function () {
 
     Route::post('/settings-update', [HomeController::class, 'settingUpdate'])->name('settings.update');
